@@ -3,89 +3,91 @@ using System.Collections.Generic;
 
 public class CarMove : MonoBehaviour
 {
-    // 車軸情報（前輪・後輪の設定など）をまとめたリスト
     public List<AxleInfo> axleInfos;
+    public float maxMotorTorque = 3000f;
+    public float maxSteeringAngle = 45f;
+    public float boostMultiplier = 2.5f;
+    public KeyCode boostKey = KeyCode.LeftShift;
+    public float brakeTorqueOnRelease = 4000f;   
+    public float targetSpeed = 100f;             
+    public float accelerationRate = 100f;        
 
-    // モーターによる最大トルク（前進・後退の強さ）
-    public float maxMotorTorque = 1500f;
-
-    // 最大操舵角（ハンドルをどれだけ切れるか）
-    public float maxSteeringAngle = 30f;
-
-    // ドリフト時のリアグリップ（0に近いほど滑りやすい）
-    public float rearGrip = 0.5f;
-
-    // ドリフト操作にShiftキーを使うか
-    public bool useShiftForDrift = true;
+    private Rigidbody rb;
 
     void Start()
     {
-        // 車の重心を少し下げて、横転しにくくする
-        GetComponent<Rigidbody>().centerOfMass += Vector3.down * 0.5f;
+        rb = GetComponent<Rigidbody>();
+        rb.centerOfMass += Vector3.down * 1.0f;
+        rb.linearDamping = 3.5f;          
+        rb.angularDamping = 6.0f;         
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        foreach (var axle in axleInfos)
+        {
+            SetTightFriction(axle.leftWheel);
+            SetTightFriction(axle.rightWheel);
+        }
     }
 
     void FixedUpdate()
     {
-        // 前後移動の入力（W/Sキーなど）に応じてトルクを計算
-        float motor = maxMotorTorque * Input.GetAxis("Vertical");
+        float moveInput = Input.GetAxis("Vertical");
+        float steerInput = Input.GetAxis("Horizontal");
 
-        // 左右移動の入力（A/Dキーなど）に応じて操舵角を計算
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-
-        // Shiftキーが押されていればドリフト状態とする（1.0）、押されていなければ通常（0.0）
-        float driftInput = (useShiftForDrift && Input.GetKey(KeyCode.LeftShift)) ? 1f : 0f;
-
-        // ドリフト入力に応じてリアグリップの補正値を計算（1→通常グリップ、rearGrip→ドリフト）
-        float rearGripFactor = Mathf.Lerp(1f, rearGrip, driftInput);
-
-        // 各アクスル（車軸）ごとに処理
-        foreach (AxleInfo axleInfo in axleInfos)
+        float finalTargetSpeed = targetSpeed;
+        if (Input.GetKey(boostKey))
         {
-            // ハンドルが有効な車軸なら操舵角を設定
-            if (axleInfo.steering)
+            finalTargetSpeed *= boostMultiplier;
+        }
+
+        Vector3 currentVelocity = rb.linearVelocity;
+        Vector3 forwardDirection = transform.forward;
+        Vector3 desiredVelocity = forwardDirection * moveInput * finalTargetSpeed;
+
+        // 
+        rb.linearVelocity = Vector3.Lerp(currentVelocity, desiredVelocity, accelerationRate * Time.fixedDeltaTime);
+
+        float steering = maxSteeringAngle * steerInput;
+
+        foreach (AxleInfo axle in axleInfos)
+        {
+            if (axle.steering)
             {
-                axleInfo.leftWheel.steerAngle = steering;
-                axleInfo.rightWheel.steerAngle = steering;
+                axle.leftWheel.steerAngle = steering;
+                axle.rightWheel.steerAngle = steering;
             }
 
-            // 駆動が有効な車軸ならトルクを設定
-            if (axleInfo.motor)
+            if (axle.motor)
             {
-                axleInfo.leftWheel.motorTorque = motor;
-                axleInfo.rightWheel.motorTorque = motor;
-            }
+                // 
+                axle.leftWheel.motorTorque = 0f;
+                axle.rightWheel.motorTorque = 0f;
 
-            // 後輪なら、ドリフト用に横グリップを調整
-            if (axleInfo.isRear)
-            {
-                SetRearGrip(axleInfo, rearGripFactor);
+                // 
+                float brake = Mathf.Approximately(moveInput, 0f) ? brakeTorqueOnRelease : 0f;
+                axle.leftWheel.brakeTorque = brake;
+                axle.rightWheel.brakeTorque = brake;
             }
         }
     }
 
-    // リアタイヤの横グリップ（stiffness）を設定
-    void SetRearGrip(AxleInfo axleInfo, float gripFactor)
+    void SetTightFriction(WheelCollider wheel)
     {
-        WheelFrictionCurve friction;
+        WheelFrictionCurve f = wheel.forwardFriction;
+        f.stiffness = 5f;
+        wheel.forwardFriction = f;
 
-        // 左後輪の横グリップを調整
-        friction = axleInfo.leftWheel.sidewaysFriction;
-        friction.stiffness = gripFactor;
-        axleInfo.leftWheel.sidewaysFriction = friction;
-
-        // 右後輪の横グリップを調整
-        friction = axleInfo.rightWheel.sidewaysFriction;
-        friction.stiffness = gripFactor;
-        axleInfo.rightWheel.sidewaysFriction = friction;
+        f = wheel.sidewaysFriction;
+        f.stiffness = 5f;
+        wheel.sidewaysFriction = f;
     }
 }
 
 [System.Serializable]
 public class AxleInfo
 {
-    public WheelCollider leftWheel;   // 左側のホイール
-    public WheelCollider rightWheel;  // 右側のホイール
-    public bool motor;                // 駆動力を持つ車軸かどうか
-    public bool steering;             // ハンドル操作が可能な車軸かどうか
-    public bool isRear;               // 後輪かどうか（グリップ調整に使用）
+    public WheelCollider leftWheel;
+    public WheelCollider rightWheel;
+    public bool motor;
+    public bool steering;
 }
