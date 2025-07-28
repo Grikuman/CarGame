@@ -33,7 +33,7 @@ public class UltimateController : MonoBehaviour
     void Update()
     {
         // BoostのGetUseBoost()がtrueのときゲージをためる
-        if (KartBoostController != null && KartBoostController.GetIsBoost() && m_ultGauge < m_maxGauge)
+        if (m_boost != null && m_boost.GetIsBoost() && m_ultGauge < m_maxGauge)
         {
             // アルティメットゲージに加算する
             m_ultGauge += m_gaugeGainRate * Time.deltaTime;
