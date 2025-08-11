@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e0b81348d1e5e7468330c74ae24ca6d, type: 3}
+  m_Name: NewCourse
+  m_EditorClassIdentifier: 
+  m_splinePoints:
+  - position: {x: -33.414276, y: 0, z: 0}
+    inTangent: {x: 27, y: -0, z: -18}
+    outTangent: {x: -9, y: 0, z: 24}
+    width: 30
+    banking: 0
+  - position: {x: -30, y: 0, z: 80}
+    inTangent: {x: -8.530849, y: -0, z: -24.170742}
+    outTangent: {x: 12.708326, y: 0, z: 36.006927}
+    width: 30
+    banking: 0
+  - position: {x: 60, y: 0, z: 170}
+    inTangent: {x: -38.062164, y: -0, z: -3.0449734}
+    outTangent: {x: 52.22589, y: 0, z: 4.1780715}
+    width: 30
+    banking: 0
+  - position: {x: 220, y: 0, z: 100}
+    inTangent: {x: -30.452667, y: -0, z: 42.63373}
+    outTangent: {x: 24.474203, y: 0, z: -34.26388}
+    width: 30
+    banking: 0
+  - position: {x: 210, y: 0, z: -40}
+    inTangent: {x: 26.552368, y: -0, z: 32.67984}
+    outTangent: {x: -23.014471, y: 0, z: -28.325504}
+    width: 30
+    banking: 0
+  - position: {x: 101.36742, y: 0, z: -60}
+    inTangent: {x: 36, y: 0, z: 4.8123817}
+    outTangent: {x: -27, y: 0, z: -2.9519653}
+    width: 30
+    banking: 0
+  - position: {x: 19.951572, y: 0, z: -69.72892}
+    inTangent: {x: 22.576141, y: 0, z: -12.871773}
+    outTangent: {x: -25.268545, y: 0, z: 9.509872}
+    width: 30
+    banking: 0
+  m_settings:
+    m_courseName: "\u30C7\u30D5\u30A9\u30EB\u30C8\u30B3\u30FC\u30B9"
+    m_courseDescription: 
+    m_isClosedLoop: 1
+    m_meshResolution: 1
+    m_segmentsPerCurve: 16
+    m_useAdaptiveSegmentation: 1
+    m_minSegmentsPerCurve: 4
+    m_maxSegmentsPerCurve: 32
+    m_curvatureThreshold: 0.1
+    m_roadMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+    m_roadThickness: 0.5
+    m_generateColliders: 1
+    m_roadPhysicMaterial: {fileID: 0}
+    m_castShadows: 1
+    m_receiveShadows: 1
