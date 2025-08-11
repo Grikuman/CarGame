@@ -1,3 +1,4 @@
+using KartGame.KartSystems;
 using UnityEngine;
 
 public class UltimateController : MonoBehaviour
@@ -6,54 +7,75 @@ public class UltimateController : MonoBehaviour
     public enum UltimateType
     {
         Blitzray,
-        Parasite,
-        Empress
+        Parasite
     }
 
     [Header("アルティメットの種類を設定")]
     [SerializeField] private UltimateType m_ultType = UltimateType.Blitzray;
 
     [Header("アルティメットゲージ関連")]
-    [SerializeField] private float m_ultGauge = 0.0f; 　　　// 現在のゲージ
-    [SerializeField] private float m_maxGauge = 100.0f;     // ゲージ最大値
-    [SerializeField] private float m_gaugeGainRate = 10.0f; // ブースト中のゲージ貯まりやすさ
+    [SerializeField] private float m_ultGauge = 0.0f; 　　　 // 現在のゲージ
+    [SerializeField] private float m_maxUltGauge = 100.0f;   // ゲージ最大値
+    [SerializeField] private float m_gaugeGainRate = 10.0f;  // ブースト中のゲージ貯まりやすさ
 
     [Header("状態")]
     [SerializeField] private bool m_canActivateUltimate = false; // アルティメットを発動可能か
-    [SerializeField] private bool m_activateUltimate = false;  // アルティメット使用状況
-    // ブーストスクリプトへの参照
+    [SerializeField] private bool m_activateUltimate = false;    // アルティメット使用状況
+
+    [Header("超加速アルティメット設定")]
+    [SerializeField] private float m_boostSpeed = 70.0f;
+    [SerializeField] private float m_boostAcceleration = 25.0f;
+
+    //-----------------------------------------------------------------------------------------------
+
+    // ブーストコントローラーコンポーネント
     private KartBoostController m_boost;
+    // アーケードカートコンポーネント
+    private ArcadeKart m_kart;
+    // アルティメットの加速後に戻す用
+    private float originalTopSpeed;     // 元の最大速度(戻す用）
+    private float originalAcceleration; // 元の加速度(戻す用）
 
     void Start()
     {
-        // Boostクラスを取得
+        // KartBoostControllerコンポーネントを取得
         m_boost = GetComponent<KartBoostController>();
+        // ArcadeKartコンポーネントを取得する
+        m_kart = GetComponent<ArcadeKart>();
+        // 戻す値を保存しておく
+        originalTopSpeed = m_kart.baseStats.TopSpeed;
+        originalAcceleration = m_kart.baseStats.Acceleration;
     }
 
     void Update()
     {
-        // BoostのGetUseBoost()がtrueのときゲージをためる
-        if (m_boost != null && m_boost.GetIsBoost() && m_ultGauge < m_maxGauge)
+        // アルティメットを発動していないときの処理
+        if (!m_activateUltimate)
         {
-            // アルティメットゲージに加算する
-            m_ultGauge += m_gaugeGainRate * Time.deltaTime;
-
-            // アルティメットゲージが100を超えないように制限する
-            // 超えた段階でアルティメット発動可能状態にする
-            if (m_ultGauge >= m_maxGauge)
+            // BoostのGetUseBoost()がtrueのときゲージをためる
+            if (m_boost != null && m_boost.GetIsBoost() && m_ultGauge < m_maxUltGauge)
             {
-                m_ultGauge = m_maxGauge;
-                m_canActivateUltimate = true;
+                // アルティメットゲージに加算する
+                m_ultGauge += m_gaugeGainRate * Time.deltaTime;
+                // アルティメットゲージが最大値を超えないように制限する
+                if (m_ultGauge >= m_maxUltGauge)
+                {
+                    // 最大値に補正する
+                    m_ultGauge = m_maxUltGauge;
+                    // アルティメット発動可能状態にする
+                    m_canActivateUltimate = true;
+                }
+            }
+
+            // アルティメット発動可能状態のときに入力があれば
+            if (m_canActivateUltimate && Input.GetKeyDown(KeyCode.E))
+            {
+                // アルティメット発動
+                ActivateUltimate();
             }
         }
-
-        // アルティメット発動可能状態のときに発動入力があれば
-        if (m_canActivateUltimate && Input.GetKeyDown(KeyCode.E))
-        {
-            // アルティメット発動
-            ActivateUltimate();
-        }
-        // アルティメット発動中ならば各処理を行う
+        
+        // アルティメットを発動しているときの処理
         if(m_activateUltimate)
         {
             // アルティメットの処理を行う
@@ -71,37 +93,48 @@ public class UltimateController : MonoBehaviour
     // アルティメットの処理を行う
     void Ultimate()
     {
+        // ゲージを消費する
+        m_ultGauge -= m_gaugeGainRate *Time.deltaTime * 5;
+
         // 設定されている種類のアルティメットを処理する
         switch (m_ultType)
         {
             case UltimateType.Blitzray:
-                Debug.Log("Blitzray 発動：超加速");
+                Debug.Log("発動：超加速");
                 // TODO: 加速処理
-
+                Ultimate_Blitzray();
                 break;
 
             case UltimateType.Parasite:
-                Debug.Log("Parasite 発動：ブースト吸収");
+                Debug.Log("発動：ブースト吸収");
                 // TODO: 周囲の敵のブーストゲージを減らして自分に加算
 
                 break;
-
-            case UltimateType.Empress:
-                Debug.Log("EMPRESS 発動：スタン");
-                // TODO: 一定範囲内の敵をスタン状態にする
-
-                break;
         }
-
-        // アルティメット使用後はリセットする
-        //m_ultGauge = 0.0f;
-        //m_canUseUltimate = false;
     }
 
+    // 超加速アルティメットの処理
+    private void Ultimate_Blitzray()
+    {
+        m_kart.baseStats.TopSpeed = m_boostSpeed;
+        m_kart.baseStats.Acceleration = m_boostAcceleration;
+        // ウルトゲージが無くなった場合
+        if (m_ultGauge <= 0)
+        {
+            // ステータスを戻す
+            m_kart.baseStats.TopSpeed = originalTopSpeed;
+            m_kart.baseStats.Acceleration = originalAcceleration;
+            // アルティメット数値を補正する
+            m_ultGauge = 0.0f;
+            // 状況をリセットする
+            m_canActivateUltimate = false;
+            m_activateUltimate = false;
+        }
+    }
 
     // 現在のアルティメットゲージ割合を取得する
     public float GetGaugePercent()
     {
-        return m_ultGauge / m_maxGauge;
+        return m_ultGauge / m_maxUltGauge;
     }
 }

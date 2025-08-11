@@ -1384,10 +1384,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5649905185883170754, guid: 29aea8fb45b22a742ab8299b979fc39d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5649905185883170776, guid: 29aea8fb45b22a742ab8299b979fc39d,
         type: 3}
       propertyPath: m_Name
-      value: HoverKart_Player
+      value: Kart
       objectReference: {fileID: 0}
     - target: {fileID: 5649905185883170781, guid: 29aea8fb45b22a742ab8299b979fc39d,
         type: 3}
@@ -1489,7 +1494,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5649905185883170754, guid: 29aea8fb45b22a742ab8299b979fc39d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6958434820909010561, guid: 29aea8fb45b22a742ab8299b979fc39d, type: 3}
     m_AddedGameObjects:
@@ -1505,7 +1511,15 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 692694514}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5649905185883170776, guid: 29aea8fb45b22a742ab8299b979fc39d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1650861516}
+    - targetCorrespondingSourceObject: {fileID: 5649905185883170776, guid: 29aea8fb45b22a742ab8299b979fc39d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1650861515}
   m_SourcePrefab: {fileID: 100100000, guid: 29aea8fb45b22a742ab8299b979fc39d, type: 3}
 --- !u!1 &1555835408
 GameObject:
@@ -1828,11 +1842,60 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -66.92957, y: -7.9900646, z: 9.020006}
-  m_LocalScale: {x: 20, y: 1, z: 20}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1650861510 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5649905185883170776, guid: 29aea8fb45b22a742ab8299b979fc39d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1468653132}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1650861515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650861510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ed35bb5bf516240b9cefb003128013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ultType: 0
+  m_ultGauge: 0
+  m_maxUltGauge: 100
+  m_gaugeGainRate: 10
+  m_canActivateUltimate: 0
+  m_activateUltimate: 0
+  m_boostSpeed: 70
+  m_boostAcceleration: 25
+--- !u!114 &1650861516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650861510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783c2cd153ad0214a997811cdf071a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBoost: 100
+  boostGauge: 0
+  boostDrainRate: 10
+  boostChargeRate: 2
+  drivingChargeRate: 2
+  boostItemCharge: 25
+  boostSpeed: 50
+  boostAcceleration: 20
+  isBoosting: 0
+  boostKey: 32
+  boostVFX: {fileID: 0}
 --- !u!1001 &1774163421
 PrefabInstance:
   m_ObjectHideFlags: 0
