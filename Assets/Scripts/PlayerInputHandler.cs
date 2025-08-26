@@ -2,31 +2,34 @@ using UnityEngine;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private HoverCarController car;
-    private BoostSystem boost;
+    private HoverCarController m_car;
+    private BoostSystem m_boost;
+    private UltimateSystem m_ultimate;
 
     void Start()
     {
-        car = GetComponent<HoverCarController>();
-        boost = GetComponent<BoostSystem>();
+        // コンポーネントを取得する
+        m_car = GetComponent<HoverCarController>();
+        m_boost = GetComponent<BoostSystem>();
+        m_ultimate = GetComponent<UltimateSystem>();
     }
 
     void Update()
     {
         // 移動入力
-        car.forwardInput = Input.GetAxis("Vertical");
-        car.turnInput = Input.GetAxis("Horizontal");
+        m_car.forwardInput = Input.GetAxis("Vertical");
+        m_car.turnInput = Input.GetAxis("Horizontal");
 
         // ブースト入力
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            boost.TryStartBoost();
+            m_boost.TryStartBoost();
         }
 
         // アルティメット入力
         if (Input.GetKeyDown(KeyCode.R)) 
         {
-            GetComponent<UltimateSystem>().TryActivateUltimate();
+            m_ultimate.TryActivateUltimate();
         }
     }
 }
