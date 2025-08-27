@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e0b81348d1e5e7468330c74ae24ca6d, type: 3}
+  m_Name: Course01
+  m_EditorClassIdentifier: 
+  m_splinePoints:
+  - position: {x: -14.214707, y: 0, z: 0}
+    inTangent: {x: -4.480155, y: 0, z: -24}
+    outTangent: {x: -8.999999, y: 0, z: 11.620272}
+    width: 30
+    banking: 0
+  - position: {x: 50, y: 0, z: 55.125126}
+    inTangent: {x: -8.530849, y: -0, z: -24.170742}
+    outTangent: {x: 12.708326, y: 0, z: 36.006927}
+    width: 30
+    banking: 0
+  - position: {x: 100, y: 0, z: 15.043119}
+    inTangent: {x: -38.062164, y: -0, z: -3.0449734}
+    outTangent: {x: 52.22589, y: 0, z: 4.1780715}
+    width: 30
+    banking: 0
+  - position: {x: 160.98167, y: 0, z: -16.948467}
+    inTangent: {x: -30.452667, y: -0, z: 42.63373}
+    outTangent: {x: 24.474203, y: 0, z: -34.26388}
+    width: 30
+    banking: 0
+  - position: {x: 266.76486, y: 0, z: 45.889107}
+    inTangent: {x: 26.552368, y: -0, z: 32.67984}
+    outTangent: {x: -23.014471, y: 0, z: -28.325504}
+    width: 30
+    banking: 0
+  - position: {x: 280.73413, y: 0, z: 196.86575}
+    inTangent: {x: 36.000004, y: 0, z: 6.0000005}
+    outTangent: {x: -36.000004, y: -0, z: -6.0000005}
+    width: 30
+    banking: 0
+  m_settings:
+    m_courseName: "\u30C7\u30D5\u30A9\u30EB\u30C8\u30B3\u30FC\u30B9"
+    m_courseDescription: 
+    m_isClosedLoop: 0
+    m_meshResolution: 1
+    m_segmentsPerCurve: 16
+    m_useAdaptiveSegmentation: 1
+    m_minSegmentsPerCurve: 4
+    m_maxSegmentsPerCurve: 32
+    m_curvatureThreshold: 0.1
+    m_roadMaterial: {fileID: 2100006, guid: 565e3543feaac1b408a41f8c0d67febd, type: 3}
+    m_roadThickness: 0.5
+    m_generateColliders: 1
+    m_roadPhysicMaterial: {fileID: 0}
+    m_castShadows: 1
+    m_receiveShadows: 1
