@@ -63,7 +63,11 @@ public class BoostSystem : MonoBehaviour
     {
         if (!isBoosting && currentGauge > 0 && cooldownTimer <= 0)
         {
-            StartBoost();
+            // アルティメットが発動状態でなければ
+            if(!m_ultimateSystem.IsActiveUltimate())
+            {
+               StartBoost();
+            }
         }
     }
 
@@ -78,6 +82,11 @@ public class BoostSystem : MonoBehaviour
         car.boostMultiplier = 1.0f;
         isBoosting = false;
         cooldownTimer = boostCooldown; // 終了時にクールダウン
+    }
+
+    public bool IsActiveBoost()
+    {
+        return isBoosting;
     }
 
     // UI用：現在のゲージを割合で返す

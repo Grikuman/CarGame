@@ -61,6 +61,18 @@ public class UltimateSystem : MonoBehaviour
         currentUltimate = ultimate;
     }
 
+    public bool IsActiveUltimate()
+    {
+        if (currentUltimate.IsActive())
+        {  
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     // UI用：現在のゲージを割合で返す
     public float GetUltimateGaugeNormalized()
     {
