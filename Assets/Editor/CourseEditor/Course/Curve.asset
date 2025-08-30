@@ -10,57 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e0b81348d1e5e7468330c74ae24ca6d, type: 3}
-  m_Name: Course01
+  m_Name: Curve
   m_EditorClassIdentifier: 
   m_splinePoints:
-  - position: {x: -124.34144, y: 0, z: 49.361378}
+  - position: {x: 94.459564, y: 22.661758, z: 81.21842}
     inTangent: {x: 27, y: -0, z: -18}
     outTangent: {x: -9, y: 0, z: 24}
     width: 30
     banking: 0
-  - position: {x: -69.39793, y: 0, z: 148.79114}
+  - position: {x: -78.1256, y: 0, z: 116.71456}
     inTangent: {x: -8.530849, y: -0, z: -24.170742}
     outTangent: {x: 12.708326, y: 0, z: 36.006927}
     width: 30
     banking: 0
-  - position: {x: 60, y: -24.241333, z: 81.14704}
+  - position: {x: -38.79228, y: 24.401478, z: 170}
     inTangent: {x: -38.062164, y: -0, z: -3.0449734}
     outTangent: {x: 52.22589, y: 0, z: 4.1780715}
     width: 30
     banking: 0
-  - position: {x: 220, y: 0, z: 100}
+  - position: {x: 220, y: 0, z: 201.59042}
     inTangent: {x: -30.452667, y: -0, z: 42.63373}
     outTangent: {x: 24.474203, y: 0, z: -34.26388}
     width: 30
     banking: 0
-  - position: {x: 339.13266, y: 0, z: -40}
+  - position: {x: 210, y: 0, z: -40}
     inTangent: {x: 26.552368, y: -0, z: 32.67984}
     outTangent: {x: -23.014471, y: 0, z: -28.325504}
     width: 30
     banking: 0
-  - position: {x: 162.42145, y: 30.933167, z: -239.51973}
+  - position: {x: 110.292114, y: 0, z: -50.593563}
     inTangent: {x: 36.000004, y: -0, z: 6.0000005}
     outTangent: {x: -27, y: 0, z: 18}
-    width: 30
-    banking: 0
-  - position: {x: 80.13606, y: -17.678162, z: -197.11575}
-    inTangent: {x: 2.9591813, y: 0, z: 0.49319687}
-    outTangent: {x: -2.9591813, y: -0, z: -0.49319687}
-    width: 30
-    banking: 0
-  - position: {x: 12.347717, y: 0, z: -279.5318}
-    inTangent: {x: 2.9591813, y: 0, z: 0.49319687}
-    outTangent: {x: -181.86594, y: 0, z: -24.958221}
-    width: 30
-    banking: 0
-  - position: {x: -56.681034, y: 0, z: -146.86697}
-    inTangent: {x: 42.49917, y: 0, z: 0.49319458}
-    outTangent: {x: -14.897976, y: 0, z: 7.902359}
-    width: 30
-    banking: 0
-  - position: {x: -43.811302, y: -39.096226, z: -54.672882}
-    inTangent: {x: -24.80613, y: 0, z: -45.95604}
-    outTangent: {x: -0.39707184, y: 0, z: -3.8868217}
     width: 30
     banking: 0
   m_settings:
@@ -73,7 +53,7 @@ MonoBehaviour:
     m_minSegmentsPerCurve: 4
     m_maxSegmentsPerCurve: 32
     m_curvatureThreshold: 0.1
-    m_roadMaterial: {fileID: 2100006, guid: a9853556c4fc4d44087cd153918f7305, type: 3}
+    m_roadMaterial: {fileID: 2100000, guid: 89dda5443bb9efd47baf8e62ef380b99, type: 2}
     m_roadThickness: 0.5
     m_generateColliders: 1
     m_roadPhysicMaterial: {fileID: 0}
