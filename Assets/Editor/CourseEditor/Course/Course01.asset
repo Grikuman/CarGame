@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Course01
   m_EditorClassIdentifier: 
   m_splinePoints:
-  - position: {x: -124.34144, y: 0, z: 49.361378}
-    inTangent: {x: 27, y: -0, z: -18}
-    outTangent: {x: -9, y: 0, z: 24}
+  - position: {x: -119.59639, y: 0, z: 49.361378}
+    inTangent: {x: 0.9140167, y: 0, z: -18}
+    outTangent: {x: -1.9564896, y: 0, z: 23.999996}
     width: 30
     banking: 0
-  - position: {x: -69.39793, y: 0, z: 148.79114}
+  - position: {x: -79.35134, y: 0, z: 148.79114}
     inTangent: {x: -8.530849, y: -0, z: -24.170742}
     outTangent: {x: 12.708326, y: 0, z: 36.006927}
     width: 30
@@ -38,29 +38,29 @@ MonoBehaviour:
     outTangent: {x: -23.014471, y: 0, z: -28.325504}
     width: 30
     banking: 0
-  - position: {x: 162.42145, y: 30.933167, z: -239.51973}
+  - position: {x: 162.42145, y: 12.865803, z: -239.51973}
     inTangent: {x: 36.000004, y: -0, z: 6.0000005}
-    outTangent: {x: -27, y: 0, z: 18}
+    outTangent: {x: -27, y: 0, z: -2.3830261}
     width: 30
     banking: 0
-  - position: {x: 80.13606, y: -17.678162, z: -197.11575}
-    inTangent: {x: 2.9591813, y: 0, z: 0.49319687}
-    outTangent: {x: -2.9591813, y: -0, z: -0.49319687}
+  - position: {x: 80.13606, y: -14.769638, z: -274.4603}
+    inTangent: {x: 22.962837, y: 2.7310867, z: 4.4347534}
+    outTangent: {x: -33.073566, y: -5.651558, z: -13.023468}
     width: 30
     banking: 0
-  - position: {x: 12.347717, y: 0, z: -279.5318}
-    inTangent: {x: 2.9591813, y: 0, z: 0.49319687}
+  - position: {x: 12.347717, y: -2.656035, z: -276.3751}
+    inTangent: {x: 12.9816265, y: 0.47030354, z: 1.4983215}
     outTangent: {x: -181.86594, y: 0, z: -24.958221}
     width: 30
     banking: 0
-  - position: {x: -56.681034, y: 0, z: -146.86697}
-    inTangent: {x: 42.49917, y: 0, z: 0.49319458}
-    outTangent: {x: -14.897976, y: 0, z: 7.902359}
+  - position: {x: -76.43806, y: 0, z: -146.86697}
+    inTangent: {x: -4.147232, y: 0, z: -20.578644}
+    outTangent: {x: -1.5945816, y: 0.6884726, z: 10.008484}
     width: 30
     banking: 0
-  - position: {x: -43.811302, y: -39.096226, z: -54.672882}
-    inTangent: {x: -24.80613, y: 0, z: -45.95604}
-    outTangent: {x: -0.39707184, y: 0, z: -3.8868217}
+  - position: {x: -79.69868, y: -12.795851, z: -54.672882}
+    inTangent: {x: -0.18813324, y: 0, z: -45.95604}
+    outTangent: {x: 3.1561356, y: -2.476368, z: 57.564415}
     width: 30
     banking: 0
   m_settings:

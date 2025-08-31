@@ -9,11 +9,8 @@ EditorBuildSettings:
     path: Assets/Shimizu/Scenes/TitleScene.unity
     guid: d8d55cc417ceed54193415fc5abd9de9
   - enabled: 1
-    path: Assets/Shimizu/Scenes/PlayScene.unity
-    guid: 1232a9dc97bd26240b6ae214bba1170b
-  - enabled: 1
-    path: Assets/Scenes/Nagadomo.unity
-    guid: f8ad88bccb5fc7b418c195daf2cf74a4
+    path: Assets/Scenes/PlayScene.unity
+    guid: 3996fe4677960e74285ce9a0960c56bb
   - enabled: 1
     path: Assets/Shimizu/Scenes/ResultScene.unity
     guid: a2eeb06586fd97b4895edcc876aaf551
