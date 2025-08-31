@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class RaceSystem : MonoBehaviour
 {
 
     public TextMeshProUGUI timeText;
 
-    private int count;
-    private bool cangoal, goalnow = false, StartGoalLine = false;
+    public int count;
+    public bool cangoal, goalnow = false, StartGoalLine = false;
     private float seconds, minutes;
 
     void Update()
@@ -26,11 +27,12 @@ public class RaceSystem : MonoBehaviour
         }
         if (other.gameObject.tag == "Line")//スタートラインに触れた
         {
-            if (count == 4)//チェックポイントをすべて通ったか
+            if (count >= 4)//チェックポイントをすべて通ったか
             {
                 Debug.Log("GOAL!");
                 StartGoalLine = false;
                 goalnow = true;
+                SceneManager.LoadScene("ResultScene");
             }
             else
             {

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CrashMode
   - Line
+  - CheckPoint
   layers:
   - Default
   - TransparentFX

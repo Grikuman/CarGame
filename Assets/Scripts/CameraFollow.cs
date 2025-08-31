@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset = new Vector3(0, 5, -10); // 車からの相対位置
     public float followSpeed = 5f; // 追従の滑らかさ
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         // 目標位置を計算
         Vector3 desiredPosition = target.position + target.rotation * offset;
