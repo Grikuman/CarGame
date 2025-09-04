@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Shimizu/Scenes/TitleScene.unity
+    path: Assets/Game/Scenes/TitleScene.unity
     guid: d8d55cc417ceed54193415fc5abd9de9
   - enabled: 1
-    path: Assets/Scenes/PlayScene.unity
+    path: Assets/Game/Scenes/PlayScene.unity
     guid: 3996fe4677960e74285ce9a0960c56bb
   - enabled: 1
-    path: Assets/Shimizu/Scenes/ResultScene.unity
+    path: Assets/Game/Scenes/ResultScene.unity
     guid: a2eeb06586fd97b4895edcc876aaf551
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
