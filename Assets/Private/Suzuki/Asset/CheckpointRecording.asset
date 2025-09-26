@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6f13f26ad940a46b17ea02c9615595, type: 3}
+  m_Name: CheckpointRecording
+  m_EditorClassIdentifier: 
+  data:
+  - position: {x: 433.6, y: -248.03271, z: 1034}
+    rotation: {x: 0, y: 1, z: 0, w: 0}
+  - position: {x: 433.6, y: -248.03271, z: 880.62805}
+    rotation: {x: 0, y: 1, z: 0, w: 0}
+  - position: {x: 433.6, y: -248.03271, z: 586.9532}
+    rotation: {x: 0, y: 1, z: 0, w: 0}
+  - position: {x: 433.6, y: -248.03271, z: 293.075}
+    rotation: {x: 0, y: 1, z: 0, w: 0}
+  - position: {x: 433.6, y: -249.63788, z: 59.096306}
+    rotation: {x: 0, y: 1, z: 5.417887e-20, w: 0}
+  interval: 2
