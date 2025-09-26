@@ -1,4 +1,4 @@
-using KartGame.KartSystems;
+
 using UnityEngine;
 
 public class UltimateController : MonoBehaviour
@@ -31,7 +31,7 @@ public class UltimateController : MonoBehaviour
     // ブーストコントローラーコンポーネント
     private KartBoostController m_boost;
     // アーケードカートコンポーネント
-    private ArcadeKart m_kart;
+
     // アルティメットの加速後に戻す用
     private float originalTopSpeed;     // 元の最大速度(戻す用）
     private float originalAcceleration; // 元の加速度(戻す用）
@@ -41,10 +41,7 @@ public class UltimateController : MonoBehaviour
         // KartBoostControllerコンポーネントを取得
         m_boost = GetComponent<KartBoostController>();
         // ArcadeKartコンポーネントを取得する
-        m_kart = GetComponent<ArcadeKart>();
-        // 戻す値を保存しておく
-        originalTopSpeed = m_kart.baseStats.TopSpeed;
-        originalAcceleration = m_kart.baseStats.Acceleration;
+     
     }
 
     void Update()
@@ -116,14 +113,12 @@ public class UltimateController : MonoBehaviour
     // 超加速アルティメットの処理
     private void Ultimate_Blitzray()
     {
-        m_kart.baseStats.TopSpeed = m_boostSpeed;
-        m_kart.baseStats.Acceleration = m_boostAcceleration;
+     
         // ウルトゲージが無くなった場合
         if (m_ultGauge <= 0)
         {
             // ステータスを戻す
-            m_kart.baseStats.TopSpeed = originalTopSpeed;
-            m_kart.baseStats.Acceleration = originalAcceleration;
+           
             // アルティメット数値を補正する
             m_ultGauge = 0.0f;
             // 状況をリセットする

@@ -1,6 +1,6 @@
 ﻿// ArcadeKart に追加するブーストシステム（ブーストゲージ + モード制御）
 using UnityEngine;
-using KartGame.KartSystems;
+
 
 public class KartBoostController : MonoBehaviour
 {
@@ -21,15 +21,13 @@ public class KartBoostController : MonoBehaviour
     public KeyCode boostKey = KeyCode.Space;         // ブースト発動キー
     public GameObject boostVFX;                      // ブースト時エフェクト（任意）
 
-    private ArcadeKart kart;
+   
     private float originalTopSpeed;                  // 元のスピード（戻す用）
     private float originalAcceleration;              // 元の加速度（戻す用）
 
     void Start()
     {
-        kart = GetComponent<ArcadeKart>();
-        originalTopSpeed = kart.baseStats.TopSpeed;
-        originalAcceleration = kart.baseStats.Acceleration;
+      
         if (boostVFX) boostVFX.SetActive(false);     // エフェクト初期状態で非表示
     }
 
@@ -63,8 +61,7 @@ public class KartBoostController : MonoBehaviour
     void StartBoost()
     {
         isBoosting = true;
-        kart.baseStats.TopSpeed = boostSpeed;
-        kart.baseStats.Acceleration = boostAcceleration;
+     
         if (boostVFX) boostVFX.SetActive(true);  // エフェクト表示
     }
 
@@ -79,8 +76,7 @@ public class KartBoostController : MonoBehaviour
     void EndBoost()
     {
         isBoosting = false;
-        kart.baseStats.TopSpeed = originalTopSpeed;
-        kart.baseStats.Acceleration = originalAcceleration;
+      
         if (boostVFX) boostVFX.SetActive(false); // エフェクト非表示
     }
 
@@ -90,11 +86,7 @@ public class KartBoostController : MonoBehaviour
         float rankMultiplier = 1f; // 順位に応じて変化させる（後で追加）
 
         // 走行中（速度が一定以上）のとき、追加回復
-        if (kart.Rigidbody.linearVelocity.magnitude > 1f)
-        {
-            boostGauge += drivingChargeRate * Time.deltaTime;
-        }
-
+      
         // 通常の自然回復（順位による補正をかける）
         boostGauge += boostChargeRate * rankMultiplier * Time.deltaTime;
         boostGauge = Mathf.Clamp(boostGauge, 0f, maxBoost);
