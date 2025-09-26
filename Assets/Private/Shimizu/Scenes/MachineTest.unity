@@ -331,7 +331,7 @@ Transform:
   m_GameObject: {fileID: 88265720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.8, y: 88.87, z: -123.23}
+  m_LocalPosition: {x: 11.8, y: 89.55, z: -123.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -345,7 +345,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88265720}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6a9944a4e3b3b8f4fba445150f88c089, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1515,6 +1515,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 91e5c6f1928b25444b3c314b8cc6942a,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f6e77e71dbe0514c9d8041d148d1a88, type: 2}
     - target: {fileID: 919132149155446097, guid: 91e5c6f1928b25444b3c314b8cc6942a,
         type: 3}
       propertyPath: m_Name
