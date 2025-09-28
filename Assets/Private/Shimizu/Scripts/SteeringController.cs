@@ -1,7 +1,7 @@
 using Logitech;
 using UnityEngine;
 
-public class SteeringWheel 
+public class SteeringController
 {
     public enum  ButtonID : int
     {
@@ -54,14 +54,14 @@ public class SteeringWheel
     private float _BrakeSensitivity;
 
     // シングルトンインスタンス
-    private static SteeringWheel _instance;
-    public static SteeringWheel Instance
+    private static SteeringController _instance;
+    public static SteeringController Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = new SteeringWheel();
+                _instance = new SteeringController();
                 _instance.Initialize();
             }
             return _instance;
@@ -120,6 +120,9 @@ public class SteeringWheel
     {
         Debug.Log("SteeringShutdown:" + LogitechGSDK.LogiSteeringShutdown());
     }
+
+    // ステアリングコントローラーが接続されているか
+    public bool GetState() => LogitechGSDK.LogiIsConnected(0);
 
     /// <summary>
     /// ボタンが押されている状態
