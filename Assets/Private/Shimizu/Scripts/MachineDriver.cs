@@ -20,9 +20,12 @@ public class MachineDriver : MonoBehaviour
         // マシンドライバー入力値を更新する
         _inputManager.UpdateDrivingInputAxis();
 
+        var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
+
         // ハンドルの更新
-        _vehiclePhysicsModule._input = _inputManager._handleAxis;
+        _vehiclePhysicsModule._input = input.Handle;
         // アクセルの更新
-        _machineEngine.inputKey      = _inputManager._acceleratorAxis;
+        _machineEngine.inputKey      = input.Accelerator;
+
     }
 }
