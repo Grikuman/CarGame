@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81fc36a95076de4fb060c87cf47e41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputDeviceType: 2
+  _inputDeviceType: 0
 --- !u!4 &1956065868
 Transform:
   m_ObjectHideFlags: 0

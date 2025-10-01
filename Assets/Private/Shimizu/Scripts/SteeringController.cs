@@ -1,3 +1,12 @@
+// ============================================
+// 
+// ファイル名: SteeringController.cs
+// 概要: ロジクール系ステアリングコントローラーの抽象化クラス（シングルトン）
+// 
+// 製作者 : 清水駿希
+// 
+// ============================================
+using System;
 using Logitech;
 using UnityEngine;
 
@@ -46,12 +55,20 @@ public class SteeringController
     // 自動センタリング（自動でゼロに戻る）の有効/無効フラグ
     public bool _isAutoCenteringActive { get; set; } = true;
 
+
+
+    // サチュレーション率（FFBの最大入力に到達するまでの割合）
+    private int _saturationPercentage = 10000;
+    // コエフィシェント率（FFBの強さ倍率）
+    public int _coefficientPercentage = 5000;
     // ステアリングの感度
     private float _steeringSensitivity;
     // アクセル感度
     private float _AcceleratorSensitivity;
     // ブレーキ感度
     private float _BrakeSensitivity;
+
+
 
     // シングルトンインスタンス
     private static SteeringController _instance;
@@ -69,12 +86,50 @@ public class SteeringController
     }
 
     /// <summary>
+    /// ステアリングコントローラーが接続されているか
+    /// </summary>
+    public bool GetState() => LogitechGSDK.LogiIsConnected(0);
+
+    /// <summary>
+    /// ロジクール系ステアリングコントローラーのサチュレーション率<br/>
+    /// (FFBの最大入力に到達するまでの割合)<br/>
+    /// <c>0 ～ 10000</c> の範囲で設定してください。
+    /// </summary>
+    public int saturationPercentage 
+    {
+        get => _saturationPercentage;
+        set
+        {
+            if (value > 10000)
+                throw new ArgumentOutOfRangeException(nameof(saturationPercentage), "最大値は10000です。");
+            _saturationPercentage = value;
+        }
+    }
+    /// <summary>
+    /// ロジクール系ステアリングコントローラーのコエフィシェント率<br/>
+    /// (FFBの強さ倍率)<br/>
+    /// <c>0 ～ 5000</c> の範囲で設定してください。
+    /// </summary>
+    public int coefficientPercentage
+    {
+        get => _coefficientPercentage;
+        set
+        {
+            if (value > 5000)
+                throw new ArgumentOutOfRangeException(nameof(coefficientPercentage), "最大値は5000です。");
+            _coefficientPercentage = value;
+        }
+    }
+
+
+
+    /// <summary>
     /// 初期化処理
     /// </summary>
     public void Initialize()
     {
+        // デバイスの初期化処理
         Debug.Log("SteeringInit:" + LogitechGSDK.LogiSteeringInitialize(false));
-
         // 入力の状態を更新
         _rec = LogitechGSDK.LogiGetStateUnity(0);
     }
@@ -91,16 +146,12 @@ public class SteeringController
             _buttons = _rec.rgbButtons;
             _prevPOV = _currentPOV;
 
+            // センタリング処理
             // 有効化
-            if (_isAutoCenteringActive)
-            {
-                LogitechGSDK.LogiPlaySpringForce(0, 0, 10000, 5000);
-            }
-            else
-            {
-                // 解除
-                LogitechGSDK.LogiStopSpringForce(0);
-            }
+            if (_isAutoCenteringActive) LogitechGSDK.LogiPlaySpringForce(0, 0, 10000, 5000);
+            // 解除
+            else LogitechGSDK.LogiStopSpringForce(0);
+
 
             // ロジクールSDKを更新する
             if (LogitechGSDK.LogiUpdate())
@@ -121,8 +172,7 @@ public class SteeringController
         Debug.Log("SteeringShutdown:" + LogitechGSDK.LogiSteeringShutdown());
     }
 
-    // ステアリングコントローラーが接続されているか
-    public bool GetState() => LogitechGSDK.LogiIsConnected(0);
+
 
     /// <summary>
     /// ボタンが押されている状態
