@@ -52,7 +52,7 @@ public class GravityAlignment
             }
 
             if(_isGravity)
-            _rb.linearVelocity += _groundNormal * 9.81f * Time.fixedDeltaTime;
+            _rb.linearVelocity += _groundNormal * 30.81f * Time.fixedDeltaTime;
 
             // Œ»İ‚Ì’n–Ê‚ÌŒü‚«‚ğ•Û‘¶
             _currentDirection = _groundNormal;
