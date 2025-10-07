@@ -1,11 +1,22 @@
+// ============================================
+// 
+// ファイル名: SteeringControllerInput.cs
+// 概要: ステアリングコントローラーの入力系処理
+// 
+// 製作者 : 清水駿希
+// 
+// ============================================
+
 public class SteeringControllerInput : IInputDevice
 {
-    private GamePlayInputSnapshot _gamePlayInputSnapshot;
-
     public GamePlayInputSnapshot GetInput { get { return _gamePlayInputSnapshot; } }
 
+    private GamePlayInputSnapshot _gamePlayInputSnapshot;
     private SteeringController _steeringController;
 
+    /// <summary>
+    /// 入力状態を更新する
+    /// </summary>
     public void GamePlayInputUpdate()
     {
         // ステアリングコントローラー
@@ -27,6 +38,9 @@ public class SteeringControllerInput : IInputDevice
         _gamePlayInputSnapshot = snapshot;
     }
 
+    /// <summary>
+    /// UI用の入力アクションが現在押されているかを判定する
+    /// </summary>
     public bool IsPressed(UiInputActionID action)
     {
         switch (action)
@@ -50,7 +64,9 @@ public class SteeringControllerInput : IInputDevice
 
         return false;
     }
-
+    /// <summary>
+    /// UI用の入力アクションが今フレームで押されたかを判定する
+    /// </summary>
     public bool WasPressedThisFrame(UiInputActionID action)
     {
         switch (action)

@@ -12,7 +12,7 @@ public class MachineDriver : MonoBehaviour
         _machineEngine = GetComponent<MachineEngine>();
         _vehiclePhysicsModule = GetComponent<VehiclePhysicsModule>();
         _inputManager = InputManager.Instance;
-        _inputManager.Init();
+        _inputManager.Initialize();
     }
 
     private void Update()
@@ -25,7 +25,7 @@ public class MachineDriver : MonoBehaviour
         // ハンドルの更新
         _vehiclePhysicsModule._input = input.Handle;
         // アクセルの更新
-        _machineEngine.inputKey      = input.Accelerator;
+        _machineEngine._acceleratorAxis = input.Accelerator;
 
     }
 }
