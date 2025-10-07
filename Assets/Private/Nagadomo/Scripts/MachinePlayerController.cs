@@ -15,7 +15,7 @@ public class MachinePlayerController : MonoBehaviour
 
         // インプットマネージャーのインスタンスを取得・初期化
         _inputManager = InputManager.Instance;
-        _inputManager.Init();
+        _inputManager.Initialize();
     }
 
     private void Update()
