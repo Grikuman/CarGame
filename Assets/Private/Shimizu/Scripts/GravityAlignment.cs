@@ -45,22 +45,19 @@ public class GravityAlignment
             // 地面の向きを取得
             _groundNormal = -hit.normal;
 
-            // 前フレームとの地面との向きを比較
-            if(_currentDirection != _groundNormal)
-            {
-                // this.ResetVerticalVelocity(-_groundNormal);
-            }
 
             if(_isGravity)
-            _rb.linearVelocity += _groundNormal * 30.81f * Time.fixedDeltaTime;
+            _rb.linearVelocity += (_groundNormal * 9.81f) * Time.fixedDeltaTime;
 
             // 現在の地面の向きを保存
             _currentDirection = _groundNormal;
         }
         else
         {
+            _groundNormal = Vector3.down;
+            _rb.linearVelocity += (_groundNormal * 9.81f) * Time.fixedDeltaTime;
             // コースに戻す処理
-           this.RecoverOnTrack();
+            //this.RecoverOnTrack();
         }
     }
 
