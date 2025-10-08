@@ -1,36 +1,24 @@
+using Cinemachine;
+using Fusion.Editor;
 using UnityEngine;
 
-/// <summary>
-/// ターゲットオブジェクトを追従するスクリプト（オフセット付き）
-/// </summary>
 public class FollowTargetWithOffset : MonoBehaviour
 {
-    [Header("追従対象")]
-    public Transform target; // 追従したいオブジェクト（プレイヤーなど）
+    private CinemachineDollyCart _cinemachineDollyCart = null;
 
-    [Header("追従オフセット")]
-    public Vector3 offset = new Vector3(0f, 5f, -10f); // ワールド空間での位置ずれ
+    [SerializeField] private Rigidbody _TargetRigidbody = null;
+    [SerializeField] private float _reductionRate = 1.0f;
 
-    [Header("補間設定")]
-    public bool useLerp = true;        // 線形補間を使うか
-    public float followSpeed = 5f;     // Lerp のスピード
-
-    void LateUpdate()
+    private void Start()
     {
-        if (target == null) return; // ターゲットが未設定なら何もしない
+        _cinemachineDollyCart = this.GetComponent<CinemachineDollyCart>();
+    }
 
-        // ターゲット位置 + オフセット
-        Vector3 desiredPosition = target.position + offset;
+    private void FixedUpdate()
+    {
+        float speed = _TargetRigidbody.linearVelocity.magnitude;
 
-        if (useLerp)
-        {
-            // 線形補間（スムーズに追従）
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, followSpeed * Time.deltaTime);
-        }
-        else
-        {
-            // 即座に追従
-            transform.position = desiredPosition;
-        }
+
+        _cinemachineDollyCart.m_Speed = speed;
     }
 }

@@ -38,7 +38,7 @@ public class MachineEngine : MonoBehaviour
        this.ApplyAcceleration();
        //this.ReduceSidewaysVelocity();
 
-        Debug.Log(rb.linearVelocity.magnitude * 3.6f);
+        Debug.Log(rb.linearVelocity.magnitude);
     }
 
     /// <summary>
