@@ -38,18 +38,20 @@ public class CheckpointManager : MonoBehaviour
         currentLap = 0;
         raceFinished = false;
     }
-
+    //チェックポイント判定
     public void PassCheckpoint(GameObject player, Checkpoint cp)
     {
         if (raceFinished) return;
         if (raceManager != null && raceManager.currentState != RaceManager.RaceState.Racing) return;
 
+        //逆走、ショートカット対策
         if (cp.checkpointID != nextCheckpointIndex)
         {
             Debug.Log($"[CheckpointManager] {player.name} がチェックポイント {cp.checkpointID} に到達したけど順番が違う。期待: {nextCheckpointIndex}");
             return;
         }
 
+        //正規ルートの場合
         Debug.Log($"[CheckpointManager] チェックポイント {cp.checkpointID} 通過！");
 
         nextCheckpointIndex++;
@@ -71,6 +73,7 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
+    //レース終了処理
     private void OnRaceFinished(GameObject player)
     {
         Debug.Log($"🏁 [CheckpointManager] {player.name} がゴールしました！！");
