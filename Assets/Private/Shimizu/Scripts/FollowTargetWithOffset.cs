@@ -7,10 +7,11 @@ public class FollowTargetWithOffset : MonoBehaviour
 
     [SerializeField] private Transform _Target = null;
     [SerializeField] private float _offset;
+    [SerializeField] private int _pointNum;
+    [SerializeField] private int _steps;
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
         _cinemachineDollyCart = this.GetComponent<CinemachineDollyCart>();
     }
 
@@ -23,7 +24,7 @@ public class FollowTargetWithOffset : MonoBehaviour
         targetPosition = targetPosition + (direction * _offset);
 
         // 距離ベースで最も近い位置の t を取得
-        float t = _cinemachineDollyCart.m_Path.FindClosestPoint(targetPosition, 0, 5,1000);
+        float t = _cinemachineDollyCart.m_Path.FindClosestPoint(targetPosition, 0, _pointNum, _steps);
 
         _cinemachineDollyCart.m_Position = t; 
     }
