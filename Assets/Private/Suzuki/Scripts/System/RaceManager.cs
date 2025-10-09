@@ -52,6 +52,7 @@ public class RaceManager : MonoBehaviour
         }
     }
 
+    //レース開始処理
     private IEnumerator StartCountdown()
     {
         currentState = RaceState.Countdown;
