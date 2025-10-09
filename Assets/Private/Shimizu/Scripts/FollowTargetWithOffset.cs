@@ -1,24 +1,30 @@
 using Cinemachine;
-using Fusion.Editor;
 using UnityEngine;
 
 public class FollowTargetWithOffset : MonoBehaviour
 {
     private CinemachineDollyCart _cinemachineDollyCart = null;
 
-    [SerializeField] private Rigidbody _TargetRigidbody = null;
-    [SerializeField] private float _reductionRate = 1.0f;
+    [SerializeField] private Transform _Target = null;
+    [SerializeField] private float _offset;
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         _cinemachineDollyCart = this.GetComponent<CinemachineDollyCart>();
     }
 
     private void FixedUpdate()
     {
-        float speed = _TargetRigidbody.linearVelocity.magnitude;
+        Vector3 targetPosition = _Target.position;
 
+        Vector3 direction = -_Target.forward.normalized;
 
-        _cinemachineDollyCart.m_Speed = speed;
+        targetPosition = targetPosition + (direction * _offset);
+
+        // 距離ベースで最も近い位置の t を取得
+        float t = _cinemachineDollyCart.m_Path.FindClosestPoint(targetPosition, 0, 5,1000);
+
+        _cinemachineDollyCart.m_Position = t; 
     }
 }
