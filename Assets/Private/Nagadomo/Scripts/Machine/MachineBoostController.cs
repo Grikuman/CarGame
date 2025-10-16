@@ -15,10 +15,14 @@ public class MachineBoostController : MonoBehaviour
 
     // コンポーネント
     private MachineEngineController _machineEngineController;
+    private MachineUltimateController _machineUltimateController;
 
     void Start()
     {
+        // コンポーネントを取得する
         _machineEngineController = GetComponent<MachineEngineController>();
+        _machineUltimateController = GetComponent<MachineUltimateController>();
+
         _currentGauge = _maxBoostGauge; // 初期はゲージを貯めておく
     }
 
@@ -28,6 +32,9 @@ public class MachineBoostController : MonoBehaviour
         {
             // ゲージを消費
             _currentGauge -= _gaugeConsumptionRate * Time.deltaTime;
+
+            // アルティメットゲージを貯める
+            _machineUltimateController.AddUltimateGauge();
 
             // ゲージが無くなった場合ブーストを終了する
             if (_currentGauge <= 0)
@@ -65,7 +72,11 @@ public class MachineBoostController : MonoBehaviour
         // ブースト発動中でない　かつ　ゲージが貯まっている　かつクールタイムが終了している場合
         if (!_isBoosting && _currentGauge > 0 && _cooldownTimer <= 0)
         {
-            StartBoost();
+            // アルティメットが発動状態でなければブーストを発動する
+            if (!_machineUltimateController.IsActiveUltimate())
+            {
+                StartBoost();
+            }
         }
     }
 
