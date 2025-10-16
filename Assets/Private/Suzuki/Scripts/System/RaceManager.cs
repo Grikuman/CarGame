@@ -12,7 +12,7 @@ public class RaceManager : MonoBehaviour
     }
 
     public RaceState currentState = RaceState.Waiting;
-    public PlayerInputHandler playerInputHandler;
+    public MachineDriver machineDriver;
     public float countdownTime = 3f;
 
     private float raceStartTime;
@@ -23,8 +23,8 @@ public class RaceManager : MonoBehaviour
         // 最初は待機状態
         currentState = RaceState.Waiting;
         // 最初は操作を無効にしておく
-        if (playerInputHandler != null)
-            playerInputHandler.enabled = false;
+        if (machineDriver != null)
+            machineDriver.enabled = false;
     }
 
     void Update()
@@ -43,7 +43,7 @@ public class RaceManager : MonoBehaviour
             case RaceState.Racing:
                 // レース中の処理
                 float elapsed = Time.time - raceStartTime;
-                // Debug.Log($"Race Time: {elapsed:F2}");
+                Debug.Log($"Race Time: {elapsed:F2}");
                 break;
 
             case RaceState.Finished:
@@ -75,8 +75,8 @@ public class RaceManager : MonoBehaviour
         raceStartTime = Time.time;
 
         // 操作を有効化
-        if (playerInputHandler != null)
-            playerInputHandler.enabled = true;
+        if (machineDriver != null)
+            machineDriver.enabled = true;
     }
 
     public void FinishRace()
@@ -89,7 +89,7 @@ public class RaceManager : MonoBehaviour
         Debug.Log($"🏁 ゴール！ 総タイム: {totalTime:F2}秒");
 
         // ゴールしたら操作無効化
-        if (playerInputHandler != null)
-            playerInputHandler.enabled = false;
+        if (machineDriver != null)
+            machineDriver.enabled = false;
     }
 }
