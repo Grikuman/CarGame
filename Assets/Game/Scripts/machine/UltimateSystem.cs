@@ -47,7 +47,7 @@ public class UltimateSystem : MonoBehaviour
         // ゲージが貯まっている　かつ　アルティメットが発動されていない場合
         if (m_currentGauge >= m_maxGauge && !currentUltimate.IsActive())
         {
-            currentUltimate.Activate(car);
+            //currentUltimate.Activate(car);
         }
     }
 

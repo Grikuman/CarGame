@@ -5,6 +5,7 @@ public class MachinePlayerController : MonoBehaviour
 {
     private MachineEngineController _machineEngineController;
     private MachineBoostController _machineBoostController;
+    private MachineUltimateController _machineUltimateController;
     private VehiclePhysicsModule _vehiclePhysicsModule;
     private InputManager _inputManager;
 
@@ -13,6 +14,7 @@ public class MachinePlayerController : MonoBehaviour
         // コンポーネントを取得する
         _machineEngineController = GetComponent<MachineEngineController>();
         _machineBoostController = GetComponent<MachineBoostController>();
+        _machineUltimateController = GetComponent<MachineUltimateController>();
         _vehiclePhysicsModule = GetComponent<VehiclePhysicsModule>();
 
         // インプットマネージャーのインスタンスを取得・初期化
@@ -39,6 +41,11 @@ public class MachinePlayerController : MonoBehaviour
         if(input.Boost)
         {
             _machineBoostController.TryStartBoost();
+        }
+        // アルティメットの入力
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            _machineUltimateController.TryActivateUltimate();
         }
     }
 }
