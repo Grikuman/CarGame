@@ -1,18 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MachinePlayerController : MonoBehaviour
+public class TEST_Controller : MonoBehaviour
 {
-    private MachineEngineController _machineEngineController;
-    private MachineBoostController _machineBoostController;
+    private TEST_1 _machineEngineController;
     private VehiclePhysicsModule _vehiclePhysicsModule;
     private InputManager _inputManager;
 
     private void Start()
     {
         // コンポーネントを取得する
-        _machineEngineController = GetComponent<MachineEngineController>();
-        _machineBoostController = GetComponent<MachineBoostController>();
+        _machineEngineController = GetComponent<TEST_1>();
         _vehiclePhysicsModule = GetComponent<VehiclePhysicsModule>();
 
         // インプットマネージャーのインスタンスを取得・初期化
@@ -27,18 +25,16 @@ public class MachinePlayerController : MonoBehaviour
         // 入力値を取得する
         var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
 
-        // ハンドルの入力
-        _vehiclePhysicsModule._input = input.Handle * 0.45f;
-        // アクセルの入力
+        // ハンドルの更新
+        _vehiclePhysicsModule._input = input.Handle * 0.3f;
+        // アクセルの更新
         _machineEngineController.InputThrottle = input.Accelerator;
-        // ブレーキの入力
+        // ブレーキの更新
         _machineEngineController.InputBrake = input.Brake;
-        // 見た目用モデルの傾き値の入力
-        _machineEngineController.InputSteer = (-input.Handle);
-        // ブーストの入力
-        if(input.Boost)
-        {
-            _machineBoostController.TryStartBoost();
-        }
+
+        // テスト用
+        float inputHorizontal = Input.GetAxis("Horizontal");
+        // 横滑りの追加
+        _machineEngineController.InputSteer = (inputHorizontal);
     }
 }

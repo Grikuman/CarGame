@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 19907795d7fac624f8d8611b20f09509,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.58
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 19907795d7fac624f8d8611b20f09509,
         type: 3}
@@ -277,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89611899}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15385677, y: -0.008788045, z: 0.0013684488, w: 0.98805314}
+  m_LocalRotation: {x: 0.15385677, y: -0.008788046, z: 0.001368448, w: 0.98805314}
   m_LocalPosition: {x: 9.011327, y: 126.75093, z: 112.106804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6290,6 +6290,51 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2609786134353280252, guid: 4b625558a5e9bab4faa97a9adc059f30, type: 3}
+--- !u!1 &1100407402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1100407403}
+  - component: {fileID: 1100407404}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1100407403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100407402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1619.3228, y: -179.53615, z: 186.34914}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1100407404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100407402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c81fc36a95076de4fb060c87cf47e41e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputDeviceType: 0
 --- !u!1 &1168342421
 GameObject:
   m_ObjectHideFlags: 0
@@ -6800,7 +6845,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428860785}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15385677, y: -0.008788045, z: 0.001368449, w: 0.98805314}
+  m_LocalRotation: {x: 0.15385677, y: -0.008788046, z: 0.0013684492, w: 0.98805314}
   m_LocalPosition: {x: 9.011327, y: 126.75093, z: 112.106804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7196,11 +7241,11 @@ GameObject:
   - component: {fileID: 2087330036}
   - component: {fileID: 2087330035}
   - component: {fileID: 2087330034}
-  - component: {fileID: 2087330033}
-  - component: {fileID: 2087330032}
   - component: {fileID: 2087330031}
   - component: {fileID: 2087330041}
   - component: {fileID: 2087330040}
+  - component: {fileID: 2087330042}
+  - component: {fileID: 2087330043}
   m_Layer: 15
   m_Name: Machine (1)
   m_TagString: Untagged
@@ -7232,65 +7277,6 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 32567
---- !u!114 &2087330032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10576ea5a4b8089408ace944780d9f8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _acceleratorAxis: 0
-  _driftFactor: 0
-  _brakeDuringTurn: 0
-  _sideFriction: 1
-  _accelerationRate: 1000
-  maxTorque: 19000000
-  wheelRadius: 0.3
-  torqueCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dragCoeff: 0.1
-  rollingResistance: 30
-  mass: 150
-  speed: 0
---- !u!114 &2087330033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db123a2f722fb804ab26e732fcba5a0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &2087330034
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7456,8 +7442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7f3cfbf301fc84490f4461bc47be44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxThrust: 7000
-  _maxSpeed: 200
+  _maxThrust: 8000
+  _maxSpeed: 120
   _thrustCurve:
     serializedVersion: 2
     m_Curve:
@@ -7485,7 +7471,43 @@ MonoBehaviour:
   _dragCoeff: 0.2
   _brakingDrag: 2
   _mass: 100
-  _lateralThrust: 4500
+  _lateralGrip: 5
+  _visualModel: {fileID: 1798852554}
+  _visualYawAngle: 10
+  _visualRollAngle: 25
+  _visualRotateSpeed: 3
+--- !u!114 &2087330042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087330030}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717b15e1d7fbeed419bc713387a28685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2087330043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087330030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64645f6b4f9ad349bd497876d50db91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boostMultiplier: 1.5
+  _maxBoostGauge: 100
+  _gaugeConsumptionRate: 20
+  _gaugeRecoveryRate: 20
+  _boostCooldown: 3
+  _currentGauge: 0
+  _cooldownTimer: 0
+  _isBoosting: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -7500,3 +7522,4 @@ SceneRoots:
   - {fileID: 1474419615}
   - {fileID: 900583304}
   - {fileID: 454167744}
+  - {fileID: 1100407403}
