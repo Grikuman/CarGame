@@ -36,13 +36,56 @@ public class CheckpointGeneratorWindow : EditorWindow
         for (int i = 0; i < recording.data.Count; i++)
         {
             var d = recording.data[i];
+            Vector3 pos = d.position;
+            Quaternion rot = d.rotation;
+
+            // ---------- 中央補正 ----------
+            Vector3 leftDir = -(rot * Vector3.right);
+            Vector3 rightDir = (rot * Vector3.right);
+
+            //コースの幅分のレイ
+            float rayLength = 50f;
+            //補正判定
+            bool adjusted = false;
+
+            // デバッグ用にRayをSceneビューに描く
+            Debug.DrawRay(pos, leftDir * rayLength, Color.red, 5f);
+            Debug.DrawRay(pos, rightDir * rayLength, Color.blue, 5f);
+
+            // 左右の壁を検出
+            if (Physics.Raycast(pos, leftDir, out RaycastHit leftHit, rayLength))
+            {
+                if (Physics.Raycast(pos, rightDir, out RaycastHit rightHit, rayLength))
+                {
+                    // 中点を取る
+                    Vector3 newPos = (leftHit.point + rightHit.point) * 0.5f;
+                    Debug.DrawLine(leftHit.point, rightHit.point, Color.yellow, 5f);
+
+                    // 差があれば補正ログを出す
+                    if (Vector3.Distance(pos, newPos) > 0.05f)
+                    {
+                        Debug.Log($"[CenterAdjust] #{i} pos adjusted by {Vector3.Distance(pos, newPos):F2}m");
+                    }
+
+                    pos = newPos;
+                    adjusted = true;
+                }
+            }
+
+            if (!adjusted)
+            {
+                Debug.LogWarning($"[CenterAdjust] #{i} No both-side hit → not adjusted");
+            }
+
+            // ---------- チェックポイント生成 ----------
             GameObject cp = (GameObject)PrefabUtility.InstantiatePrefab(checkpointPrefab);
-            cp.transform.position = d.position;
-            cp.transform.rotation = d.rotation;
+            cp.transform.position = pos;
+            cp.transform.rotation = rot;
             cp.transform.SetParent(parent.transform);
 
             var checkpoint = cp.GetComponent<Checkpoint>();
             if (checkpoint != null) checkpoint.checkpointID = i;
+
             Undo.RegisterCreatedObjectUndo(cp, "Create Checkpoint");
         }
 
