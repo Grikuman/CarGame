@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MachinePlayerController : MonoBehaviour
+public class MachinePlayerInput : MonoBehaviour , IMachineInput
 {
     private MachineEngineController _machineEngineController;
     private MachineBoostController _machineBoostController;
@@ -22,7 +22,7 @@ public class MachinePlayerController : MonoBehaviour
         _inputManager.Initialize();
     }
 
-    private void Update()
+    public void InputUpdate()
     {
         // 入力値を更新する
         _inputManager.UpdateDrivingInputAxis();
@@ -40,7 +40,7 @@ public class MachinePlayerController : MonoBehaviour
         // ブーストの入力
         if(input.Boost)
         {
-            _machineBoostController.TryStartBoost();
+            _machineBoostController.TryActivateBoost();
         }
         // アルティメットの入力
         if(Input.GetKeyDown(KeyCode.R))

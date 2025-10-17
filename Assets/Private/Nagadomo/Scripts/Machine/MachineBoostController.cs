@@ -66,7 +66,7 @@ public class MachineBoostController : MonoBehaviour
     /// <summary>
     /// ブースト発動できるか確認する
     /// </summary>
-    public void TryStartBoost()
+    public void TryActivateBoost()
     {
         // 発動条件
         // ブースト発動中でない　かつ　ゲージが貯まっている　かつクールタイムが終了している場合
@@ -75,7 +75,7 @@ public class MachineBoostController : MonoBehaviour
             // アルティメットが発動状態でなければブーストを発動する
             if (!_machineUltimateController.IsActiveUltimate())
             {
-                StartBoost();
+                ActivateBoost();
             }
         }
     }
@@ -83,7 +83,7 @@ public class MachineBoostController : MonoBehaviour
     /// <summary>
     /// ブーストを発動する
     /// </summary>
-    private void StartBoost()
+    private void ActivateBoost()
     {
         // マシンエンジンのブースト入力を設定する
         _machineEngineController.InputBoost = _boostMultiplier;
