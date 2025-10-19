@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class GravityAlignment
 {
-    private static Vector3 RECOVER_RIGHT_RAY_DIRECTION = Quaternion.Euler(0, 0, 135) * Vector3.up;
-    private static Vector3 RECOVER_LEFT_RAY_DIRECTION  = Quaternion.Euler(0, 0, -135) * Vector3.up;
+    private static readonly Vector3 RECOVER_RIGHT_RAY_DIRECTION = Quaternion.Euler(0, 0, 135) * Vector3.up;
+    private static readonly Vector3 RECOVER_LEFT_RAY_DIRECTION  = Quaternion.Euler(0, 0, -135) * Vector3.up;
 
 
     // 地面を探す距離
@@ -13,7 +13,8 @@ public class GravityAlignment
     // 地面レイヤー指定（必要に応じて）
     public LayerMask _layerMask { get; set; }
 
-
+    public const int a = 0;
+    public static readonly int b = 1;
     // 地面に接しているか
     public bool _isGrounded { get; private set; } = false;
     // 地面の法線（初期値は上方向）

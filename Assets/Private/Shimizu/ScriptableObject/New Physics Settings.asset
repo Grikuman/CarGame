@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2630ae638cc8f4aa9a8be9484119dd, type: 3}
+  m_Name: New Physics Settings
+  m_EditorClassIdentifier: 
+  _recoverPower: 0
+  _rayLength: 0
+  _isGrounded: 0
+  _groundNormal: {x: 0, y: 0, z: 0}
+  _isHover: 1
+  _hoverHeight: 0
+  _hoverForce: 0
+  _damping: 0
+  _rotationSpeed: 0
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 32567
