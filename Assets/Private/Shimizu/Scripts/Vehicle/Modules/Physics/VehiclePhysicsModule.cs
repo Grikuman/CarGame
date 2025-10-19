@@ -55,12 +55,12 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Eng
     {
         _vehicleController = vehicleController;
 
-        _transform = _vehicleController.transform;
+        _transform = vehicleController.gameObject.transform;
 
         // 各制御作成
         _gravityAlignment = new GravityAlignment(_vehicleController.gameObject.GetComponent<Rigidbody>());
-        _hoverBoard = new HoverBoard(_transform);
-        _orientationStabilizer = new OrientationStabilizer(_transform);
+        _hoverBoard = new HoverBoard(_transform , this);
+        _orientationStabilizer = new OrientationStabilizer(_transform , this);
 
         // 重力の設定値を更新
         _gravityAlignment._rayLength = RayLength;

@@ -9,10 +9,10 @@ public class OrientationStabilizer
     private VehiclePhysicsModule _vehiclePhysicsModule = null;
    
     // コンストラクタ
-    public OrientationStabilizer(Transform transform)
+    public OrientationStabilizer(Transform transform , VehiclePhysicsModule vehiclePhysicsModule)
     {
-        _transform = transform;
-        _vehiclePhysicsModule = transform.GetComponent<VehiclePhysicsModule>();
+        _transform            = transform;
+        _vehiclePhysicsModule = vehiclePhysicsModule;
     }
 
 

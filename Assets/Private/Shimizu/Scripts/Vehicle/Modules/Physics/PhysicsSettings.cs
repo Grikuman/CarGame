@@ -49,7 +49,7 @@ public class PhysicsSettings : VehicleModuleFactoryBase
         // ‰Šú‰»ˆ—
         vehiclePhysicsModule.Initialize(vehicleController);
 
-        return new VehiclePhysicsModule();
+        return vehiclePhysicsModule;
     }
 
     /// <summary> ƒ‚ƒWƒ…[ƒ‹‚Ìİ’è’l‚ğ‰Šú‰»‚·‚é </summary>

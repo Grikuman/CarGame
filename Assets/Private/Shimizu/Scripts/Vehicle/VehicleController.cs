@@ -37,8 +37,6 @@ public class VehicleController : MonoBehaviour
 
             // タイプを追加
             usedTypes.Add(moduleType);
-            // モジュールの初期化処理
-            module.Initialize(this);
             // モジュールの追加
             vehicleModuleBases.Add(module);
         }
@@ -58,8 +56,22 @@ public class VehicleController : MonoBehaviour
         {
             if (module == null || !module.GetIsActive()) continue;
 
-            module.UpdateModule();      // 更新処理
-            module.FixedUpdateModule(); // 物理計算処理
+            // 更新処理
+            module.UpdateModule();     
+        }
+
+        this.DrawRay();
+    }
+
+    private void FixedUpdate()
+    {
+        // 各モジュールの更新処理
+        foreach (var module in vehicleModuleBases)
+        {
+            if (module == null || !module.GetIsActive()) continue;
+
+            // 物理計算処理
+            module.FixedUpdateModule(); 
         }
 
         this.DrawRay();

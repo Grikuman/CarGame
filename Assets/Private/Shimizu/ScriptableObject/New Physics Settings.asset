@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2630ae638cc8f4aa9a8be9484119dd, type: 3}
   m_Name: New Physics Settings
   m_EditorClassIdentifier: 
-  _recoverPower: 0
-  _rayLength: 0
+  _recoverPower: 2
+  _rayLength: 20
   _isGrounded: 0
   _groundNormal: {x: 0, y: 0, z: 0}
   _isHover: 1
-  _hoverHeight: 0
-  _hoverForce: 0
-  _damping: 0
-  _rotationSpeed: 0
+  _hoverHeight: 1
+  _hoverForce: 400
+  _damping: 3
+  _rotationSpeed: 10
   _layerMask:
     serializedVersion: 2
     m_Bits: 32567

@@ -22,11 +22,11 @@ public class HoverBoard
     private VehiclePhysicsModule _vehiclePhysicsModule = null;
 
     // コンストラクタ
-    public HoverBoard(Transform transform)
+    public HoverBoard(Transform transform , VehiclePhysicsModule vehiclePhysicsModule)
     {
-        _transform = transform;
-        _rb = transform.GetComponent<Rigidbody>();
-        _vehiclePhysicsModule = transform.GetComponent<VehiclePhysicsModule>();
+        _transform            = transform;
+        _rb                   = transform.GetComponent<Rigidbody>();
+        _vehiclePhysicsModule = vehiclePhysicsModule;
     }
 
 
