@@ -6,7 +6,6 @@ public class MachinePlayerInput : MonoBehaviour , IMachineInput
     private MachineEngineController _machineEngineController;
     private MachineBoostController _machineBoostController;
     private MachineUltimateController _machineUltimateController;
-    private VehiclePhysicsModule _vehiclePhysicsModule;
     private InputManager _inputManager;
 
     private void Start()
@@ -15,7 +14,7 @@ public class MachinePlayerInput : MonoBehaviour , IMachineInput
         _machineEngineController = GetComponent<MachineEngineController>();
         _machineBoostController = GetComponent<MachineBoostController>();
         _machineUltimateController = GetComponent<MachineUltimateController>();
-        _vehiclePhysicsModule = GetComponent<VehiclePhysicsModule>();
+       
 
         // インプットマネージャーのインスタンスを取得・初期化
         _inputManager = InputManager.Instance;
@@ -30,7 +29,7 @@ public class MachinePlayerInput : MonoBehaviour , IMachineInput
         var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
 
         // ハンドルの入力
-        _vehiclePhysicsModule._input = input.Handle * 0.45f;
+        //_vehiclePhysicsModule._input = input.Handle * 0.45f;
         // アクセルの入力
         _machineEngineController.InputThrottle = input.Accelerator;
         // ブレーキの入力
