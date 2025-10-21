@@ -6602,8 +6602,6 @@ GameObject:
   - component: {fileID: 2087330040}
   - component: {fileID: 2087330035}
   - component: {fileID: 2087330034}
-  - component: {fileID: 2087330033}
-  - component: {fileID: 2087330032}
   - component: {fileID: 2087330041}
   m_Layer: 15
   m_Name: Machine (1)
@@ -6612,65 +6610,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2087330032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10576ea5a4b8089408ace944780d9f8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _acceleratorAxis: 0
-  _driftFactor: 0
-  _brakeDuringTurn: 0
-  _sideFriction: 1
-  _accelerationRate: 1000
-  maxTorque: 19000000
-  wheelRadius: 0.3
-  torqueCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dragCoeff: 0.1
-  rollingResistance: 30
-  mass: 150
-  speed: 0
---- !u!114 &2087330033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db123a2f722fb804ab26e732fcba5a0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &2087330034
 Rigidbody:
   m_ObjectHideFlags: 0

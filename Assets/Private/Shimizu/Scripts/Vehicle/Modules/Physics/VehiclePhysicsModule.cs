@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<EngineSettings>
+public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<PhysicsSettings>
 {
 
     public float RecoverPower { get; set; }
@@ -74,6 +74,8 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Eng
 
         // 姿勢制御の設定値を更新
         _orientationStabilizer.rotationSpeed = RotationSpeed;
+
+     
     }
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
@@ -96,7 +98,7 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Eng
     }
 
     // リセット時の処理
-    public void ResetModule(EngineSettings settings)
+    public void ResetModule(PhysicsSettings settings)
     {
         Debug.Log("Reset Engine Settings");
 

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a2630ae638cc8f4aa9a8be9484119dd, type: 3}
-  m_Name: New Physics Settings
+  m_Name: Physics Settings
   m_EditorClassIdentifier: 
   _recoverPower: 2
   _rayLength: 20
