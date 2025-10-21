@@ -71,19 +71,14 @@ public class KeyboardInput : IInputDevice
                 break;
             case UiInputActionID.RIGHT:
                 return Input.GetKeyDown(KeyCode.RightArrow);
-                break;
             case UiInputActionID.LEFT:
                 return Input.GetKeyDown(KeyCode.LeftArrow);
-                break;
             case UiInputActionID.UP:
                 return Input.GetKeyDown(KeyCode.UpArrow);
-                break;
             case UiInputActionID.DOWN:
                 return Input.GetKeyDown(KeyCode.DownArrow);
-                break;
             case UiInputActionID.ESC:
                 return Input.GetKeyDown(KeyCode.Escape);
-                break;
             default:
                 break;
         }

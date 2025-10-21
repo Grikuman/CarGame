@@ -3,7 +3,7 @@ using UnityEngine;
 public class MachineEngine : MonoBehaviour
 {
     public float _acceleratorAxis = 0;
-    private float _brakeAxis = 0;
+    
 
     // ƒhƒŠƒtƒg
     public float _driftFactor = 0.5f;
@@ -38,7 +38,7 @@ public class MachineEngine : MonoBehaviour
        this.ApplyAcceleration();
        //this.ReduceSidewaysVelocity();
 
-        Debug.Log(rb.linearVelocity.magnitude * 3.6f);
+        //Debug.Log(rb.linearVelocity.magnitude * 3.6f);
     }
 
     /// <summary>
