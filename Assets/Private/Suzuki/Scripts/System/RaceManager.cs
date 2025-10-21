@@ -43,7 +43,7 @@ public class RaceManager : MonoBehaviour
             case RaceState.Racing:
                 // レース中の処理
                 float elapsed = Time.time - raceStartTime;
-                Debug.Log($"Race Time: {elapsed:F2}");
+                //Debug.Log($"Race Time: {elapsed:F2}");
                 break;
 
             case RaceState.Finished:
@@ -60,7 +60,7 @@ public class RaceManager : MonoBehaviour
         float timer = countdownTime;
         while (timer > 0f)
         {
-            Debug.Log(Mathf.CeilToInt(timer));
+            //Debug.Log(Mathf.CeilToInt(timer));
             yield return new WaitForSeconds(1f);
             timer -= 1f;
         }
