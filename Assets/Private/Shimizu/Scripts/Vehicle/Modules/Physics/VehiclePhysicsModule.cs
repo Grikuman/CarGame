@@ -1,14 +1,13 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<PhysicsSettings>
+public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<VehiclePhysicsModuleData>
 {
 
     public float RecoverPower { get; set; }
     public float RayLength { get; set; }
 
-    public bool IsGrounded { get; set; }
-    public Vector3 GroundNormal { get; set; }
+    public bool IsGrounded { get; private set; }
+    public Vector3 GroundNormal { get; private set; }
 
     public bool IsHover { get; set; }
     public float HoverHeight { get; set; }
@@ -77,16 +76,23 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Phy
 
      
     }
+    /// <summary> 開始処理 </summary>
+    public void Start()
+    {
+        Debug.Log("Start Vehicle Physics Module");
+    }
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
-        Debug.Log("Update Engine Module");
+        Debug.Log("Update Vehicle Physics Module");
 
         this.OnDrawGizmos();
     }
     /// <summary> 物理計算更新処理 </summary>
     public void FixedUpdateModule()
     {
+        Debug.Log("Fixed Update Vehicle Physics Module");
+
         // 各制御の更新処理
         _gravityAlignment.UpdateGravity();
         _hoverBoard.UpdateHoverForce();
@@ -98,20 +104,21 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Phy
     }
 
     // リセット時の処理
-    public void ResetModule(PhysicsSettings settings)
+    public void ResetModule(VehiclePhysicsModuleData data)
     {
-        Debug.Log("Reset Engine Settings");
+        Debug.Log("Reset Vehicle Physics Module Data");
 
-        RecoverPower  = RecoverPower;
-        RayLength     = RayLength;
-        IsGrounded    = IsGrounded;
-        GroundNormal  = GroundNormal;
-        IsHover       = IsHover;
-        HoverHeight   = HoverHeight;
-        HoverForce    = HoverForce;
-        Damping       = Damping;
-        RotationSpeed = RotationSpeed;
-        LayerMask     = LayerMask;
+        RecoverPower  = data.RecoverPower;
+        RayLength     = data.RayLength;
+        
+        IsHover       = data.IsHover;
+        HoverHeight   = data.HoverHeight;
+        HoverForce    = data.HoverForce;
+        Damping       = data.Damping;
+
+        RotationSpeed = data.RotationSpeed;
+
+        LayerMask     = data.LayerMask;
 
         // 重力の設定値を更新
         _gravityAlignment._rayLength = RayLength;

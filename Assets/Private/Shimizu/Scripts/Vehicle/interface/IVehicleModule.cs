@@ -10,6 +10,9 @@ public interface IVehicleModule
     /// <summary> 初期化処理 </summary>
     public void Initialize(VehicleController vehicleController);
 
+    /// <summary> 開始処理 </summary>
+    public void Start();
+
     /// <summary> 更新処理 </summary>
     public void UpdateModule();
 

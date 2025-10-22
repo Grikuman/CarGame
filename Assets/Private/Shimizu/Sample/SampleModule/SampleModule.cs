@@ -32,6 +32,19 @@ public class SampleModule : IVehicleModule, IResettableVehicleModule<SampleModul
 
         _vehicleController = vehicleController;
     }
+    /// <summary> 開始処理 </summary>
+    public void Start()
+    {
+        Debug.Log("Start Sample Module");
+
+        // 他モジュールの取得
+        _vehicleController.Find<VehiclePhysicsModule>();
+
+        // モジュールデータリセット処理
+        _vehicleController.ResetSettings<SampleModuleData>();
+
+
+    }
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {

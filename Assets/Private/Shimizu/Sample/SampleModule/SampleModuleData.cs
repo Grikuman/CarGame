@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Vehicle/Sample Module Data")]
 public class SampleModuleData : VehicleModuleFactoryBase
 {
-
+    // サンプルデータ
     [SerializeField] private int data1;
     [SerializeField] private int data2;
     [SerializeField] private int data3;
@@ -37,7 +37,27 @@ public class SampleModuleData : VehicleModuleFactoryBase
     /// <summary> モジュールを作成する </summary>
     public override IVehicleModule Create(VehicleController vehicleController)
     {
-        return new SampleModule();
+        var sampleModule = new SampleModule();
+
+        // データの初期値を設定
+        sampleModule.data1 = data1;
+        sampleModule.data2 = data2;
+        sampleModule.data3 = data3;
+        sampleModule.data4 = data4;
+
+        sampleModule.dataf1 = dataf1;
+        sampleModule.dataf2 = dataf2;
+        sampleModule.dataf3 = dataf3;
+        sampleModule.dataf4 = dataf4;
+
+        sampleModule.dataVec1 = dataVec1;
+        sampleModule.dataVec2 = dataVec2;
+        sampleModule.dataVec3 = dataVec3;
+
+        // 初期化処理
+        sampleModule.Initialize(vehicleController);
+          
+        return sampleModule;
     }
 
     /// <summary> モジュールの設定値を初期化する </summary>

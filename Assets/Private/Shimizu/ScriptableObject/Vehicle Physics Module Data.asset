@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5279f37f60aa88c48a4b5daec971e13e, type: 3}
-  m_Name: Engine Settings
+  m_Script: {fileID: 11500000, guid: 3a2630ae638cc8f4aa9a8be9484119dd, type: 3}
+  m_Name: Vehicle Physics Module Data
   m_EditorClassIdentifier: 
-  maxRPM: 7000
-  torqueCurve: 300
-  rpmTorqueCurve:
+  _recoverPower: 2
+  _rayLength: 20
+  _isHover: 0
+  _hoverHeight: 1
+  _hoverForce: 400
+  _damping: 3
+  _rotationSpeed: 10
+  _layerMask:
     serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_Bits: 32567

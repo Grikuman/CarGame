@@ -6784,10 +6784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717b15e1d7fbeed419bc713387a28685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modules:
-  - {fileID: 11400000, guid: c694b462c2fdfcf41a8c0bcee968f47a, type: 2}
-  - {fileID: 11400000, guid: 7f3deaa8215efe64c9523bf90ac7ed36, type: 2}
-  - {fileID: 11400000, guid: a7905172653c95a41aa02492be20f54d, type: 2}
+  _moduleFactories:
+  - {fileID: 11400000, guid: 761dbc49e07c7404ebf72b6ec0d6ba75, type: 2}
+  - {fileID: 11400000, guid: 61a46c8910d7f61448c9c84cc49b53da, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
