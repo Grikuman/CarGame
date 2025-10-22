@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Vehicle/Physics Settings")]
-public class PhysicsSettings : VehicleModuleFactoryBase
+[CreateAssetMenu(menuName = "Vehicle/Vehicle Physics Module Data")]
+public class VehiclePhysicsModuleData : VehicleModuleFactoryBase
 {
     [Header("重力設定")]
 
@@ -10,9 +10,6 @@ public class PhysicsSettings : VehicleModuleFactoryBase
 
     [Space]
     [Space]
-
-    [SerializeField] private bool _isGrounded;
-    [SerializeField] public Vector3 _groundNormal;
 
     [Header("ホバー設定")]
     [SerializeField] private bool _isHover;
@@ -28,6 +25,24 @@ public class PhysicsSettings : VehicleModuleFactoryBase
     [Header("共通設定")]
     [SerializeField] private LayerMask _layerMask;
 
+    // 読み取り専用プロパティ
+
+    // 重力設定
+    public float RecoverPower => _recoverPower;
+    public float RayLength => _rayLength;
+
+    // ホバー設定
+    public bool IsHover => _isHover;
+    public float HoverHeight => _hoverHeight;
+    public float HoverForce => _hoverForce;
+    public float Damping => _damping;
+
+    // 姿勢制御設定
+    public float RotationSpeed => _rotationSpeed;
+
+    // 共通設定
+    public LayerMask LayerMask => _layerMask;
+
 
     /// <summary> モジュールを作成する </summary>
     public override IVehicleModule Create(VehicleController vehicleController)
@@ -37,8 +52,7 @@ public class PhysicsSettings : VehicleModuleFactoryBase
         // 初期設定
         vehiclePhysicsModule.RecoverPower  = _recoverPower;
         vehiclePhysicsModule.RayLength     = _rayLength;
-        vehiclePhysicsModule.IsGrounded    = _isGrounded;
-        vehiclePhysicsModule.GroundNormal  = _groundNormal;
+  
         vehiclePhysicsModule.IsHover       = _isHover;
         vehiclePhysicsModule.HoverHeight   = _hoverHeight;
         vehiclePhysicsModule.HoverForce    = _hoverForce;
@@ -55,9 +69,9 @@ public class PhysicsSettings : VehicleModuleFactoryBase
     /// <summary> モジュールの設定値を初期化する </summary>
     public override void ResetSettings(IVehicleModule module)
     {
-        if (module is IResettableVehicleModule<PhysicsSettings> steeringModule)
+        if (module is IResettableVehicleModule<VehiclePhysicsModuleData> VehiclePhysicsModule)
         {
-            steeringModule.ResetModule(this);
+            VehiclePhysicsModule.ResetModule(this);
         }
     }
 }

@@ -6,10 +6,10 @@ public class VehicleController : MonoBehaviour
 {
 
     [SerializeField]
-    private List<VehicleModuleFactoryBase> modules = new List<VehicleModuleFactoryBase>();
+    private List<VehicleModuleFactoryBase> _moduleFactories = new List<VehicleModuleFactoryBase>();
     
     private Rigidbody _rb;
-    private List<IVehicleModule> vehicleModuleBases = new List<IVehicleModule>();
+    private List<IVehicleModule> _modules = new List<IVehicleModule>();
 
     public float Steering { get; set; }
     public float Accelerator { get; set; }
@@ -19,10 +19,10 @@ public class VehicleController : MonoBehaviour
     {
         var usedTypes = new HashSet<System.Type>();
 
-        foreach (var moduleSetting in modules)
+        foreach (var moduleFactory in _moduleFactories)
         {
             // モジュールを作成する
-            var module = moduleSetting.Create(this);
+            var module = moduleFactory.Create(this);
             if (module == null) continue;
 
             // タイプを取得する
@@ -38,8 +38,11 @@ public class VehicleController : MonoBehaviour
             // タイプを追加
             usedTypes.Add(moduleType);
             // モジュールの追加
-            vehicleModuleBases.Add(module);
+            _modules.Add(module);
         }
+
+        // 開始処理
+        foreach (var module in _modules) module.Start();
     }
 
     /// <summary> 開始処理 </summary>
@@ -52,7 +55,7 @@ public class VehicleController : MonoBehaviour
     private void Update()
     {
         // 各モジュールの更新処理
-        foreach (var module in vehicleModuleBases)
+        foreach (var module in _modules)
         {
             if (module == null || !module.GetIsActive()) continue;
 
@@ -62,11 +65,11 @@ public class VehicleController : MonoBehaviour
 
         this.DrawRay();
     }
-
+    /// <summary> 物理計算更新処理 </summary>
     private void FixedUpdate()
     {
         // 各モジュールの更新処理
-        foreach (var module in vehicleModuleBases)
+        foreach (var module in _modules)
         {
             if (module == null || !module.GetIsActive()) continue;
 
@@ -82,7 +85,7 @@ public class VehicleController : MonoBehaviour
     /// <returns> 指定した型のモジュール 存在しない場合は null </returns>
     public T Find<T>() where T : class, IVehicleModule
     {
-        foreach (var module in vehicleModuleBases)
+        foreach (var module in _modules)
         {
             if (module is T tModule) return tModule;
         }
@@ -97,11 +100,11 @@ public class VehicleController : MonoBehaviour
     {
         int n = 0;
 
-        foreach (var module in modules)
+        foreach (var module in _moduleFactories)
         {
             if (module is T tModule)
             {
-                module.ResetSettings(vehicleModuleBases[n]);
+                module.ResetSettings(_modules[n]);
                 return;
             }
             n++;
