@@ -36,8 +36,9 @@ public class MachinePlayerInput : MonoBehaviour , IMachineInput
         _machineEngineController.InputBrake = input.Brake;
         // 見た目用モデルの傾き値の入力
         _machineEngineController.InputSteer = (-input.Handle);
+
         // ブーストの入力
-        if(input.Boost)
+        if (input.Boost)
         {
             _machineBoostController.TryActivateBoost();
         }
