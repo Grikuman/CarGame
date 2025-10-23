@@ -30,6 +30,13 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
         _inputManager = InputManager.Instance;
         _inputManager.Initialize();
     }
+
+    /// <summary> 開始処理 </summary>
+    public void Start()
+    {
+
+    }
+
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
