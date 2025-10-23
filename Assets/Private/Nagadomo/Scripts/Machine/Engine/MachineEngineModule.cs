@@ -48,6 +48,13 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
         // 見た目用モデルの初期化処理
         InitVisualModel();
     }
+
+    /// <summary> 開始処理 </summary>
+    public void Start()
+    {
+
+    }
+
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
