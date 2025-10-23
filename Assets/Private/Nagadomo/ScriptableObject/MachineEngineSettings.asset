@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae396335881295c4da86bac314785dc5, type: 3}
+  m_Name: MachineEngineSettings
+  m_EditorClassIdentifier: 
+  _maxThrust: 8000
+  _maxSpeed: 120
+  _thrustCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _dragCoeff: 0.02
+  _brakingDrag: 2
+  _mass: 200
+  _lateralGrip: 10
+  _visualModel: {fileID: 919132149155446097, guid: 19907795d7fac624f8d8611b20f09509,
+    type: 3}
+  _visualYawAngle: 10
+  _visualRollAngle: 25
+  _visualRotateSpeed: 5
