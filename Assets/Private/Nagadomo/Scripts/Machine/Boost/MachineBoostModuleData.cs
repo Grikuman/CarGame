@@ -11,6 +11,7 @@ public class MachineBoostModuleData : VehicleModuleFactoryBase
     [SerializeField] private float _boostCooldown = 3.0f;         // ブースト後のクールダウン
 
     [SerializeField] private float _currentGauge;
+    [SerializeField] private float _coolDownTimer;
     [SerializeField] private bool _isBoosting = true;
 
     // 読み取り専用
@@ -19,6 +20,9 @@ public class MachineBoostModuleData : VehicleModuleFactoryBase
     public float GaugeConsumptionRate => _gaugeConsumptionRate;
     public float GaugeRecoveryRate => _gaugeRecoveryRate;
     public float BoostCooldown => _boostCooldown;
+    public float CurrentGauge => _currentGauge;
+    public float CoolDownTimer => _coolDownTimer;
+    public bool IsBoosting => _isBoosting;
 
     /// <summary> モジュールを作成する </summary>
     public override IVehicleModule Create(VehicleController vehicleController)
@@ -31,6 +35,10 @@ public class MachineBoostModuleData : VehicleModuleFactoryBase
         machineBoostModule.GaugeConsumptionRate = _gaugeConsumptionRate;
         machineBoostModule.GaugeRecoveryRate = _gaugeRecoveryRate;
         machineBoostModule.BoostCoolDown = _boostCooldown;
+
+        machineBoostModule.CurrentGauge = _currentGauge;
+        machineBoostModule.CoolDownTimer = _coolDownTimer;
+        machineBoostModule.IsBoosting = _isBoosting;
 
         // 初期化処理
         machineBoostModule.Initialize(vehicleController);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae396335881295c4da86bac314785dc5, type: 3}
   m_Name: MachineEngineData
   m_EditorClassIdentifier: 
-  _maxThrust: 10000
+  _maxThrust: 7000
   _maxSpeed: 150
   _thrustCurve:
     serializedVersion: 2
@@ -42,6 +42,6 @@ MonoBehaviour:
   _brakingDrag: 2
   _mass: 200
   _lateralGrip: 10
-  _visualYawAngle: 20
-  _visualRollAngle: 9.9
-  _visualRotateSpeed: 2
+  _visualYawAngle: 10
+  _visualRollAngle: 45
+  _visualRotateSpeed: 1

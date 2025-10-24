@@ -27,7 +27,7 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
 
     // リジッドボディー
     private Rigidbody _rb;
-    private Quaternion _defaultRotation = Quaternion.identity; // 見た目用の初期姿勢
+    private Quaternion _defaultRotation; // 見た目用の初期姿勢
 
     private bool _isActive = true;
     private VehicleController _vehicleController = null;

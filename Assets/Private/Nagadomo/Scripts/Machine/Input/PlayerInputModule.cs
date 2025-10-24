@@ -5,8 +5,8 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
 {
     private MachineEngineModule _machineEngineModule;
     private MachineSteeringModule _machineSteeringModule;
-    //private MachineBoostModule _machineBoostModule;
-    //private MachineUltimateModule _machineUltimateModule;
+    private MachineBoostModule _machineBoostModule;
+    private MachineUltimateModule _machineUltimateModule;
     private InputManager _inputManager;
 
     private bool _isActive = true;
@@ -35,8 +35,10 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
         _machineEngineModule = _vehicleController.Find<MachineEngineModule>();
         // ステアリングモジュールを取得する
         _machineSteeringModule = _vehicleController.Find<MachineSteeringModule>();
-        //_machineBoostModule = _vehicleController.Find<MachineBoostModule>();
-        //_machineUltimateModule = _vehicleController.Find<MachineUltimateModule>();
+        // ブーストモジュールを取得する
+        _machineBoostModule = _vehicleController.Find<MachineBoostModule>();
+        // アルティメットモジュールを取得する
+        _machineUltimateModule = _vehicleController.Find<MachineUltimateModule>();
 
         // モジュールデータリセット処理
         _vehicleController.ResetSettings<PlayerInputModuleData>();
@@ -61,9 +63,15 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
         // 見た目用モデルの傾き値の入力
         _machineEngineModule.InputSteer = (-input.Handle);
 
-        if(input.Accelerator >= 0.5)
+        // ブースト入力
+        if(input.Boost)
         {
-            Debug.Log("アクセル入力を受け付けました");
+            _machineBoostModule.TryActivateBoost();
+        }
+        // アルティメット入力
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            _machineUltimateModule.TryActivateUltimate();
         }
     }
     /// <summary> 物理計算更新処理 </summary>
