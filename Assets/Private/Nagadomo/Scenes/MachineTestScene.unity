@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 19907795d7fac624f8d8611b20f09509,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 19907795d7fac624f8d8611b20f09509,
         type: 3}
@@ -180,12 +180,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 19907795d7fac624f8d8611b20f09509,
         type: 3}
       propertyPath: m_Name
-      value: Kart_C
+      value: VisualModel
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 19907795d7fac624f8d8611b20f09509,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7374,11 +7374,6 @@ GameObject:
   - component: {fileID: 2087330035}
   - component: {fileID: 2087330034}
   - component: {fileID: 2087330042}
-  - component: {fileID: 2087330041}
-  - component: {fileID: 2087330040}
-  - component: {fileID: 2087330043}
-  - component: {fileID: 2087330044}
-  - component: {fileID: 2087330045}
   m_Layer: 15
   m_Name: PlayerMachine
   m_TagString: Untagged
@@ -7527,64 +7522,6 @@ Transform:
   - {fileID: 1390977841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2087330040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17dbb225796e3ba4da6dac4e9f61934b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2087330041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7f3cfbf301fc84490f4461bc47be44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxThrust: 8000
-  _maxSpeed: 120
-  _thrustCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _dragCoeff: 0.2
-  _brakingDrag: 2
-  _mass: 100
-  _lateralGrip: 5
-  _visualModel: {fileID: 1798852554}
-  _visualYawAngle: 10
-  _visualRollAngle: 25
-  _visualRotateSpeed: 3
 --- !u!114 &2087330042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7597,57 +7534,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717b15e1d7fbeed419bc713387a28685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modules:
-  - {fileID: 11400000, guid: a7905172653c95a41aa02492be20f54d, type: 2}
-  - {fileID: 11400000, guid: c73504dc286c48c46b83bff63d43177f, type: 2}
+  _moduleFactories:
+  - {fileID: 11400000, guid: 761dbc49e07c7404ebf72b6ec0d6ba75, type: 2}
+  - {fileID: 11400000, guid: 117dfc2fd3ee51b4e8a2e75f4293655b, type: 2}
   - {fileID: 11400000, guid: 9da4bf7595a0cb1459a561973c211e0f, type: 2}
---- !u!114 &2087330043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d64645f6b4f9ad349bd497876d50db91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _boostMultiplier: 1.5
-  _maxBoostGauge: 100
-  _gaugeConsumptionRate: 20
-  _gaugeRecoveryRate: 20
-  _boostCooldown: 3
-  _currentGauge: 0
-  _cooldownTimer: 0
-  _isBoosting: 0
---- !u!114 &2087330044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7735c9049247af448b3b27057d3d3cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentGauge: 0
-  _maxGauge: 100
-  _gaugeIncrease: 0.01
---- !u!114 &2087330045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087330030}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2124638f5d9ad9444942fc37853b1ef6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  - {fileID: 11400000, guid: ac9c7ab13362b3a46848e696a4fa5c43, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

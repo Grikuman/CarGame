@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<MachineEngineSettings>
+public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<MachineEngineModuleData>
 {
 
     public float MaxThrust { get; set; }
@@ -18,14 +19,15 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     public float VisualRollAngle { get; set; }
     public float VisualRotateSpeed { get; set; }
 
-    public float CurrentSpeed { get; private set; }   // 現在の速度
-    public float InputThrottle { get; set; } = 0.0f;  // アクセル入力
-    public float InputBrake { get; set; } = 0.0f;     // ブレーキ入力
-    public float InputSteer { get; set; } = 0.0f;     // ステアリング入力
-    public float InputBoost { get; set; } = 1.0f;      // ブーストの入力
+    public float CurrentSpeed { get; private set; }  // 現在の速度
+    public float InputThrottle { get; set; } = 0.0f; // アクセル入力
+    public float InputBrake { get; set; } = 0.0f;    // ブレーキ入力
+    public float InputSteer { get; set; } = 0.0f;    // ステアリング入力
+    public float InputBoost { get; set; } = 1.0f;    // ブーストの入力
 
-    private Rigidbody _rb; // RigitBody
-    private Quaternion _defaultRotation; // 見た目用の初期姿勢
+    // リジッドボディー
+    private Rigidbody _rb;
+    private Quaternion _defaultRotation = Quaternion.identity; // 見た目用の初期姿勢
 
     private bool _isActive = true;
     private VehicleController _vehicleController = null;
@@ -40,6 +42,7 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     {
         _vehicleController = vehicleController;
 
+        // リジッドボディーの設定
         _rb = _vehicleController.gameObject.GetComponent<Rigidbody>();
         _rb.mass = Mass;
         _rb.linearDamping = 0.0f;
@@ -52,17 +55,20 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     /// <summary> 開始処理 </summary>
     public void Start()
     {
-
+        Debug.Log("Start Machine Engine Module");
+        // モジュールデータリセット処理
+        _vehicleController.ResetSettings<MachineEngineModuleData>();
     }
 
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
-        Debug.Log("Update Machine Engine Module");
+        Debug.Log("Update MachineEngineModule");
     }
     /// <summary> 物理計算更新処理 </summary>
     public void FixedUpdateModule()
     {
+        Debug.Log("FixedUpdate MachineEngineModule");
         // エンジンの推進力・抵抗・ブレーキを計算する
         UpdateEngine();
         // 横滑りを抑える処理
@@ -72,9 +78,23 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     }
 
     // リセット時の処理
-    public void ResetModule(MachineEngineSettings settings)
+    public void ResetModule(MachineEngineModuleData data)
     {
-        Debug.Log("Reset Machine Engine Settings");
+        Debug.Log("Reset MachineEngineData");
+
+        MaxThrust = data.MaxThrust;
+        MaxSpeed = data.MaxSpeed;
+        ThrustCurve = data.ThrustCurve;
+        DragCoeff = data.DragCoeff;
+        BrakingDrag = data.BrakingDrag;
+        Mass = data.Mass;
+        LateralGrip = data.LateralGrip;
+        VisualYawAngle = data.VisualYawAngle;
+        VisualYawAngle = data.VisualRollAngle;
+        VisualRotateSpeed = data.VisualRotateSpeed;
+
+        // 見た目用モデルの初期化処理
+        InitVisualModel();
     }
 
     // 見た目用モデルの初期化処理
@@ -82,20 +102,26 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     {
         if (VisualModel == null)
         {
-            Debug.LogWarning("マシンのVisualModelが設定されていません");
-        }
-        else
-        {
-            // 初期角度を保存する
-            _defaultRotation = VisualModel.localRotation;
-        }
+            VisualModel = _vehicleController.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == "VisualModel");
+
+                if (VisualModel == null)
+                {
+                    Debug.LogWarning("マシンのVisualModelが見つかりません");
+                    return;
+                }
+            }
+
+        // 初期角度を保存する
+        _defaultRotation = VisualModel.localRotation;
     }
+
 
     /// <summary>
     /// エンジンの推進力・抵抗・ブレーキを計算する
     /// </summary>
     private void UpdateEngine()
     {
+        Debug.Log("エンジンのスロットル値は：" + InputThrottle + "です");
         // 現在の速度を取得する
         CurrentSpeed = _rb.linearVelocity.magnitude;
         // 速度比0～1に正規化する
@@ -104,8 +130,8 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
         float thrustFactor = ThrustCurve.Evaluate(speedFactor);
 
         float thrustForce = InputThrottle * MaxThrust * thrustFactor * InputBoost; // 推力
-        float dragForce = DragCoeff * CurrentSpeed * CurrentSpeed;    // 空気抵抗
-        float brakeForce = InputBrake * BrakingDrag * Mass;         // ブレーキ力
+        float dragForce = DragCoeff * CurrentSpeed * CurrentSpeed; // 空気抵抗
+        float brakeForce = InputBrake * BrakingDrag * Mass; // ブレーキ力
 
         // 最終の力を計算する
         Vector3 forward = _rb.transform.forward;
