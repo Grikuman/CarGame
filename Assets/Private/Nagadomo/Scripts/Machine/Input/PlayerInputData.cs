@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Vehicle/Player Input Settings")]
-public class PlayerInputSettings : VehicleModuleFactoryBase
+[CreateAssetMenu(menuName = "Vehicle/Player Input Module Data")]
+public class PlayerInputModuleData : VehicleModuleFactoryBase
 {
     /// <summary> モジュールを作成する </summary>
     public override IVehicleModule Create(VehicleController vehicleController)
@@ -19,9 +19,9 @@ public class PlayerInputSettings : VehicleModuleFactoryBase
     /// <summary> モジュールの設定値を初期化する </summary>
     public override void ResetSettings(IVehicleModule module)
     {
-        if (module is IResettableVehicleModule<PlayerInputSettings> machineEngineModule)
+        if (module is IResettableVehicleModule<PlayerInputModuleData> playerInputModule)
         {
-            machineEngineModule.ResetModule(this);
+            playerInputModule.ResetModule(this);
         }
     }
 }

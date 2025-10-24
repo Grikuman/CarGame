@@ -81,7 +81,7 @@ public class MachineEngineController : MonoBehaviour
 
         float thrustForce = InputThrottle * _maxThrust * thrustFactor * InputBoost; // 推力
         float dragForce = _dragCoeff * CurrentSpeed * CurrentSpeed;    // 空気抵抗
-        float brakeForce = InputBrake * _brakingDrag * _mass;          // ブレーキ力
+        float brakeForce = InputBrake * _brakingDrag * _mass; // ブレーキ力
 
         // 最終の力を計算する
         Vector3 forward = transform.forward;
