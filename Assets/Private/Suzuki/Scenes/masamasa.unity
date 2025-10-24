@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0e42a1bd94559724fa8b34f53ec54172,
         type: 3}
       propertyPath: m_Name
-      value: Kart_C_Marged
+      value: Machine_C
       objectReference: {fileID: 0}
     - target: {fileID: 7653793227501657334, guid: 0e42a1bd94559724fa8b34f53ec54172,
         type: 3}
@@ -5007,7 +5007,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 67885d0e0e7b0b941aa30be98f4ac5df,
         type: 3}
       propertyPath: m_Name
-      value: Kart_A_Marged
+      value: Machine_A
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5631,18 +5631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee678318d71bf9a4e871c8b5c85e8fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoverPower: 2
-  _rayLength: 20
-  _isGrounded: 0
-  _groundNormal: {x: 0, y: 0, z: 0}
-  _isHover: 1
-  _hoverHeight: 1
-  _hoverForce: 400
-  _damping: 3
-  _rotationSpeed: 10
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 32567
 --- !u!114 &841806554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11769,7 +11757,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2ca5ed07f0a655e448a451dd6f0ef432,
         type: 3}
       propertyPath: m_Name
-      value: Kart_B
+      value: Machine_B
       objectReference: {fileID: 0}
     - target: {fileID: 1269349469999281998, guid: 2ca5ed07f0a655e448a451dd6f0ef432,
         type: 3}
@@ -17831,6 +17819,6 @@ SceneRoots:
   - {fileID: 1214280487}
   - {fileID: 1507688725}
   - {fileID: 2040943123}
-  - {fileID: 53560130}
   - {fileID: 674301984}
   - {fileID: 1878849913}
+  - {fileID: 53560130}
