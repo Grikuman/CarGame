@@ -7,18 +7,18 @@ public class Ultimate_Boost : IUltimate
     private float _timer;                 // タイマー
     private bool _isActive;               // 発動状態の管理
     private bool _isEnd = false;          // 効果時間終了通知
-    private MachineEngineController _machineEngineController;
+    private MachineEngineModule _machineEngineModule;
 
     /// <summary>
     /// 発動する
     /// </summary>
     /// <param name="machineEngineController">マシンエンジンコントローラー</param>
-    public void Activate(MachineEngineController machineEngineController)
+    public void Activate(MachineEngineModule machineEngineModule)
     {
         // マシンエンジンコントローラーを設定する
-        _machineEngineController = machineEngineController;
+        _machineEngineModule = machineEngineModule;
         // ブーストの倍率を設定する
-        _machineEngineController.InputBoost = _boostMultiplier;
+        _machineEngineModule.InputBoost = _boostMultiplier;
         // アルティメットの効果時間を設定する
         _timer = _ultimateTime;
         // アルティメットを発動状態にする
@@ -47,7 +47,7 @@ public class Ultimate_Boost : IUltimate
     public void End()
     {
         // ブーストの倍率をリセットする
-        _machineEngineController.InputBoost = 1.0f;
+        _machineEngineModule.InputBoost = 1.0f;
         // 発動状態を解除する
         _isActive = false;
         // 終了状態を解除する

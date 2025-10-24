@@ -4,18 +4,18 @@ public class MachineUltimateController : MonoBehaviour
 {
     [Header("ゲージ設定")]
     [SerializeField] private float _currentGauge = 0.0f;   // 現在のアルティメットゲージ
-    [SerializeField] private float _maxGauge = 100.0f;     // 最大アルティメットゲージ
+    [SerializeField] private float _maxUltimateGauge = 100.0f;     // 最大アルティメットゲージ
     [SerializeField] private float _gaugeIncrease = 0.01f; // ゲージ増加量
 
     // 現在のアルティメット
     private IUltimate _currentUltimate;
 
-    private MachineEngineController _machineEngineController;
+    private MachineEngineModule _machineEngineModule;
 
     void Start()
     {
         // コンポーネントを取得する
-        _machineEngineController = GetComponent<MachineEngineController>();
+        _machineEngineModule = GetComponent<MachineEngineModule>();
 
         // とりあえずBoost Ultimateを設定しておく
         _currentUltimate = new Ultimate_Boost();
@@ -38,9 +38,9 @@ public class MachineUltimateController : MonoBehaviour
         }
 
         // ゲージ値を補正する
-        if (_currentGauge >= _maxGauge)
+        if (_currentGauge >= _maxUltimateGauge)
         {
-            _currentGauge = _maxGauge;
+            _currentGauge = _maxUltimateGauge;
         }
     }
 
@@ -50,9 +50,9 @@ public class MachineUltimateController : MonoBehaviour
     public void TryActivateUltimate()
     {
         // ゲージが貯まっている　かつ　アルティメットが発動されていない場合
-        if (_currentGauge >= _maxGauge && !_currentUltimate.IsActive())
+        if (_currentGauge >= _maxUltimateGauge && !_currentUltimate.IsActive())
         {
-            _currentUltimate.Activate(_machineEngineController);
+            _currentUltimate.Activate(_machineEngineModule);
         }
     }
 
@@ -95,6 +95,6 @@ public class MachineUltimateController : MonoBehaviour
     /// <returns>正規化された現在のゲージ割合を返す</returns>
     public float GetUltimateGaugeNormalized()
     {
-        return _currentGauge / _maxGauge;
+        return _currentGauge / _maxUltimateGauge;
     }
 }
