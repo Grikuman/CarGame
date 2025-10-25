@@ -15,6 +15,9 @@ public class VehicleController : MonoBehaviour
     public float Accelerator { get; set; }
     public float brake { get; set; }
 
+    public bool boost { get; set; }
+    public bool Ultimate { get; set; }
+
     private void Awake()
     {
         var usedTypes = new HashSet<System.Type>();
