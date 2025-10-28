@@ -59,7 +59,7 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
             CurrentGauge -= GaugeConsumptionRate * Time.deltaTime;
 
             // アルティメットゲージを貯める
-            //_machineUltimateModule.AddUltimateGauge();
+            _machineUltimateModule.AddUltimateGauge();
 
             // ゲージが無くなった場合ブーストを終了する
             if (CurrentGauge <= 0)
