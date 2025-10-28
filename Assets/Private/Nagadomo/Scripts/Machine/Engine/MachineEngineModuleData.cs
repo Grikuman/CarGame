@@ -15,9 +15,6 @@ public class MachineEngineModuleData : VehicleModuleFactoryBase
     [Header("éøó ÇÃê›íË")]
     [SerializeField] private float _mass; // É}ÉVÉìÇÃéøó 
 
-    [Header("â°ï˚å¸ÇÃê›íË")]
-    [SerializeField] private float _lateralGrip; // â°ääÇËÇÃó}êßÇ∑ÇÈã≠Ç≥
-
     [Header("å©ÇΩñ⁄ópê›íË")]
     [SerializeField] private float _visualYawAngle;    // âÒì]éûÇÃÉÇÉfÉãÇÃç≈ëÂåXÇ´äpìx(Yaw)
     [SerializeField] private float _visualRollAngle;   // âÒì]éûÇÃÉÇÉfÉãÇÃç≈ëÂåXÇ´äpìx(Roll)
@@ -30,7 +27,6 @@ public class MachineEngineModuleData : VehicleModuleFactoryBase
     public float DragCoeff => _dragCoeff;
     public float BrakingDrag => _brakingDrag;
     public float Mass => _mass;
-    public float LateralGrip => _lateralGrip;
     public float VisualYawAngle => _visualYawAngle;
     public float VisualRollAngle => _visualRollAngle;
     public float VisualRotateSpeed => _visualRotateSpeed;
@@ -50,12 +46,6 @@ public class MachineEngineModuleData : VehicleModuleFactoryBase
         machineEngineModule.BrakingDrag = _brakingDrag;
 
         machineEngineModule.Mass = _mass;
-
-        machineEngineModule.LateralGrip = _lateralGrip;
-
-        machineEngineModule.VisualYawAngle = _visualYawAngle;
-        machineEngineModule.VisualRollAngle = _visualRollAngle;
-        machineEngineModule.VisualRotateSpeed = _visualRotateSpeed;
 
         // èâä˙âªèàóù
         machineEngineModule.Initialize(vehicleController);

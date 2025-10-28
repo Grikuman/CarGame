@@ -16,6 +16,8 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Veh
 
     public float RotationSpeed { get; set; }
 
+    public float LateralGrip { get; set; }
+
     public LayerMask LayerMask { get; set; }
 
     // 重力制御
@@ -24,6 +26,8 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Veh
     public HoverBoard _hoverBoard { get; private set; } = null;
     // 姿勢制御
     public OrientationStabilizer _orientationStabilizer { get; private set; } = null;
+    // 横滑り制御
+    public SlipControl _slipControl { get; private set; } = null;   
 
     private Transform _transform = null;
 
@@ -32,9 +36,9 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Veh
     {
         float length = 5f;
 
-        if (_gravityAlignment == null) return;
+        if(_gravityAlignment == null) return;
 
-        if (IsGrounded)
+        if(IsGrounded)
         {
             Debug.DrawRay(_transform.position, GroundNormal * length,Color.red);
         }
@@ -60,6 +64,7 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Veh
         _gravityAlignment = new GravityAlignment(_vehicleController.gameObject.GetComponent<Rigidbody>());
         _hoverBoard = new HoverBoard(_transform , this);
         _orientationStabilizer = new OrientationStabilizer(_transform , this);
+        _slipControl = new SlipControl(_vehicleController.gameObject.GetComponent<Rigidbody>(), LateralGrip);
 
         // 重力の設定値を更新
         _gravityAlignment._rayLength = RayLength;
@@ -97,6 +102,7 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Veh
         _gravityAlignment.UpdateGravity();
         _hoverBoard.UpdateHoverForce();
         _orientationStabilizer.UpdateStabilizer();
+        _slipControl.UpdateSlip();
 
         // 地面に関する値を取得する
         GroundNormal = _gravityAlignment._groundNormal;
@@ -117,6 +123,8 @@ public class VehiclePhysicsModule : IVehicleModule, IResettableVehicleModule<Veh
         Damping       = data.Damping;
 
         RotationSpeed = data.RotationSpeed;
+
+        LateralGrip = data.LateralGrip;
 
         LayerMask     = data.LayerMask;
 

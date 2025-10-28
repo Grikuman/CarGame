@@ -7,6 +7,7 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
     public float CurrentGauge { get; set; }
     public float MaxUltimateGauge { get;set; }
     public float GaugeIncrease { get; set; }
+    public bool InputUltimate {  get; set; }
 
     // 現在のアルティメット
     private IUltimate _currentUltimate;
@@ -46,6 +47,15 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
+        // 入力取得
+        InputUltimate = _vehicleController.Ultimate;
+
+        if(InputUltimate)
+        {
+            // アルティメットを発動できるか確認する
+            this.TryActivateUltimate();
+        }
+
         // アルティメット発動中なら更新
         if (_currentUltimate.IsActive())
         {
@@ -66,6 +76,10 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         {
             CurrentGauge = MaxUltimateGauge;
         }
+
+        // 入力の初期化
+        InputUltimate = false;
+        _vehicleController.Ultimate = InputUltimate;
     }
     /// <summary> 物理計算更新処理 </summary>
     public void FixedUpdateModule()

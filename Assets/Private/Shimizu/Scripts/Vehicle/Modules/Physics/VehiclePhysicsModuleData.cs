@@ -21,6 +21,8 @@ public class VehiclePhysicsModuleData : VehicleModuleFactoryBase
     [Header("épê®êßå‰ê›íË")]
     [SerializeField] private float _rotationSpeed;
 
+    [Header("â°ääÇËêßå‰ê›íË")]
+    [SerializeField] private float _lateralGrip;
 
     [Header("ã§í ê›íË")]
     [SerializeField] private LayerMask _layerMask;
@@ -40,6 +42,9 @@ public class VehiclePhysicsModuleData : VehicleModuleFactoryBase
     // épê®êßå‰ê›íË
     public float RotationSpeed => _rotationSpeed;
 
+    // â°ääÇËêßå‰ê›íË
+    public float LateralGrip => _lateralGrip;
+
     // ã§í ê›íË
     public LayerMask LayerMask => _layerMask;
 
@@ -58,6 +63,7 @@ public class VehiclePhysicsModuleData : VehicleModuleFactoryBase
         vehiclePhysicsModule.HoverForce    = _hoverForce;
         vehiclePhysicsModule.Damping       = _damping;
         vehiclePhysicsModule.RotationSpeed = _rotationSpeed;
+        vehiclePhysicsModule.LateralGrip   = _lateralGrip;
         vehiclePhysicsModule.LayerMask     = _layerMask;
 
         // èâä˙âªèàóù

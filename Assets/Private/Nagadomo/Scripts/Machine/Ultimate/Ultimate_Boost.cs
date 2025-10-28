@@ -18,7 +18,7 @@ public class Ultimate_Boost : IUltimate
         // マシンエンジンコントローラーを設定する
         _machineEngineModule = machineEngineModule;
         // ブーストの倍率を設定する
-        _machineEngineModule.InputBoost = _boostMultiplier;
+        _machineEngineModule.BoostMultiplier = _boostMultiplier;
         // アルティメットの効果時間を設定する
         _timer = _ultimateTime;
         // アルティメットを発動状態にする
@@ -47,7 +47,7 @@ public class Ultimate_Boost : IUltimate
     public void End()
     {
         // ブーストの倍率をリセットする
-        _machineEngineModule.InputBoost = 1.0f;
+        _machineEngineModule.BoostMultiplier = 1.0f;
         // 発動状態を解除する
         _isActive = false;
         // 終了状態を解除する

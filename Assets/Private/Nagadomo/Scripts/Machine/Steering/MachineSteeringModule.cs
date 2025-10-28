@@ -1,66 +1,130 @@
-using System.Linq;
+ï»¿using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<MachineSteeringModuleData>
 {
-    // ƒXƒeƒAƒŠƒ“ƒO“ü—Í
+    public Transform VisualModel { get; set; }
+    public float VisualYawAngle { get; set; }
+    public float VisualRollAngle { get; set; }
+    public float VisualRotateSpeed { get; set; }
+
+    private Quaternion _defaultRotation; // è¦‹ãŸç›®ç”¨ã®åˆæœŸå§¿å‹¢
+
+    // ã‚¹ãƒ†ã‚¢ãƒªãƒ³ã‚°å…¥åŠ›
     public float InputSteer { get; set; } = 0.0f;
 
-    // •¨—‹““®§Œäƒ‚ƒWƒ…[ƒ‹
+    // ç‰©ç†æŒ™å‹•åˆ¶å¾¡ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«
     private VehiclePhysicsModule _vehiclePhysicsModule;
 
-    // ’n–Ê–@ü
+    // ã‚¨ãƒ³ã‚¸ãƒ³ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«
+    private MachineEngineModule _machineEngineModule;
+
+    // åœ°é¢æ³•ç·š
     private Vector3 _groundUp = Vector3.zero;
 
     private bool _isActive = true;
     private VehicleController _vehicleController = null;
 
-    /// <summary> ƒAƒNƒeƒBƒuó‘Ô‚ğİ’è </summary>
+    /// <summary> ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‚’è¨­å®š </summary>
     public void SetActive(bool value) => _isActive = value;
-    /// <summary> ƒAƒNƒeƒBƒuó‘Ô‚ğæ“¾ </summary>
+    /// <summary> ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‚’å–å¾— </summary>
     public bool GetIsActive() => _isActive;
 
-    /// <summary> ‰Šú‰»ˆ— </summary>
+    /// <summary> åˆæœŸåŒ–å‡¦ç† </summary>
     public void Initialize(VehicleController vehicleController)
     {
         _vehicleController = vehicleController;
+
+        // è¦‹ãŸç›®ç”¨ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–å‡¦ç†
+        InitVisualModel();
     }
 
-    /// <summary> ŠJnˆ— </summary>
+    /// <summary> é–‹å§‹å‡¦ç† </summary>
     public void Start()
     {
-        Debug.Log("Start Machine Engine Module");
-        // ƒ‚ƒWƒ…[ƒ‹ƒf[ƒ^ƒŠƒZƒbƒgˆ—
+        // ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒªã‚»ãƒƒãƒˆå‡¦ç†
         _vehicleController.ResetSettings<MachineSteeringModuleData>();
-
-        // •¨—‹““®§Œäƒ‚ƒWƒ…[ƒ‹‚ğæ“¾‚·‚é
+        // ç‰©ç†æŒ™å‹•åˆ¶å¾¡ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’å–å¾—ã™ã‚‹
         _vehiclePhysicsModule = _vehicleController.Find<VehiclePhysicsModule>();
+        // ã‚¨ãƒ³ã‚¸ãƒ³ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’å–å¾—ã™ã‚‹
+        _machineEngineModule = _vehicleController.Find<MachineEngineModule>();
     }
 
-    /// <summary> XVˆ— </summary>
+    /// <summary> æ›´æ–°å‡¦ç† </summary>
     public void UpdateModule()
     {
-        Debug.Log("Update MachineSteeringModule");
+        // å…¥åŠ›å–å¾—
+        InputSteer = _vehicleController.Steering;
     }
-    /// <summary> •¨—ŒvZXVˆ— </summary>
+    /// <summary> ç‰©ç†è¨ˆç®—æ›´æ–°å‡¦ç† </summary>
     public void FixedUpdateModule()
     {
-        Debug.Log("FixedUpdate MachineSteeringModule");
-
-        // –@ü‚ÌŒü‚«‚ğæ“¾‚·‚é
+        // æ³•ç·šã®å‘ãã‚’å–å¾—ã™ã‚‹
         _groundUp = _vehiclePhysicsModule.GroundNormal;
-
-        // ’n–Ê–@ü‚ğ²‚É‰ñ“]
+        // åœ°é¢æ³•ç·šã‚’è»¸ã«å›è»¢
         Quaternion turnRot = Quaternion.AngleAxis(InputSteer * 50.0f * Time.fixedDeltaTime,_groundUp);
-
-        // Œ»İ‚Ì‰ñ“]‚É‰ÁZ‚·‚é
+        // ç¾åœ¨ã®å›è»¢ã«åŠ ç®—ã™ã‚‹
         _vehicleController.transform.rotation = turnRot * _vehicleController.transform.rotation;
+
+        // è¦‹ãŸç›®ç”¨ãƒ¢ãƒ‡ãƒ«ã‚’å‚¾ã‘ã‚‹
+        UpdateVisualRotation();
     }
 
-    // ƒŠƒZƒbƒg‚Ìˆ—
+    // ãƒªã‚»ãƒƒãƒˆæ™‚ã®å‡¦ç†
     public void ResetModule(MachineSteeringModuleData data)
     {
-        Debug.Log("Reset MachineSteeringData");
+        VisualYawAngle = data.VisualYawAngle;
+        VisualYawAngle = data.VisualRollAngle;
+        VisualRotateSpeed = data.VisualRotateSpeed;
+
+        // è¦‹ãŸç›®ç”¨ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–å‡¦ç†
+        InitVisualModel();
+    }
+
+    /// <summary>
+    /// è¦‹ãŸç›®ç”¨ãƒ¢ãƒ‡ãƒ«ã®åˆæœŸåŒ–å‡¦ç†
+    /// </summary>
+    private void InitVisualModel()
+    {
+        if (VisualModel == null)
+        {
+            VisualModel = _vehicleController.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == "VisualModel");
+
+            if (VisualModel == null)
+            {
+                Debug.LogWarning("ãƒã‚·ãƒ³ã®VisualModelãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
+                return;
+            }
+        }
+
+        // åˆæœŸè§’åº¦ã‚’ä¿å­˜ã™ã‚‹
+        _defaultRotation = VisualModel.localRotation;
+    }
+
+    /// <summary>
+    /// å…¥åŠ›å€¤ã¨é€Ÿåº¦ã«å¿œã˜ã¦ãƒã‚·ãƒ³ã®è¦‹ãŸç›®ç”¨ãƒ¢ãƒ‡ãƒ«ã‚’å‚¾ã‘ã‚‹
+    /// </summary>
+    private void UpdateVisualRotation()
+    {
+        if (VisualModel == null) return;
+
+        float currentSpeed = _machineEngineModule.CurrentSpeed;
+        float maxSpeed = _machineEngineModule.MaxSpeed;
+
+        // ç¾åœ¨é€Ÿåº¦ã‚’0ã€œ1ã®ç¯„å›²ã«æ­£è¦åŒ–ã™ã‚‹
+        float speedFactor = Mathf.Clamp01(currentSpeed / maxSpeed);
+        // å…¥åŠ›ã¨é€Ÿåº¦ã«å¿œã˜ã¦å‚¾ãã‚’æ±ºå®š(é€Ÿã„ã»ã©å¼·ãå‚¾ã)
+        float targetYaw = -InputSteer * VisualYawAngle * speedFactor;
+        float targetRoll = InputSteer * VisualRollAngle * speedFactor;
+        // å…¥åŠ›ãŒãªã„æ™‚ã¯ã‚†ã£ãã‚Šã¨å…ƒã®è§’åº¦ã«æˆ»ã™
+        Quaternion targetRot = _defaultRotation * Quaternion.Euler(0, targetYaw, -targetRoll);
+
+        // ã‚¹ãƒ ãƒ¼ã‚ºã«è£œé–“ã•ã›ã‚‹
+        VisualModel.localRotation = Quaternion.Slerp(
+            VisualModel.localRotation,
+            targetRot,
+            Time.fixedDeltaTime * VisualRotateSpeed
+        );
     }
 }

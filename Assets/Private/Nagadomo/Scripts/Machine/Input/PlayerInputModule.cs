@@ -30,7 +30,7 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
     /// <summary> 開始処理 </summary>
     public void Start()
     {
-        Debug.Log("Start Player Input Module");
+        
         // エンジンモジュールを取得する
         _machineEngineModule = _vehicleController.Find<MachineEngineModule>();
         // ステアリングモジュールを取得する
@@ -47,31 +47,26 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
-        Debug.Log("Update Player Input Module");
-
+        
         // 入力値を更新する
         _inputManager.UpdateDrivingInputAxis();
         // 入力値を取得する
         var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
 
         // ハンドルの入力
-        _machineSteeringModule.InputSteer = input.Handle;
+        _vehicleController.Steering = input.Handle;
         // アクセルの入力
-        _machineEngineModule.InputThrottle = input.Accelerator;
+        _vehicleController.Accelerator = input.Accelerator;
         // ブレーキの入力
-        _machineEngineModule.InputBrake = input.Brake;
+        _vehicleController.brake = input.Brake;
         // 見た目用モデルの傾き値の入力
-        _machineEngineModule.InputSteer = (-input.Handle);
-
+        //_machineEngineModule.InputSteer = (-input.Handle);
         // ブースト入力
-        if(input.Boost)
-        {
-            _machineBoostModule.TryActivateBoost();
-        }
+        _vehicleController.boost = input.Boost;
         // アルティメット入力
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            _machineUltimateModule.TryActivateUltimate();
+            _vehicleController.Ultimate = true;
         }
     }
     /// <summary> 物理計算更新処理 </summary>
@@ -83,6 +78,6 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
     // リセット時の処理
     public void ResetModule(PlayerInputModuleData data)
     {
-        Debug.Log("Reset Player Input Data");
+        
     }
 }
