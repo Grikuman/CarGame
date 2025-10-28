@@ -30,10 +30,8 @@ public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<Ma
     /// <summary> 開始処理 </summary>
     public void Start()
     {
-        Debug.Log("Start Machine Engine Module");
         // モジュールデータリセット処理
         _vehicleController.ResetSettings<MachineSteeringModuleData>();
-
         // 物理挙動制御モジュールを取得する
         _vehiclePhysicsModule = _vehicleController.Find<VehiclePhysicsModule>();
     }
@@ -41,19 +39,16 @@ public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<Ma
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
-        Debug.Log("Update MachineSteeringModule");
+        // 入力取得
+        InputSteer = _vehicleController.Steering;
     }
     /// <summary> 物理計算更新処理 </summary>
     public void FixedUpdateModule()
     {
-        Debug.Log("FixedUpdate MachineSteeringModule");
-
         // 法線の向きを取得する
         _groundUp = _vehiclePhysicsModule.GroundNormal;
-
         // 地面法線を軸に回転
         Quaternion turnRot = Quaternion.AngleAxis(InputSteer * 50.0f * Time.fixedDeltaTime,_groundUp);
-
         // 現在の回転に加算する
         _vehicleController.transform.rotation = turnRot * _vehicleController.transform.rotation;
     }
@@ -61,6 +56,6 @@ public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<Ma
     // リセット時の処理
     public void ResetModule(MachineSteeringModuleData data)
     {
-        Debug.Log("Reset MachineSteeringData");
+        
     }
 }

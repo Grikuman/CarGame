@@ -12,6 +12,7 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     public float CurrentGauge { get; set; }
     public float CoolDownTimer { get; set; }
     public bool IsBoosting { get; set; }
+    public bool InputBoost { get; set; }
 
     // エンジンモジュール
     private MachineEngineModule _machineEngineModule;
@@ -38,7 +39,6 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     /// <summary> 開始処理 </summary>
     public void Start()
     {
-        Debug.Log("Start MachineBoostModule");
         // モジュールデータリセット処理
         _vehicleController.ResetSettings<MachineBoostModuleData>();
 
@@ -51,7 +51,14 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
-        Debug.Log("Update MachineBoostModule");
+        // 入力取得
+        InputBoost = _vehicleController.boost;
+
+        if(InputBoost)
+        {
+            // ブースト発動できるか確認する
+            this.TryActivateBoost();
+        }
 
         if (IsBoosting)
         {
@@ -86,18 +93,20 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
                 }
             }
         }
+
+        // 入力初期化
+        InputBoost = false;
+        _vehicleController.boost = InputBoost;
     }
     /// <summary> 物理計算更新処理 </summary>
     public void FixedUpdateModule()
     {
-        Debug.Log("FixedUpdate MachineBoostModule");
+        
     }
 
     // リセット時の処理
     public void ResetModule(MachineBoostModuleData data)
     {
-        Debug.Log("Reset MachineBoostData");
-
         BoostMultiplier = data.BoostMultiplier;
         MaxBoostGauge = data.MaxBoostGauge;
         GaugeConsumptionRate = data.GaugeConsumptionRate;
@@ -120,13 +129,12 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
         // ブースト発動中でない　かつ　ゲージが貯まっている　かつクールタイムが終了している場合
         if (!IsBoosting && CurrentGauge > 0 && CoolDownTimer <= 0)
         {
-        // アルティメットが発動状態でなければブーストを発動する
-        if (!_machineUltimateModule.IsActiveUltimate())
+            // アルティメットが発動状態でなければブーストを発動する
+            if (!_machineUltimateModule.IsActiveUltimate())
             {
                 ActivateBoost();
             }
         }
-        ActivateBoost();
     }
 
     /// <summary>
@@ -135,7 +143,7 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     private void ActivateBoost()
     {
         // マシンエンジンのブースト入力を設定する
-        _machineEngineModule.InputBoost = BoostMultiplier;
+        _machineEngineModule.BoostMultiplier = BoostMultiplier;
         // ブースト発動状態
         IsBoosting = true;
         Debug.Log("ブースト発動");
@@ -147,7 +155,7 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     private void EndBoost()
     {
         // ブーストの倍率をリセットする
-        _machineEngineModule.InputBoost = 1.0f;
+        _machineEngineModule.BoostMultiplier = 1.0f;
         // ブースト発動状態を解除
         IsBoosting = false;
         // ブーストのクールタイムを設定する

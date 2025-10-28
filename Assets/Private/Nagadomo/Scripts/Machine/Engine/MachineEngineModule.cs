@@ -23,7 +23,7 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     public float InputThrottle { get; set; } = 0.0f; // アクセル入力
     public float InputBrake { get; set; } = 0.0f;    // ブレーキ入力
     public float InputSteer { get; set; } = 0.0f;    // ステアリング入力
-    public float InputBoost { get; set; } = 1.0f;    // ブーストの入力
+    public float BoostMultiplier { get; set; } = 1.0f; // ブースト倍率
 
     // リジッドボディー
     private Rigidbody _rb;
@@ -55,7 +55,6 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     /// <summary> 開始処理 </summary>
     public void Start()
     {
-        Debug.Log("Start Machine Engine Module");
         // モジュールデータリセット処理
         _vehicleController.ResetSettings<MachineEngineModuleData>();
     }
@@ -63,12 +62,12 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
-        Debug.Log("Update MachineEngineModule");
+        // 入力取得
+        InputThrottle = _vehicleController.Accelerator;
     }
     /// <summary> 物理計算更新処理 </summary>
     public void FixedUpdateModule()
     {
-        Debug.Log("FixedUpdate MachineEngineModule");
         // エンジンの推進力・抵抗・ブレーキを計算する
         UpdateEngine();
         // 横滑りを抑える処理
@@ -129,7 +128,7 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
         // カーブで推力減衰を取得する
         float thrustFactor = ThrustCurve.Evaluate(speedFactor);
 
-        float thrustForce = InputThrottle * MaxThrust * thrustFactor * InputBoost; // 推力
+        float thrustForce = InputThrottle * MaxThrust * thrustFactor * BoostMultiplier; // 推力
         float dragForce = DragCoeff * CurrentSpeed * CurrentSpeed; // 空気抵抗
         float brakeForce = InputBrake * BrakingDrag * Mass; // ブレーキ力
 
