@@ -47,10 +47,6 @@ public class MachineEngineModuleData : VehicleModuleFactoryBase
 
         machineEngineModule.Mass = _mass;
 
-        machineEngineModule.VisualYawAngle = _visualYawAngle;
-        machineEngineModule.VisualRollAngle = _visualRollAngle;
-        machineEngineModule.VisualRotateSpeed = _visualRotateSpeed;
-
         // ‰Šú‰»ˆ—
         machineEngineModule.Initialize(vehicleController);
 
