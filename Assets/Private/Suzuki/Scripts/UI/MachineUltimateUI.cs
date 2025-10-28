@@ -3,14 +3,21 @@ using UnityEngine.UI;
 
 public class MachineUltimateUI : MonoBehaviour
 {
-    [SerializeField] private MachineUltimateController _machineUltimateController; // プレイヤーのUltimateSystem
+    public VehicleController _vehicleController;
+    private MachineUltimateModule _machineUltimateModule;
+
     [SerializeField] private Image _fillImage;               // 円形ゲージのImage
+
+    public void Start()
+    {
+        _machineUltimateModule = _vehicleController.Find<MachineUltimateModule>();
+    }
 
     void Update()
     {
-        if (_machineUltimateController != null && _fillImage != null)
+        if (_machineUltimateModule != null && _fillImage != null)
         {
-            _fillImage.fillAmount = _machineUltimateController.GetUltimateGaugeNormalized();
+            _fillImage.fillAmount = _machineUltimateModule.GetUltimateGaugeNormalized();
         }
     }
 }

@@ -3,7 +3,9 @@ using UnityEngine.UI;
 
 public class MachineBoostUII : MonoBehaviour
 {
-    [SerializeField] private MachineBoostController _machineBoostController; // ブーストロジック
+    public VehicleController _vehicleController;
+    private MachineBoostModule _machineBoostModule;
+
     [SerializeField] private Image _fillImage;               // UI Image
 
     [Header("補間設定")]
@@ -14,12 +16,17 @@ public class MachineBoostUII : MonoBehaviour
     [SerializeField] private Color _emptyColor = Color.red;  // ゲージ0%
     [SerializeField] private Color _fullColor = Color.cyan; // ゲージ100%
 
+    public void Start()
+    {
+        _machineBoostModule = _vehicleController.Find<MachineBoostModule>();
+    }
+
     void Update()
     {
-        if (_machineBoostController == null || _fillImage == null) return;
+        if (_machineBoostModule == null || _fillImage == null) return;
 
         // ロジック上のゲージ割合
-        float targetFill = _machineBoostController.GetBoostGaugeNormalized();
+        float targetFill = _machineBoostModule.GetBoostGaugeNormalized();
 
         // 滑らか補間
         _displayedFill = Mathf.Lerp(_displayedFill, targetFill, Time.deltaTime * _smoothSpeed);
