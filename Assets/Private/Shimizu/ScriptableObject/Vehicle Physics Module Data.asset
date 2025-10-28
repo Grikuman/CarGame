@@ -19,6 +19,7 @@ MonoBehaviour:
   _hoverForce: 400
   _damping: 3
   _rotationSpeed: 10
+  _lateralGrip: 10
   _layerMask:
     serializedVersion: 2
     m_Bits: 32567

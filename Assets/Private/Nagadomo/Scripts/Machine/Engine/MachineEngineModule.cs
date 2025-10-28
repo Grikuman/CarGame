@@ -12,7 +12,6 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     public float DragCoeff { get; set; }
     public float BrakingDrag { get; set; }
     public float Mass { get; set; }
-    public float LateralGrip { get; set; }
 
     public Transform VisualModel { get; set; }
     public float VisualYawAngle { get; set; }
@@ -70,8 +69,6 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     {
         // エンジンの推進力・抵抗・ブレーキを計算する
         UpdateEngine();
-        // 横滑りを抑える処理
-        Grip();
         // 入力値と速度に応じてマシンの見た目用モデルを傾ける
         UpdateVisualRotation();
     }
@@ -87,7 +84,6 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
         DragCoeff = data.DragCoeff;
         BrakingDrag = data.BrakingDrag;
         Mass = data.Mass;
-        LateralGrip = data.LateralGrip;
         VisualYawAngle = data.VisualYawAngle;
         VisualYawAngle = data.VisualRollAngle;
         VisualRotateSpeed = data.VisualRotateSpeed;
@@ -137,22 +133,6 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
         Vector3 force = (forward * thrustForce) - (forward * dragForce) - (forward * brakeForce);
         // 前方方向に力を加える
         _rb.AddForce(force, ForceMode.Force);
-    }
-
-    /// <summary>
-    /// 横滑りを抑える処理
-    /// </summary>
-    private void Grip()
-    {
-        // 現在の速度
-        Vector3 velocity = _rb.linearVelocity;
-        // 前方方向の速度成分
-        Vector3 forward = _rb.transform.forward;
-        Vector3 forwardVel = Vector3.Project(velocity, forward);
-        // 横方向の速度成分
-        Vector3 lateralVel = velocity - forwardVel;
-        // 横滑りを抑える力を加える
-        _rb.AddForce(-lateralVel * LateralGrip, ForceMode.Acceleration);
     }
 
     /// <summary>
