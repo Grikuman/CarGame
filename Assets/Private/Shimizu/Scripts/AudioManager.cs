@@ -44,6 +44,9 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         InitMixer();
+
+        PlayMusic("TitleSceneMusic");
+        SetVolumeMaster(0.5f);
     }
 
     // ƒoƒ“ƒN‚Ì‰Šú‰»ˆ—

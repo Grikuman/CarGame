@@ -55,4 +55,18 @@ public class InputManager : MonoBehaviour
     {
         return _inputDevices[(uint)_inputDeviceType].GetInput;
     }
+
+
+    public bool UI_WasPressedThisFrame(UiInputActionID action)
+    {
+        bool active = false;
+
+        foreach (var device in _inputDevices) 
+        {
+            active = device.WasPressedThisFrame(action);
+            if (active) return active;
+        }
+
+        return active;
+    }
 }
