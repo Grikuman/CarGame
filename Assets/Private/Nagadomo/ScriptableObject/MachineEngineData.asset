@@ -38,10 +38,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _dragCoeff: 0.02
+  _dragCoeff: 0.2
   _brakingDrag: 2
   _mass: 200
-  _lateralGrip: 10
   _visualYawAngle: 10
-  _visualRollAngle: 45
+  _visualRollAngle: 30
   _visualRotateSpeed: 1
