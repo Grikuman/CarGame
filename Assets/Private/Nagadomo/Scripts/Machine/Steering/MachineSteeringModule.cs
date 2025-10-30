@@ -63,7 +63,7 @@ public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<Ma
         // 法線の向きを取得する
         _groundUp = _vehiclePhysicsModule.GroundNormal;
         // 地面法線を軸に回転
-        Quaternion turnRot = Quaternion.AngleAxis(InputSteer * 50.0f * Time.fixedDeltaTime,_groundUp);
+        Quaternion turnRot = Quaternion.AngleAxis(InputSteer * 30.0f * Time.fixedDeltaTime,_groundUp);
         // 現在の回転に加算する
         _vehicleController.transform.rotation = turnRot * _vehicleController.transform.rotation;
 
