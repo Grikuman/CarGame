@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Private/Shimizu/Scenes/CourseCamera.unity
     guid: 72af2ad01b730c740aac7236d6e6bfbd
+  - enabled: 1
+    path: Assets/Private/Shimizu/Scenes/NeonShaderSample.unity
+    guid: feb3697ba79421546ab28f05138b8b4e
   - enabled: 0
     path: Assets/Game/Scenes/TitleScene.unity
     guid: d8d55cc417ceed54193415fc5abd9de9
