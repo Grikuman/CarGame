@@ -115,10 +115,10 @@ public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<Ma
         // 現在速度を0〜1の範囲に正規化する
         float speedFactor = Mathf.Clamp01(currentSpeed / maxSpeed);
         // 入力と速度に応じて傾きを決定(速いほど強く傾く)
-        float targetYaw = -InputSteer * VisualYawAngle * speedFactor;
+        float targetYaw = InputSteer * VisualYawAngle * speedFactor;
         float targetRoll = InputSteer * VisualRollAngle * speedFactor;
         // 入力がない時はゆっくりと元の角度に戻す
-        Quaternion targetRot = _defaultRotation * Quaternion.Euler(0, targetYaw, -targetRoll);
+        Quaternion targetRot = _defaultRotation * Quaternion.Euler(0, -targetYaw, -targetRoll);
 
         // スムーズに補間させる
         VisualModel.localRotation = Quaternion.Slerp(
