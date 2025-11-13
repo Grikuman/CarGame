@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b53d35231f227c499d540503a83ece3, type: 3}
   m_Name: MachineSteeringModuleData
   m_EditorClassIdentifier: 
-  _visualYawAngle: 10
-  _visualRollAngle: 30
-  _visualRotateSpeed: 1
+  _visualYawAngle: 20
+  _visualRollAngle: 20
+  _visualRotateSpeed: 5
