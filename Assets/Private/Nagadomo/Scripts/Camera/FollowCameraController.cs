@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class FollowCameraController : MonoBehaviour
 {
@@ -16,43 +18,96 @@ public class FollowCameraController : MonoBehaviour
     public float rollSmoothness = 5f;
 
     [Header("Z距離制限設定")]
-    public float maxZDistance = -5f; // カメラがターゲットよりこれ以上後ろに行かない（ローカルZ基準）
+    public float maxZDistance = -5f;
+
+    [Header("FOV設定")]
+    public float defaultFOV = 60f;
+    public float boostFOV = 75f;
+    public float ultimateFOV = 85f;
+    public float fovSmoothSpeed = 5f;
+
+    [Header("ズームアウト設定")]
+    public float defaultZOffset = -8f;
+    public float boostZOffset = -9.5f;
+    public float ultimateZOffset = -10f;
+    public float zoomSmoothSpeed = 4f;
+
+    [Header("シェイク設定")]
+    public float baseShakeIntensity = 0.03f;
+    public float maxShakeIntensity = 0.1f;
+    public float boostShakeBonus = 0.05f;
+    public float ultimateShakeBonus = 0.1f;
+    public float shakeDamping = 6f;
+
+    [Header("ビネット設定")]
+    public Volume globalVolume;             // ← URP Volume（PostProcessVolume）
+    public float defaultVignette = 0.1f;    // 通常の強度
+    public float boostVignette = 0.35f;     // ブースト時
+    public float ultimateVignette = 0.55f;  // アルティメット時
+    public float vignetteFadeSpeed = 3f;    // 補間速度
+
+    private Vignette _vignette;
 
     private Vector3 _velocity;
     private float _currentRoll;
+    private Camera _cam;
 
-    // ブーストモジュール
-    MachineBoostModule _machineBoostModule;
-    // アルティメットモジュール
-    MachineUltimateModule _machineUltimateModule;
+    private MachineBoostModule _machineBoostModule;
+    private MachineUltimateModule _machineUltimateModule;
+    private MachineEngineModule _machineEngineModule;
 
-    void FixedUpdate()
+    private Vector3 _shakeOffset = Vector3.zero;
+
+    private void Start()
+    {
+        _cam = GetComponent<Camera>();
+        if (_cam == null)
+            _cam = GetComponentInChildren<Camera>();
+
+        var vehicleController = target.GetComponent<VehicleController>();
+        if (vehicleController != null)
+        {
+            _machineBoostModule = vehicleController.Find<MachineBoostModule>();
+            _machineUltimateModule = vehicleController.Find<MachineUltimateModule>();
+            _machineEngineModule = vehicleController.Find<MachineEngineModule>();
+        }
+
+        // --- Volume内のVignette取得 ---
+        if (globalVolume != null && globalVolume.profile.TryGet(out Vignette vignette))
+        {
+            _vignette = vignette;
+            _vignette.intensity.value = defaultVignette;
+        }
+
+        if (_cam) _cam.fieldOfView = defaultFOV;
+    }
+
+    private void Update()
+    {
+        FOVControl();
+        ZoomControl();
+        UpdateShake();
+        UpdateVignette();
+    }
+
+    private void FixedUpdate()
     {
         if (!target) return;
 
-        // --- 理想位置 ---
         Vector3 desiredWorldPos = target.TransformPoint(offset);
-
-        // --- 通常スムーズ追従 ---
         Vector3 smoothedPos = Vector3.SmoothDamp(transform.position, desiredWorldPos, ref _velocity, followSmoothness);
 
-        // --- ターゲット座標系でのカメラ位置を取得 ---
         Vector3 localPos = target.InverseTransformPoint(smoothedPos);
-
-        // --- Z軸制限 ---
         if (localPos.z < maxZDistance)
         {
             localPos.z = maxZDistance;
             smoothedPos = target.TransformPoint(localPos);
         }
 
-        // --- カメラ位置確定 ---
-        transform.position = smoothedPos;
+        transform.position = smoothedPos + _shakeOffset;
 
-        // --- 向き ---
         Quaternion lookRot = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
 
-        // --- ロール追従 ---
         float targetRoll = target.eulerAngles.z;
         if (targetRoll > 180f) targetRoll -= 360f;
         _currentRoll = Mathf.Lerp(_currentRoll, targetRoll * rollFollowStrength, Time.deltaTime * rollSmoothness);
@@ -61,8 +116,68 @@ public class FollowCameraController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRot * rollQuat, Time.deltaTime * rotationSmoothness);
     }
 
-    private void DistanceControl()
+    // --- FOV制御 ---
+    private void FOVControl()
     {
+        if (!_cam) return;
 
+        float targetFOV = defaultFOV;
+
+        if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
+            targetFOV = ultimateFOV;
+        else if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
+            targetFOV = boostFOV;
+
+        _cam.fieldOfView = Mathf.Lerp(_cam.fieldOfView, targetFOV, Time.deltaTime * fovSmoothSpeed);
+    }
+
+    // --- ズーム制御 ---
+    private void ZoomControl()
+    {
+        float targetZ = defaultZOffset;
+
+        if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
+            targetZ = ultimateZOffset;
+        else if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
+            targetZ = boostZOffset;
+
+        offset.z = Mathf.Lerp(offset.z, targetZ, Time.deltaTime * zoomSmoothSpeed);
+    }
+
+    // --- シェイク更新 ---
+    private void UpdateShake()
+    {
+        float currentSpeed = 0.0f;
+        if (_machineEngineModule != null)
+            currentSpeed = _machineEngineModule.CurrentSpeed;
+
+        float speedFactor = Mathf.InverseLerp(0f, 200f, currentSpeed);
+        float targetIntensity = Mathf.Lerp(baseShakeIntensity, maxShakeIntensity, speedFactor);
+
+        if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
+            targetIntensity += boostShakeBonus;
+
+        if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
+            targetIntensity += ultimateShakeBonus;
+
+        Vector3 randomShake = Random.insideUnitSphere * targetIntensity;
+        randomShake.z = 0f;
+
+        _shakeOffset = Vector3.Lerp(_shakeOffset, randomShake, Time.deltaTime * shakeDamping);
+    }
+
+    // --- ビネット制御 ---
+    private void UpdateVignette()
+    {
+        if (_vignette == null) return;
+
+        float targetVignette = defaultVignette;
+
+        if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
+            targetVignette = ultimateVignette;
+        else if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
+            targetVignette = boostVignette;
+
+        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, targetVignette, Time.deltaTime * vignetteFadeSpeed);
     }
 }
