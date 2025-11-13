@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class FollowCameraController : MonoBehaviour
 {
@@ -31,11 +33,20 @@ public class FollowCameraController : MonoBehaviour
     public float zoomSmoothSpeed = 4f;
 
     [Header("シェイク設定")]
-    public float baseShakeIntensity = 0.03f;   // 通常時の基礎揺れ
-    public float maxShakeIntensity = 0.1f;     // 速度最大時の揺れ
-    public float boostShakeBonus = 0.05f;      // ブースト時の追加
-    public float ultimateShakeBonus = 0.1f;    // アルティメット時の追加
-    public float shakeDamping = 6f;            // 減衰スピード
+    public float baseShakeIntensity = 0.03f;
+    public float maxShakeIntensity = 0.1f;
+    public float boostShakeBonus = 0.05f;
+    public float ultimateShakeBonus = 0.1f;
+    public float shakeDamping = 6f;
+
+    [Header("ビネット設定")]
+    public Volume globalVolume;             // ← URP Volume（PostProcessVolume）
+    public float defaultVignette = 0.1f;    // 通常の強度
+    public float boostVignette = 0.35f;     // ブースト時
+    public float ultimateVignette = 0.55f;  // アルティメット時
+    public float vignetteFadeSpeed = 3f;    // 補間速度
+
+    private Vignette _vignette;
 
     private Vector3 _velocity;
     private float _currentRoll;
@@ -43,7 +54,7 @@ public class FollowCameraController : MonoBehaviour
 
     private MachineBoostModule _machineBoostModule;
     private MachineUltimateModule _machineUltimateModule;
-    private MachineEngineModule _machineEngineModule; // ← 速度参照用
+    private MachineEngineModule _machineEngineModule;
 
     private Vector3 _shakeOffset = Vector3.zero;
 
@@ -58,7 +69,14 @@ public class FollowCameraController : MonoBehaviour
         {
             _machineBoostModule = vehicleController.Find<MachineBoostModule>();
             _machineUltimateModule = vehicleController.Find<MachineUltimateModule>();
-            _machineEngineModule = vehicleController.Find<MachineEngineModule>(); // ← 速度を取る
+            _machineEngineModule = vehicleController.Find<MachineEngineModule>();
+        }
+
+        // --- Volume内のVignette取得 ---
+        if (globalVolume != null && globalVolume.profile.TryGet(out Vignette vignette))
+        {
+            _vignette = vignette;
+            _vignette.intensity.value = defaultVignette;
         }
 
         if (_cam) _cam.fieldOfView = defaultFOV;
@@ -69,6 +87,7 @@ public class FollowCameraController : MonoBehaviour
         FOVControl();
         ZoomControl();
         UpdateShake();
+        UpdateVignette();
     }
 
     private void FixedUpdate()
@@ -129,29 +148,36 @@ public class FollowCameraController : MonoBehaviour
     private void UpdateShake()
     {
         float currentSpeed = 0.0f;
-
-        // 速度取得（EngineModuleなどから）
         if (_machineEngineModule != null)
-            currentSpeed = _machineEngineModule.CurrentSpeed; // ← 実際の速度取得メソッドに合わせて変更
+            currentSpeed = _machineEngineModule.CurrentSpeed;
 
-        // 速度を0〜1に正規化
-        float speedFactor = Mathf.InverseLerp(0f, 200f, currentSpeed); // 200を最高速に合わせて調整
-
-        // 基本強度
+        float speedFactor = Mathf.InverseLerp(0f, 200f, currentSpeed);
         float targetIntensity = Mathf.Lerp(baseShakeIntensity, maxShakeIntensity, speedFactor);
 
-        // 状態補正
         if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
             targetIntensity += boostShakeBonus;
 
         if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
             targetIntensity += ultimateShakeBonus;
 
-        // ランダムノイズ生成
         Vector3 randomShake = Random.insideUnitSphere * targetIntensity;
-        randomShake.z = 0f; // 前後方向は抑制
+        randomShake.z = 0f;
 
-        // 減衰補間
         _shakeOffset = Vector3.Lerp(_shakeOffset, randomShake, Time.deltaTime * shakeDamping);
+    }
+
+    // --- ビネット制御 ---
+    private void UpdateVignette()
+    {
+        if (_vignette == null) return;
+
+        float targetVignette = defaultVignette;
+
+        if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
+            targetVignette = ultimateVignette;
+        else if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
+            targetVignette = boostVignette;
+
+        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, targetVignette, Time.deltaTime * vignetteFadeSpeed);
     }
 }
