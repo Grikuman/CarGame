@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
-  m_Shader: {fileID: -6465566751694194690, guid: b61d76ccf32a83244a3454616cb5db14,
+  m_Name: SpeedLIne_FS
+  m_Shader: {fileID: -6465566751694194690, guid: 9a663cee179afd54cb6430472104ef6d,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,6 +25,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_dc9c5464695d4f49ae2e397e211392b9_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ed223dcf7c174f11a26ca2f162cf28ae_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -39,6 +47,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Length: 1
+    - _MachineSpeed: 2.2195786e-19
+    - _MaskContrast: 0.5
+    - _MaskSize: 0.5
     - _NoiseLerp: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
