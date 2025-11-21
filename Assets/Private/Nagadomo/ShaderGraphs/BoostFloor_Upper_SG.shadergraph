@@ -8,6 +8,9 @@
         },
         {
             "m_Id": "cc7fb7da8a3b46909c20779237929983"
+        },
+        {
+            "m_Id": "ff928644c84b458e8f8829d81a13e318"
         }
     ],
     "m_Keywords": [],
@@ -1497,17 +1500,17 @@
     "m_ObjectId": "9bda7753d8b340d7be740a76a6ea6e7d",
     "m_Datas": [],
     "m_ActiveSubTarget": {
-        "m_Id": "c7e316c2d6294048b39af854edae3661"
+        "m_Id": "e0c8c471f59946149a244db32f99c77f"
     },
     "m_AllowMaterialOverride": false,
     "m_SurfaceType": 1,
     "m_ZTestMode": 4,
-    "m_ZWriteControl": 0,
+    "m_ZWriteControl": 2,
     "m_AlphaMode": 0,
     "m_RenderFace": 0,
     "m_AlphaClip": false,
     "m_CastShadows": true,
-    "m_ReceiveShadows": true,
+    "m_ReceiveShadows": false,
     "m_DisableTint": false,
     "m_AdditionalMotionVectorMode": 0,
     "m_AlembicMotionVectors": false,
@@ -1701,6 +1704,9 @@
         },
         {
             "m_Id": "cc7fb7da8a3b46909c20779237929983"
+        },
+        {
+            "m_Id": "ff928644c84b458e8f8829d81a13e318"
         }
     ]
 }
@@ -1843,12 +1849,6 @@
     },
     "m_Labels": [],
     "m_Channel": 0
-}
-
-{
-    "m_SGVersion": 2,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
-    "m_ObjectId": "c7e316c2d6294048b39af854edae3661"
 }
 
 {
@@ -2156,6 +2156,12 @@
 }
 
 {
+    "m_SGVersion": 2,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
+    "m_ObjectId": "e0c8c471f59946149a244db32f99c77f"
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "e360571058ff44c19b5031fd6d30c359",
@@ -2360,5 +2366,35 @@
         "y": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
+    "m_ObjectId": "ff928644c84b458e8f8829d81a13e318",
+    "m_Guid": {
+        "m_GuidSerialized": "a2505a50-b3a1-4564-8073-279c2f807c36"
+    },
+    "m_Name": "EmissiveMap",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "EmissiveMap",
+    "m_DefaultReferenceName": "_EmissiveMap",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_SerializedTexture": "",
+        "m_Guid": ""
+    },
+    "isMainTexture": false,
+    "useTilingAndOffset": false,
+    "m_Modifiable": true,
+    "m_DefaultType": 0
 }
 
