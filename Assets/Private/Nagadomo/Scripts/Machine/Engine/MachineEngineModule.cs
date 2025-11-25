@@ -18,6 +18,7 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
     public float InputBrake { get; set; } = 0.0f;    // ブレーキ入力
     public float InputSteer { get; set; } = 0.0f;    // ステアリング入力
     public float BoostMultiplier { get; set; } = 1.0f; // ブースト倍率
+    public float ExternalBoostMultiplier { get; set; } = 1.0f; // 外部のブースト倍率
 
     // リジッドボディー
     private Rigidbody _rb;
@@ -86,7 +87,7 @@ public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<Mach
         // カーブで推力減衰を取得する
         float thrustFactor = ThrustCurve.Evaluate(speedFactor);
 
-        float thrustForce = InputThrottle * MaxThrust * thrustFactor * BoostMultiplier; // 推力
+        float thrustForce = InputThrottle * MaxThrust * thrustFactor * BoostMultiplier * ExternalBoostMultiplier; // 推力
         float dragForce = DragCoeff * CurrentSpeed * CurrentSpeed; // 空気抵抗
         float brakeForce = InputBrake * BrakingDrag * Mass; // ブレーキ力
 

@@ -40,11 +40,25 @@ public class FollowCameraController : MonoBehaviour
     public float shakeDamping = 6f;
 
     [Header("ビネット設定")]
-    public Volume globalVolume;             // ← URP Volume（PostProcessVolume）
-    public float defaultVignette = 0.1f;    // 通常の強度
-    public float boostVignette = 0.35f;     // ブースト時
-    public float ultimateVignette = 0.55f;  // アルティメット時
-    public float vignetteFadeSpeed = 3f;    // 補間速度
+    public Volume globalVolume;
+    public float defaultVignette = 0.1f;
+    public float boostVignette = 0.35f;
+    public float ultimateVignette = 0.55f;
+    public float vignetteFadeSpeed = 3f;
+
+    [Header("ダッシュパネル設定")]
+    public float dashPanelZOffset = -9.0f;      // Z方向のズーム変更
+    public float dashPanelDuration = 0.25f;
+
+    [Header("ダッシュパネルFOV設定")]
+    public float dashPanelFOV = 70f;             // 一瞬広げるFOV
+    public float dashPanelFOVDuration = 0.20f;
+
+    private bool _isDashPanelZoom = false;
+    private float _dashPanelTimer = 0f;
+
+    private bool _isDashPanelFOV = false;
+    private float _dashPanelFOVTimer = 0f;
 
     private Vignette _vignette;
 
@@ -72,7 +86,6 @@ public class FollowCameraController : MonoBehaviour
             _machineEngineModule = vehicleController.Find<MachineEngineModule>();
         }
 
-        // --- Volume内のVignette取得 ---
         if (globalVolume != null && globalVolume.profile.TryGet(out Vignette vignette))
         {
             _vignette = vignette;
@@ -95,7 +108,13 @@ public class FollowCameraController : MonoBehaviour
         if (!target) return;
 
         Vector3 desiredWorldPos = target.TransformPoint(offset);
-        Vector3 smoothedPos = Vector3.SmoothDamp(transform.position, desiredWorldPos, ref _velocity, followSmoothness);
+
+        Vector3 smoothedPos = Vector3.SmoothDamp(
+            transform.position,
+            desiredWorldPos,
+            ref _velocity,
+            followSmoothness
+        );
 
         Vector3 localPos = target.InverseTransformPoint(smoothedPos);
         if (localPos.z < maxZDistance)
@@ -116,24 +135,48 @@ public class FollowCameraController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRot * rollQuat, Time.deltaTime * rotationSmoothness);
     }
 
-    // --- FOV制御 ---
+    // --- FOV制御（ダッシュパネル → Boost → 通常） ---
     private void FOVControl()
     {
         if (!_cam) return;
 
         float targetFOV = defaultFOV;
 
-        if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
-            targetFOV = ultimateFOV;
-        else if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
-            targetFOV = boostFOV;
+        // ダッシュパネル中の FOV が最優先
+        if (_isDashPanelFOV)
+        {
+            targetFOV = dashPanelFOV;
+            _dashPanelFOVTimer -= Time.deltaTime;
+
+            if (_dashPanelFOVTimer <= 0f)
+                _isDashPanelFOV = false;
+        }
+        else
+        {
+            if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
+                targetFOV = ultimateFOV;
+            else if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
+                targetFOV = boostFOV;
+        }
 
         _cam.fieldOfView = Mathf.Lerp(_cam.fieldOfView, targetFOV, Time.deltaTime * fovSmoothSpeed);
     }
 
-    // --- ズーム制御 ---
+    // --- Z方向ズーム制御 ---
     private void ZoomControl()
     {
+        if (_isDashPanelZoom)
+        {
+            _dashPanelTimer -= Time.deltaTime;
+
+            offset.z = Mathf.Lerp(offset.z, dashPanelZOffset, Time.deltaTime * (zoomSmoothSpeed * 2));
+
+            if (_dashPanelTimer <= 0f)
+                _isDashPanelZoom = false;
+
+            return;
+        }
+
         float targetZ = defaultZOffset;
 
         if (_machineUltimateModule != null && _machineUltimateModule.IsActiveUltimate())
@@ -178,6 +221,22 @@ public class FollowCameraController : MonoBehaviour
         else if (_machineBoostModule != null && _machineBoostModule.IsActiveBoost())
             targetVignette = boostVignette;
 
-        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, targetVignette, Time.deltaTime * vignetteFadeSpeed);
+        _vignette.intensity.value = Mathf.Lerp(
+            _vignette.intensity.value,
+            targetVignette,
+            Time.deltaTime * vignetteFadeSpeed
+        );
+    }
+
+    // --- ダッシュパネルから呼ばれるメソッド ---
+    public void TriggerDashPanelZoom()
+    {
+        // Z方向
+        _isDashPanelZoom = true;
+        _dashPanelTimer = dashPanelDuration;
+
+        // FOV
+        _isDashPanelFOV = true;
+        _dashPanelFOVTimer = dashPanelFOVDuration;
     }
 }
