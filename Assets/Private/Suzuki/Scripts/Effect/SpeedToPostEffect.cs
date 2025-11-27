@@ -10,7 +10,7 @@ public class SpeedToPostEffect : MonoBehaviour
         float speed = machineRigidbody.linearVelocity.magnitude; // 速度を取得
 
         //スピードを正規化して滑らかに
-        float raw = Mathf.Clamp01(speed / 200f);
+        float raw = Mathf.Clamp01(speed / 400f);
         float speedFactor = Mathf.SmoothStep(0f, 1f, raw);
 
         //シェーダーに渡す
