@@ -47,8 +47,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Length: 1
-    - _MachineSpeed: 2.2195786e-19
+    - _Length: 1.5
+    - _MachineSpeed: 1.2939133e-14
     - _MaskContrast: 0.5
     - _MaskSize: 0.5
     - _NoiseLerp: 0.1
