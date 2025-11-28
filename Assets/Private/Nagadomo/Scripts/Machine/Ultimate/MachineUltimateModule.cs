@@ -10,7 +10,7 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
     public bool InputUltimate {  get; set; }
 
     // 現在のアルティメット
-    private IUltimate _currentUltimate;
+    private IUltimate _currentUltimate = null;
 
     // エンジンモジュール
     private MachineEngineModule _machineEngineModule;
@@ -31,7 +31,7 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         // 初期のゲージを設定する
         CurrentGauge = MaxUltimateGauge;
         // とりあえずBoost Ultimateを設定しておく
-        _currentUltimate = new Ultimate_Boost();
+        SetUltimate(new Ultimate_Boost(2.5f, 3.0f));
     }
 
     /// <summary> 開始処理 </summary>
