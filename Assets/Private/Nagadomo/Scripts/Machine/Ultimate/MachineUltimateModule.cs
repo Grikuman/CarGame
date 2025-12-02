@@ -31,7 +31,9 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         // 初期のゲージを設定する
         CurrentGauge = MaxUltimateGauge;
         // とりあえずBoost Ultimateを設定しておく
-        SetUltimate(new Ultimate_Boost(2.5f, 3.0f));
+        //SetUltimate(new Ultimate_Boost(2.5f, 3.0f));
+        SetUltimate(new Ultimate_EMP(10f, 20f, 100f, 1f, _vehicleController));
+
     }
 
     /// <summary> 開始処理 </summary>
