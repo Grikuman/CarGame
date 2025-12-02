@@ -13,6 +13,7 @@ public abstract class UltimateBase : IUltimate
     protected bool _isActive;             // 発動中？
     protected bool _isEnd = false;        // 終了フラグ
     protected MachineEngineModule _engine; // 発動対象のマシン
+    private VehicleController _vehicleController = null;
 
     /// <summary>
     /// アルティメット発動
