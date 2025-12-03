@@ -1,17 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MachineUltimateUI : MonoBehaviour
+public class MachineUltimateUI : MonoBehaviour,IVehicleReceiver
 {
-    public VehicleController _vehicleController;
+    private VehicleController _vehicleController;
     private MachineUltimateModule _machineUltimateModule;
 
     [SerializeField] private Image _fillImage;               // â~å`ÉQÅ[ÉWÇÃImage
 
-    public void Start()
+    public void Receipt(GameObject vehicle, Rigidbody rigidbody)
     {
+        _vehicleController = vehicle.GetComponent<VehicleController>();
         _machineUltimateModule = _vehicleController.Find<MachineUltimateModule>();
     }
+
 
     void Update()
     {

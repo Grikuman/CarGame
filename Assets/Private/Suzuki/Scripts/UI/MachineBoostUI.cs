@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MachineBoostUII : MonoBehaviour
+public class MachineBoostUII : MonoBehaviour,IVehicleReceiver
 {
-    public VehicleController _vehicleController;
+    private VehicleController _vehicleController;
     private MachineBoostModule _machineBoostModule;
 
     [SerializeField] private Image _fillImage;               // UI Image
@@ -16,9 +16,15 @@ public class MachineBoostUII : MonoBehaviour
     [SerializeField] private Color _emptyColor = Color.red;  // ÉQÅ[ÉW0%
     [SerializeField] private Color _fullColor = Color.cyan; // ÉQÅ[ÉW100%
 
+    public void Receipt(GameObject vehicle, Rigidbody rigidbody)
+    {
+        _vehicleController = vehicle.GetComponent<VehicleController>();
+        _machineBoostModule = _vehicleController.Find<MachineBoostModule>();
+    }
+
     public void Start()
     {
-        _machineBoostModule = _vehicleController.Find<MachineBoostModule>();
+        
     }
 
     void Update()

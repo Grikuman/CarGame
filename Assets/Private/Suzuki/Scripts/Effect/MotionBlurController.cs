@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.Rendering; // Volume�֘A�ɕK�v
 using UnityEngine.Rendering.Universal; // URP�̏ꍇ (�r���g�C���Ȃ�s�v)
 
-public class MotionBlurController : MonoBehaviour
+public class MotionBlurController : MonoBehaviour,IVehicleReceiver
 {
-    public Rigidbody machineRigidbody;
+    private Rigidbody machineRigidbody;
     public Volume postProcessVolume;
     public float maxSpeed = 50f; // 50m/s (180 km/h)
 
@@ -12,6 +12,11 @@ public class MotionBlurController : MonoBehaviour
     public float maxIntensity = 0.5f;
 
     private MotionBlur motionBlur;
+
+    public void Receipt(GameObject vehicle, Rigidbody rigidbody)
+    {
+        machineRigidbody = rigidbody;
+    }
 
     void Start()
     {
@@ -30,7 +35,7 @@ public class MotionBlurController : MonoBehaviour
 
     void Update()
     {
-        if (motionBlur == null) return;
+        if (motionBlur == null||machineRigidbody == null) return;
 
         float currentSpeed = machineRigidbody.linearVelocity.magnitude;
         float speedRatio = Mathf.Clamp01(currentSpeed / maxSpeed);

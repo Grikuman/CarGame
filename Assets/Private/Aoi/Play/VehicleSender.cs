@@ -14,7 +14,9 @@ public class VehicleSender : MonoBehaviour
     bool m_isSend = false;
 
     //車の受け取りて(インスペクター用)
-    [SerializeField, ComponentRestriction(typeof(IVehicleReceiver))] List<Component> m_vehicleUsersInspector;
+    [SerializeField, Tooltip("入れ方\n1.インスペクター画面を増やす\n2.この画面のほうを固定する\n3.固定してないほうの画面で使うコンポーネント開きドラッグアンドドロップしてここに入れる")]
+    [ComponentRestriction(typeof(IVehicleReceiver))]
+    List<Component> m_vehicleUsersInspector;
     List<IVehicleReceiver> m_vehicleUsers = new List<IVehicleReceiver>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,7 +25,10 @@ public class VehicleSender : MonoBehaviour
         //変換処理
         foreach (var user in m_vehicleUsersInspector)
         {
-            m_vehicleUsers.Add(user.GetComponent<IVehicleReceiver>());
+            if (user is IVehicleReceiver receiver)
+            {
+                m_vehicleUsers.Add(receiver);
+            }
         }
 
         

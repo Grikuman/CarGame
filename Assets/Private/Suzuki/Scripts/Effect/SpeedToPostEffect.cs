@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 
-public class SpeedToPostEffect : MonoBehaviour
+public class SpeedToPostEffect : MonoBehaviour,IVehicleReceiver
 {
     public Material postEffectMaterial;  // FullScreenShaderGraph のマテリアル
-    public Rigidbody machineRigidbody;              // マシン制御スクリプト
+    private Rigidbody machineRigidbody;              // マシン制御スクリプト
+
+    public void Receipt(GameObject vehicle, Rigidbody rigidbody)
+    {
+        machineRigidbody = rigidbody;
+    }
 
     void Update()
     {
+        if (machineRigidbody == null) return;
+
         float speed = machineRigidbody.linearVelocity.magnitude; // 速度を取得
 
         //スピードを正規化して滑らかに
