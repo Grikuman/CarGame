@@ -2,10 +2,10 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class FollowCameraController : MonoBehaviour
+public class FollowCameraController : MonoBehaviour,IVehicleReceiver
 {
     [Header("ターゲット設定")]
-    public Transform target;
+    private Transform target;
     public Vector3 offset = new Vector3(0, 3.5f, -8f);
 
     [Header("スムーズ設定")]
@@ -78,13 +78,6 @@ public class FollowCameraController : MonoBehaviour
         if (_cam == null)
             _cam = GetComponentInChildren<Camera>();
 
-        var vehicleController = target.GetComponent<VehicleController>();
-        if (vehicleController != null)
-        {
-            _machineBoostModule = vehicleController.Find<MachineBoostModule>();
-            _machineUltimateModule = vehicleController.Find<MachineUltimateModule>();
-            _machineEngineModule = vehicleController.Find<MachineEngineModule>();
-        }
 
         if (globalVolume != null && globalVolume.profile.TryGet(out Vignette vignette))
         {
@@ -97,6 +90,7 @@ public class FollowCameraController : MonoBehaviour
 
     private void Update()
     {
+        if (!target) return;
         FOVControl();
         ZoomControl();
         UpdateShake();
@@ -238,5 +232,18 @@ public class FollowCameraController : MonoBehaviour
         // FOV
         _isDashPanelFOV = true;
         _dashPanelFOVTimer = dashPanelFOVDuration;
+    }
+
+    public void Receipt(GameObject vehicle, Rigidbody rigidbody)
+    {
+        target = vehicle.transform;
+
+        var vehicleController = target.GetComponent<VehicleController>();
+        if (vehicleController != null)
+        {
+            _machineBoostModule = vehicleController.Find<MachineBoostModule>();
+            _machineUltimateModule = vehicleController.Find<MachineUltimateModule>();
+            _machineEngineModule = vehicleController.Find<MachineEngineModule>();
+        }
     }
 }

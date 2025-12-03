@@ -53,6 +53,7 @@ public class UserDataService : MonoBehaviour
 
     public void PlayerLeft(PlayerRef user)
     {
+        if (m_userDataManager == null) return;
         //Debug.Log($"{user}‚Ì‘Şo‚ğŠm”F");
         m_userDataManager.RPC_PlayerLeft(user);
     }

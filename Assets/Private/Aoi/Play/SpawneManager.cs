@@ -50,6 +50,7 @@ public class SpawneManager : NetworkBehaviour
             if (m_spownDataUsage[i]) continue;
             m_spownDataUsage.Set(i, true);
             RPC_RespondIndex(user, i);
+            return;
         }
     }
 

@@ -4,14 +4,14 @@ using UnityEngine;
 /// マシンの速度に応じてスピードラインのパーティクルエミッションを制御するスクリプト。
 /// スピードラインのParticleSystemと同じオブジェクト、またはそれを管理するカメラなどにアタッチします。
 /// </summary>
-public class SpeedLineController : MonoBehaviour
+public class SpeedLineController : MonoBehaviour,IVehicleReceiver
 {
     [Header("参照するコンポーネント")]
     [Tooltip("制御したいスピードラインのパーティクルシステム")]
     public ParticleSystem speedLinesParticleSystem;
 
     [Tooltip("速度の参照元となるマシンのRigidbody")]
-    public Rigidbody machineRigidbody;
+    private Rigidbody machineRigidbody;
 
     [Header("速度とエミッションの設定")]
     [Tooltip("この速度（m/s）に達したときにエミッションレートが最大になります")]
@@ -38,13 +38,6 @@ public class SpeedLineController : MonoBehaviour
             return;
         }
 
-        if (machineRigidbody == null)
-        {
-            Debug.LogError("MachineRigidbodyが設定されていません！", this);
-            enabled = false; // このスクリプトを無効化
-            return;
-        }
-
         // パーティクルシステムのエミッションモジュールを取得してキャッシュ
         // (Update内で毎回取得するとパフォーマンスが低下するため)
         emissionModule = speedLinesParticleSystem.emission;
@@ -55,6 +48,7 @@ public class SpeedLineController : MonoBehaviour
 
     void Update()
     {
+        if (machineRigidbody == null) return;
         // --- 毎フレームの速度監視とエミッション制御 ---
 
         // 1. マシンの現在の速度（大きさ）を取得 (m/s)
@@ -70,5 +64,10 @@ public class SpeedLineController : MonoBehaviour
 
         // 4. 計算したレートをエミッションモジュールに適用
         emissionModule.rateOverTime = newEmissionRate;
+    }
+
+    public void Receipt(GameObject vehicle, Rigidbody rigidbody)
+    {
+        machineRigidbody = rigidbody;
     }
 }
