@@ -83,6 +83,18 @@ public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<Ma
     }
 
     /// <summary>
+    /// モデルの表示切り替え
+    /// </summary>
+    public void SwitchShowModel(bool switchShow)
+    {
+        if (VisualModel == null) return;
+
+        // 表示切り替え
+        VisualModel.gameObject.SetActive(switchShow);
+    }
+
+
+    /// <summary>
     /// 見た目用モデルの初期化処理
     /// </summary>
     private void InitVisualModel()
@@ -107,7 +119,7 @@ public class MachineSteeringModule : IVehicleModule, IResettableVehicleModule<Ma
     /// </summary>
     private void UpdateVisualRotation()
     {
-        if (VisualModel == null) return;
+        if(VisualModel == null) return;
 
         float currentSpeed = _machineEngineModule.CurrentSpeed;
         float maxSpeed = _machineEngineModule.MaxSpeed;
