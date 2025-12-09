@@ -48,7 +48,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Length: 1.5
-    - _MachineSpeed: 1.07633646e-14
+    - _MachineSpeed: 2.6020915e-17
     - _MaskContrast: 0.5
     - _MaskSize: 0.5
     - _NoiseLerp: 0.1
