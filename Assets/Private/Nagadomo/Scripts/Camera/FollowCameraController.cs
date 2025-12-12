@@ -16,6 +16,7 @@ public class FollowCameraController : MonoBehaviour,IVehicleReceiver
     [Header("ロール追従設定")]
     public float rollFollowStrength = 1.0f;
     public float rollSmoothness = 5f;
+    
 
     [Header("Z距離制限設定")]
     public float maxZDistance = -5f;
@@ -71,6 +72,7 @@ public class FollowCameraController : MonoBehaviour,IVehicleReceiver
     private MachineEngineModule _machineEngineModule;
 
     private Vector3 _shakeOffset = Vector3.zero;
+    private float _previousTargetRoll;
 
     private void Start()
     {
@@ -121,9 +123,28 @@ public class FollowCameraController : MonoBehaviour,IVehicleReceiver
 
         Quaternion lookRot = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
 
-        float targetRoll = target.eulerAngles.z;
-        if (targetRoll > 180f) targetRoll -= 360f;
-        _currentRoll = Mathf.Lerp(_currentRoll, targetRoll * rollFollowStrength, Time.deltaTime * rollSmoothness);
+        // --- 現在のマシンロール取得（-180〜180） ---
+        float currentTargetRoll = target.eulerAngles.z;
+        if (currentTargetRoll > 180f) currentTargetRoll -= 360f;
+
+        // --- 前フレームとの差分を計算（ここが核心） ---
+        float deltaRoll = Mathf.DeltaAngle(
+            _previousTargetRoll,
+            currentTargetRoll
+        );
+
+        // --- 差分を積み上げる ---
+        _currentRoll += deltaRoll * rollFollowStrength;
+
+        // --- スムージング ---
+        _currentRoll = Mathf.Lerp(
+            _currentRoll,
+            _currentRoll,
+            Time.deltaTime * rollSmoothness
+        );
+
+        // --- 次フレーム用に保存 ---
+        _previousTargetRoll = currentTargetRoll;
 
         Quaternion rollQuat = Quaternion.Euler(0f, 0f, _currentRoll);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRot * rollQuat, Time.deltaTime * rotationSmoothness);
