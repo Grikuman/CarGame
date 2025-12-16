@@ -527,7 +527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &294057863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,6 +1206,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7608327682832148793, guid: 8df355b8da36c704c835a005b8025095,
+        type: 3}
+      propertyPath: Flags
+      value: 262145
+      objectReference: {fileID: 0}
     - target: {fileID: -7608327682832148793, guid: 8df355b8da36c704c835a005b8025095,
         type: 3}
       propertyPath: SortKey

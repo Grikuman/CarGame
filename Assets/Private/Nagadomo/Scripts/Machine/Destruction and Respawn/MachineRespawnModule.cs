@@ -121,5 +121,12 @@ public class MachineRespawnModule : IVehicleModule, IResettableVehicleModule<Mac
         _playerInputModule?.SetActive(true);
 
         _isDead = false;
+
+        var net = _vehicleController.GetComponent<VehicleDestructionNetwork>();
+        if (net != null && net.HasStateAuthority)
+        {
+            net.IsDead = false;
+        }
+
     }
 }

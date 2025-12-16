@@ -59,8 +59,12 @@ public class MachineDestructionModule : IVehicleModule, IResettableVehicleModule
 
         if (angle < RearHitAngle)
         {
-            var respawn = _vehicleController.Find<MachineRespawnModule>();
-            respawn?.Kill();
+            var net = _vehicleController.GetComponent<VehicleDestructionNetwork>();
+            if (net != null)
+            {
+                net.RPC_RequestKill();
+            }
+
         }
     }
 }
