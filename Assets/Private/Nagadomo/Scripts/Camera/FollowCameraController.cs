@@ -11,7 +11,7 @@ public class FollowCameraController : MonoBehaviour,IVehicleReceiver
     [Header("スムーズ設定")]
     [Range(0.01f, 1f)]
     public float followSmoothness = 0.08f;
-    public float rotationSmoothness = 5f;
+    public float rotationSmoothness = 5.0f;
 
     [Header("ロール追従設定")]
     public float rollFollowStrength = 1.0f;

@@ -4852,6 +4852,7 @@ GameObject:
   - component: {fileID: 6357230777999732102}
   - component: {fileID: -7608327682832148793}
   - component: {fileID: -2820436406656085528}
+  - component: {fileID: 4367302884672948501}
   m_Layer: 15
   m_Name: PlayerMachine
   m_TagString: Player
@@ -5076,6 +5077,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: -2820436406656085528}
+  - {fileID: 4367302884672948501}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-2820436406656085528
 MonoBehaviour:
@@ -5100,6 +5102,19 @@ MonoBehaviour:
     Position: 0.01
     Rotation: 0.01
     Scale: 0.01
+--- !u!114 &4367302884672948501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5934913423539462336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929f98a35e1dc324291c3e8aa1ffe715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _IsDead: 0
 --- !u!1001 &4823671164497420031
 PrefabInstance:
   m_ObjectHideFlags: 0
