@@ -30,7 +30,8 @@ public class GamePadInput : IInputDevice
             accelerator: _gamepad.rightTrigger.ReadValue(),
             brake: _gamepad.leftTrigger.ReadValue(),
             boost: _gamepad.aButton.wasPressedThisFrame,
-            cameraView: _gamepad.bButton.wasPressedThisFrame
+            ultimate: _gamepad.bButton.wasPressedThisFrame,
+            cameraView: _gamepad.yButton.wasPressedThisFrame
         );
 
         _gamePlayInputSnapshot = snapshot;
