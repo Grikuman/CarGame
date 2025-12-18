@@ -27,6 +27,7 @@ public class KeyboardInput : IInputDevice
             accelerator: this.GetAcceleratorAxis(),
             brake: this.GetBrakeAxis(),
             boost: Input.GetKeyDown(KeyCode.Space),
+            ultimate: Input.GetKeyDown(KeyCode.R),
             cameraView: Input.GetKeyDown(KeyCode.C)
         );
 

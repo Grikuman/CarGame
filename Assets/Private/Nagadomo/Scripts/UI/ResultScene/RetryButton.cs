@@ -66,7 +66,7 @@ public class RetryButton : ButtonBase
     public override void OnEvent()
     {
         // シーン遷移
-        SceneManager.LoadScene("masamasa");
+        SceneManager.LoadScene("SoloPlayScene");
     }
 
     /// <summary> ステート追加、初期化 </summary>
