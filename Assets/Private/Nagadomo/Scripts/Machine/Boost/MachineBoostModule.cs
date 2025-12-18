@@ -179,4 +179,30 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     {
         return CurrentGauge / MaxBoostGauge;
     }
+
+    /// <summary>
+    /// ブーストゲージを減少させる（EMP用）
+    /// </summary>
+    public void DecreaseGauge(float amount)
+    {
+        CurrentGauge -= amount;
+        CurrentGauge = Mathf.Clamp(CurrentGauge, 0f, MaxBoostGauge);
+
+        // ブースト中に0になったら強制終了
+        if (IsBoosting && CurrentGauge <= 0f)
+        {
+            CurrentGauge = 0f;
+            EndBoost();
+        }
+    }
+
+    /// <summary>
+    /// ブーストゲージを回復させる（EMP用）
+    /// </summary>
+    public void IncreaseGauge(float amount)
+    {
+        CurrentGauge += amount;
+        CurrentGauge = Mathf.Clamp(CurrentGauge, 0f, MaxBoostGauge);
+    }
+
 }

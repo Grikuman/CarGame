@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Linq;
 
 public class CheckpointManager : MonoBehaviour
 {
-    [Header("設定")]
     public int totalLaps = 3;
 
-    [Header("チェックポイント")]
-    public List<Checkpoint> checkpoints = new List<Checkpoint>();
-
-    private int nextCheckpointIndex = 0;
-    private int currentLap = 0;
-    private bool raceFinished = false;
+    private List<Checkpoint> checkpoints;
+    private int nextCheckpointIndex;
+    private int currentLap;
+    private bool finished;
 
     private RaceManager raceManager;
 
@@ -20,67 +17,50 @@ public class CheckpointManager : MonoBehaviour
     {
         raceManager = FindObjectOfType<RaceManager>();
 
-        checkpoints.Clear();
-        checkpoints.AddRange(FindObjectsOfType<Checkpoint>());
-
-        // Transform の階層順にソート（親の子順を優先）
-        checkpoints = checkpoints
+        checkpoints = FindObjectsOfType<Checkpoint>()
             .OrderBy(cp => cp.transform.GetSiblingIndex())
             .ToList();
 
-        // checkpointID を自動で振る
         for (int i = 0; i < checkpoints.Count; i++)
-        {
             checkpoints[i].checkpointID = i;
-        }
 
         nextCheckpointIndex = 0;
         currentLap = 0;
-        raceFinished = false;
+        finished = false;
     }
-    //チェックポイント判定
-    public void PassCheckpoint(GameObject player, Checkpoint cp)
-    {
-        if (raceFinished) return;
-        if (raceManager != null && raceManager.currentState != RaceManager.RaceState.Racing) return;
 
-        //逆走、ショートカット対策
-        if (cp.checkpointID != nextCheckpointIndex)
+    public void PassCheckpoint(Checkpoint cp)
+    {
+        if (finished) return;
+
+        if (raceManager.CurrentState != RaceManager.RaceState.Racing)
         {
-            Debug.Log($"[CheckpointManager] {player.name} がチェックポイント {cp.checkpointID} に到達したけど順番が違う。期待: {nextCheckpointIndex}");
+            Debug.Log("レース中じゃないので無視");
             return;
         }
 
-        //正規ルートの場合
-        Debug.Log($"[CheckpointManager] チェックポイント {cp.checkpointID} 通過！");
+        if (cp.checkpointID != nextCheckpointIndex)
+        {
+            Debug.Log($"順番違い: {cp.checkpointID} / 期待 {nextCheckpointIndex}");
+            return;
+        }
+
+        Debug.Log($"Checkpoint {cp.checkpointID} 通過");
 
         nextCheckpointIndex++;
 
-        // ラップ完了
         if (nextCheckpointIndex >= checkpoints.Count)
         {
             currentLap++;
             nextCheckpointIndex = 0;
+            Debug.Log($"Lap {currentLap}/{totalLaps}");
 
-            Debug.Log($"[CheckpointManager] ラップ {currentLap}/{totalLaps} 完了！");
-
-            // ゴール判定
             if (currentLap >= totalLaps)
             {
-                raceFinished = true;
-                OnRaceFinished(player);
+                finished = true;
+                raceManager.FinishRace();
             }
         }
     }
 
-    //レース終了処理
-    private void OnRaceFinished(GameObject player)
-    {
-        Debug.Log($"🏁 [CheckpointManager] {player.name} がゴールしました！！");
-
-        if (raceManager != null)
-        {
-            raceManager.FinishRace(); // RaceManager に通知してレース終了
-        }
-    }
 }
