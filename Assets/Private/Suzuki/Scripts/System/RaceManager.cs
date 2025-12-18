@@ -5,91 +5,67 @@ public class RaceManager : MonoBehaviour
 {
     public enum RaceState
     {
-        Waiting,    // レース開始前
-        Countdown,  // カウントダウン中
-        Racing,     // レース中
-        Finished    // ゴール後
+        Waiting,
+        Countdown,
+        Racing,
+        Finished
     }
 
-    public RaceState currentState = RaceState.Waiting;
-    public MachineDriver machineDriver;
+    public RaceState CurrentState { get; private set; } = RaceState.Waiting;
     public float countdownTime = 3f;
 
     private float raceStartTime;
     private float raceEndTime;
 
-    void Start()
-    {
-        // 最初は待機状態
-        currentState = RaceState.Waiting;
-        // 最初は操作を無効にしておく
-        if (machineDriver != null)
-            machineDriver.enabled = false;
-    }
+    public float CurrentRaceTime =>
+        CurrentState == RaceState.Racing
+            ? Time.time - raceStartTime
+            : raceEndTime - raceStartTime;
 
-    void Update()
+    private void Update()
     {
-        // 状態によって処理を分ける
-        switch (currentState)
+        // スペースキーでレース開始
+        if (CurrentState == RaceState.Waiting &&
+            Input.GetKeyDown(KeyCode.Space))
         {
-            case RaceState.Waiting:
-                // キーを押したらカウントダウン開始
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    StartCoroutine(StartCountdown());
-                }
-                break;
-
-            case RaceState.Racing:
-                // レース中の処理
-                float elapsed = Time.time - raceStartTime;
-                //Debug.Log($"Race Time: {elapsed:F2}");
-                break;
-
-            case RaceState.Finished:
-                // ゴール後の処理
-                break;
+            StartRaceSequence();
         }
     }
 
-    //レース開始処理
-    private IEnumerator StartCountdown()
+    public void StartRaceSequence()
     {
-        currentState = RaceState.Countdown;
+        if (CurrentState != RaceState.Waiting) return;
+        StartCoroutine(CountdownCoroutine());
+    }
+
+    private IEnumerator CountdownCoroutine()
+    {
+        CurrentState = RaceState.Countdown;
 
         float timer = countdownTime;
         while (timer > 0f)
         {
-            //Debug.Log(Mathf.CeilToInt(timer));
+            Debug.Log(Mathf.CeilToInt(timer));
             yield return new WaitForSeconds(1f);
             timer -= 1f;
         }
 
-        Debug.Log("GO!");
         StartRace();
     }
 
     private void StartRace()
     {
-        currentState = RaceState.Racing;
+        CurrentState = RaceState.Racing;
         raceStartTime = Time.time;
-
-        // 操作を有効化
-        if (machineDriver != null)
-            machineDriver.enabled = true;
+        Debug.Log("GO!");
     }
 
     public void FinishRace()
     {
-        if (currentState != RaceState.Racing) return;
+        if (CurrentState != RaceState.Racing) return;
 
-        currentState = RaceState.Finished;
+        CurrentState = RaceState.Finished;
         raceEndTime = Time.time;
-        float totalTime = raceEndTime - raceStartTime;
-        Debug.Log($"🏁 ゴール！ 総タイム: {totalTime:F2}秒");
-
-        // ゴールしたら操作無効化
-        if (machineDriver != null)
-            machineDriver.enabled = false;
+        Debug.Log($"🏁 ゴール！ {CurrentRaceTime:F2} 秒");
     }
 }

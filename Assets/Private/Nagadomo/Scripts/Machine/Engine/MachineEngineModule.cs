@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 
 public class MachineEngineModule : IVehicleModule, IResettableVehicleModule<MachineEngineModuleData>
 {
+    public VehicleController Owner => _vehicleController;
 
     public float MaxThrust { get; set; }
     public float MaxSpeed { get; set; }

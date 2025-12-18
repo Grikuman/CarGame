@@ -8,6 +8,7 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
     private MachineBoostModule _machineBoostModule;
     private MachineUltimateModule _machineUltimateModule;
     private InputManager _inputManager;
+    private RaceManager _raceManager;
 
     private bool _isActive = true;
     private VehicleController _vehicleController = null;
@@ -25,6 +26,9 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
         // インプットマネージャーのインスタンスを取得・初期化
         _inputManager = InputManager.Instance;
         _inputManager.Initialize();
+
+        // RaceManager を取得
+        _raceManager = Object.FindFirstObjectByType<RaceManager>();
     }
 
     /// <summary> 開始処理 </summary>
@@ -47,7 +51,19 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
-        
+        // レース中でなければ入力を遮断
+        if (_raceManager == null ||
+            _raceManager.CurrentState != RaceManager.RaceState.Racing ||
+            !_isActive)
+        {
+            _vehicleController.Steering = 0f;
+            _vehicleController.Accelerator = 0f;
+            _vehicleController.brake = 0f;
+            _vehicleController.boost = false;
+            _vehicleController.Ultimate = false;
+            return;
+        }
+
         // 入力値を更新する
         _inputManager.UpdateDrivingInputAxis();
         // 入力値を取得する

@@ -3,19 +3,22 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     public int checkpointID;
-    [HideInInspector] public bool passed = false;
+    [HideInInspector] public bool passed;
+
+    private CheckpointManager checkpointManager;
+
+    void Start()
+    {
+        checkpointManager = FindObjectOfType<CheckpointManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            CheckpointManager manager = FindObjectOfType<CheckpointManager>();
-            if (manager != null)
-            {
-                manager.PassCheckpoint(other.gameObject, this);
-                passed = true;
-            }
-        }
+        if (!other.CompareTag("PlayerCheck")) return;
+        if (checkpointManager == null) return;
+
+        checkpointManager.PassCheckpoint(this);
+        passed = true;
     }
 
     private void OnDrawGizmos()
