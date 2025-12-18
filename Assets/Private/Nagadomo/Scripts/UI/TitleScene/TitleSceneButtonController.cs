@@ -4,9 +4,9 @@ public class TitleSceneButtonController : MonoBehaviour
 {
     public static readonly Vector3[] SelectorPositions = new Vector3[]
     {
-        new Vector3(457.0f, -150.0f, 0),
         new Vector3(457.0f, -250.0f, 0),
-        new Vector3(457.0f, -345.0f, 0)
+        new Vector3(457.0f, -350.0f, 0),
+        new Vector3(457.0f, -445.0f, 0)
     };
 
     [SerializeField] private ButtonBase[] _buttonBases;
@@ -33,9 +33,9 @@ public class TitleSceneButtonController : MonoBehaviour
         {
             // 選択中のボタンをオンにする
             if (i == _currentIndex)
-                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OnTitleButtonAnimationState>());
+                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OnTitleSceneButtonAnimationState>());
             else
-                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OffTitleButtonAnimationState>());
+                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OffTitleSceneButtonAnimationState>());
         }
 
     }
