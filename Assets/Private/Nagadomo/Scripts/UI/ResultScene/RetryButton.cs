@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SoloButton : ButtonBase
+public class RetryButton : ButtonBase
 {
     private bool _isActive;
 
@@ -25,11 +25,11 @@ public class SoloButton : ButtonBase
     private void Awake()
     {
         // ステート作成＆初期化
-        AddState(new OnTitleSceneButtonAnimationState());
-        AddState(new OffTitleSceneButtonAnimationState());
+        AddState(new OnResultSceneButtonAnimationState());
+        AddState(new OffResultSceneButtonAnimationState());
 
         // 初期ステート（非選択）
-        _currentState = GetAnimationState<OffTitleSceneButtonAnimationState>();
+        _currentState = GetAnimationState<OffResultSceneButtonAnimationState>();
         _currentState.OnShow();
     }
 
@@ -65,11 +65,8 @@ public class SoloButton : ButtonBase
     /// <summary> 決定時のイベント </summary>
     public override void OnEvent()
     {
-        Debug.Log("SoloPlay Selected");
-
         // シーン遷移
-        SoloPlayResultData.Instance.SetCurrentTime(250.03f);
-        SceneManager.LoadScene("SoloResultScene");
+        SceneManager.LoadScene("PlayScene");
     }
 
     /// <summary> ステート追加、初期化 </summary>
