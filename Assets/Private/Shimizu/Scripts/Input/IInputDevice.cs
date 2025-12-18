@@ -12,14 +12,16 @@ public readonly struct GamePlayInputSnapshot
     public float Accelerator { get; }
     public float Brake { get; }
     public bool Boost { get; }
+    public bool Ultimate { get; }
     public bool CameraView { get; }
 
-    public GamePlayInputSnapshot(float handle, float accelerator, float brake, bool boost, bool cameraView)
+    public GamePlayInputSnapshot(float handle, float accelerator, float brake, bool boost, bool ultimate, bool cameraView)
     {
         Handle = handle;
         Accelerator = accelerator;
         Brake = brake;
         Boost = boost;
+        Ultimate = ultimate;
         CameraView = cameraView;
     }
 }
