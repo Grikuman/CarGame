@@ -32,6 +32,7 @@ public class SteeringControllerInput : IInputDevice
             accelerator: _steeringController.GetAcceleratorPosition(),
             brake: _steeringController.GetBrakePosition(),
             boost: _steeringController.GetButtonWasPressedThisFrame(SteeringController.ButtonID.A),
+            ultimate: _steeringController.GetButtonWasPressedThisFrame(SteeringController.ButtonID.X),
             cameraView: _steeringController.GetButtonWasPressedThisFrame(SteeringController.ButtonID.B)
         );
 
