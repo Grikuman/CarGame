@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
@@ -66,6 +67,8 @@ public class RaceManager : MonoBehaviour
 
         CurrentState = RaceState.Finished;
         raceEndTime = Time.time;
+        SoloPlayResultData.Instance.SetCurrentTime(raceEndTime);
+        SceneManager.LoadScene("SoloResultScene");
         Debug.Log($"🏁 ゴール！ {CurrentRaceTime:F2} 秒");
     }
 }

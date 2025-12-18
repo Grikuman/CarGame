@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Private/Nagadomo/Scenes/TitleScene.unity
     guid: 0036c01031e428644b75f52c74cf217c
   - enabled: 1
-    path: Assets/Private/Nagadomo/Scenes/MachineTestScene.unity
-    guid: 4af3b450139747a4ebd7cae576a5b966
+    path: Assets/Private/Suzuki/Scenes/masamasa.unity
+    guid: 400b3a98c0edd9047bcf3b402ba6d9ab
   - enabled: 1
     path: Assets/Private/Nagadomo/Scenes/SoloResultScene.unity
     guid: c1a769a9e0937e4489901c07eeab45f9
