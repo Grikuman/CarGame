@@ -75,15 +75,10 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
         _vehicleController.Accelerator = input.Accelerator;
         // ブレーキの入力
         _vehicleController.brake = input.Brake;
-        // 見た目用モデルの傾き値の入力
-        //_machineEngineModule.InputSteer = (-input.Handle);
         // ブースト入力
         _vehicleController.boost = input.Boost;
         // アルティメット入力
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            _vehicleController.Ultimate = true;
-        }
+        _vehicleController.Ultimate = input.Ultimate;
     }
     /// <summary> 物理計算更新処理 </summary>
     public void FixedUpdateModule()
