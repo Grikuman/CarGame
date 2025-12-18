@@ -68,7 +68,7 @@ public class SoloButton : ButtonBase
         Debug.Log("SoloPlay Selected");
 
         // シーン遷移
-        SceneManager.LoadScene("masamasa");
+        SceneManager.LoadScene("SoloPlayScene");
     }
 
     /// <summary> ステート追加、初期化 </summary>
