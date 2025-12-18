@@ -68,8 +68,7 @@ public class SoloButton : ButtonBase
         Debug.Log("SoloPlay Selected");
 
         // シーン遷移
-        SoloPlayResultData.Instance.SetCurrentTime(250.03f);
-        SceneManager.LoadScene("SoloResultScene");
+        SceneManager.LoadScene("masamasa");
     }
 
     /// <summary> ステート追加、初期化 </summary>
