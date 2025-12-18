@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MachineEngineModuleData
   m_EditorClassIdentifier: 
   _maxThrust: 7000
-  _maxSpeed: 150
+  _maxSpeed: 200
   _thrustCurve:
     serializedVersion: 2
     m_Curve:
@@ -41,6 +41,3 @@ MonoBehaviour:
   _dragCoeff: 0.2
   _brakingDrag: 2
   _mass: 200
-  _visualYawAngle: 10
-  _visualRollAngle: 30
-  _visualRotateSpeed: 1
