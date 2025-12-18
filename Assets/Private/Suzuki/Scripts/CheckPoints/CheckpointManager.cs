@@ -13,6 +13,10 @@ public class CheckpointManager : MonoBehaviour
 
     private RaceManager raceManager;
 
+    public int CurrentLap => currentLap;
+    public int TotalLaps => totalLaps;
+
+
     void Start()
     {
         raceManager = FindObjectOfType<RaceManager>();
@@ -53,6 +57,10 @@ public class CheckpointManager : MonoBehaviour
         {
             currentLap++;
             nextCheckpointIndex = 0;
+
+            FindFirstObjectByType<LapUI>()?
+                .UpdateLap(currentLap + 1, totalLaps);
+
             Debug.Log($"Lap {currentLap}/{totalLaps}");
 
             if (currentLap >= totalLaps)
@@ -61,6 +69,7 @@ public class CheckpointManager : MonoBehaviour
                 raceManager.FinishRace();
             }
         }
+
     }
 
 }
