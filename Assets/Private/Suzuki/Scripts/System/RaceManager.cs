@@ -27,16 +27,26 @@ public class RaceManager : MonoBehaviour
     public LapUI lapUI;
     private CheckpointManager checkpointManager;
 
+    // インプットマネージャー
+    private InputManager _inputManager;
+
     private void Start()
     {
         checkpointManager = FindFirstObjectByType<CheckpointManager>();
         lapUI?.Show(false);
+
+        // インプットマネージャーのインスタンスを取得・初期化
+        _inputManager = InputManager.Instance;
+        _inputManager.Initialize();
     }
     private void Update()
     {
+        // 入力値を取得する
+        var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
+
         // スペースキーでレース開始
         if (CurrentState == RaceState.Waiting &&
-            Input.GetKeyDown(KeyCode.Space))
+            input.Ultimate)
         {
             StartRaceSequence();
         }
