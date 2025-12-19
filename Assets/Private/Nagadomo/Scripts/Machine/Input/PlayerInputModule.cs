@@ -51,6 +51,9 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
+        // 入力値を更新する
+        _inputManager.UpdateDrivingInputAxis();
+
         // レース中でなければ入力を遮断
         if (_raceManager == null ||
             _raceManager.CurrentState != RaceManager.RaceState.Racing ||
@@ -65,7 +68,7 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
         }
 
         // 入力値を更新する
-        _inputManager.UpdateDrivingInputAxis();
+        //_inputManager.UpdateDrivingInputAxis();
         // 入力値を取得する
         var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
 
