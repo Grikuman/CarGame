@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(menuName = "Vehicle/Data/DataManager")]
-public class SimpleVehicleDataManager : ScriptableObject
+public class VehicleDataManager : ScriptableObject
 {
     //保存されている車のデータ
     [SerializeField]List<LoaclVehicleData> m_vehicles = new List<LoaclVehicleData>();
@@ -48,7 +48,7 @@ public class SimpleVehicleDataManager : ScriptableObject
     {
         if(index >= MaxVehiicleNumber||index < 0)
         {
-            Debug.LogWarning($"[SimpleVehicleDataManager]配列番号{index}がありません");
+            Debug.LogWarning($"[VehicleDataManager]配列番号{index}がありません");
             return null;
         }
         return m_vehicles[index];
@@ -64,7 +64,7 @@ public class SimpleVehicleDataManager : ScriptableObject
         // IDが存在するか確認
         if (!m_idtoIndex.ContainsKey(id))
         {
-            Debug.LogWarning($"[SimpleVehicleDataManager]ID{id}がありません");
+            Debug.LogWarning($"[VehicleDataManager]ID{id}がありません");
             return null;
         }
 

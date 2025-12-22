@@ -1169,6 +1169,7 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 1611030297}
   - {fileID: 1611030301}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &1611030301
@@ -1183,7 +1184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae5775159afccf40a8a3574fef43ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_roomManager: {fileID: 1611030297}
   m_carPositions:
   - {fileID: 418437753}
   - {fileID: 709817829}

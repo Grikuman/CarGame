@@ -7,7 +7,7 @@ using UnityEngine;
 public class MainVehicleSetting : MonoBehaviour
 {
     //車のデータ
-    [SerializeField] SimpleVehicleDataManager m_vehicleSetting;
+    [SerializeField] VehicleDataManager m_vehicleSetting;
     //現在選択の番号
     [SerializeField]int m_currentVehicleIndex = 0;
     //車を設置する場所

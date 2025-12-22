@@ -1,15 +1,17 @@
 using UnityEngine;
 using Fusion;
 using System;
+using static Unity.Collections.Unicode;
+using UnityEngine.SceneManagement;
 
 namespace Aoi
 {
-    public class RoomManager : MonoBehaviour
+    public class RoomManager : NetworkBehaviour
     {
         //ÉQÅ[ÉÄÉâÉìÉ`ÉÉÅ[
         NetWork.GameLauncher m_gameLauncher;
         [SerializeField]MainVehicleSetting m_vehicleSetting;
-        [SerializeField]SimpleVehicleDataManager m_vehicleDataManager;
+        [SerializeField]VehicleDataManager m_vehicleDataManager;
         public event Action OnVehicleChange;
 
         private void Start()
@@ -56,6 +58,19 @@ namespace Aoi
                 m_vehicleSetting.MoveUp();
                 UserDataUpdate();
             }
+
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                if (Object.HasStateAuthority)
+                {
+                    Runner.LoadScene(SceneRef.FromIndex(Config.PLAY_SCENE), LoadSceneMode.Single);
+                }
+            }
+        }
+
+        public override void FixedUpdateNetwork()
+        {
+            
         }
 
         private void UserDataUpdate()

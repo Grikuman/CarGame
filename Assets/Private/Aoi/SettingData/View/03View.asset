@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15d5a86a02b6fe4da20fe2b8471fa99, type: 3}
-  m_Name: Data4
+  m_Script: {fileID: 11500000, guid: d4ce35249e4a3cf4caf3b4aa2f38554d, type: 3}
+  m_Name: 03View
   m_EditorClassIdentifier: 
-  m_vehicleID: 3
-  m_vehicleModel: {fileID: 919132149155446097, guid: 7f7360800f5584644b4a85a96245554c,
+  m_vehicleViewModel: {fileID: 7290692573346091900, guid: e0780317b5d7049429aae50e46ea6bb7,
     type: 3}
