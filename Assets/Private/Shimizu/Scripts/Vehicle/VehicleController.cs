@@ -18,8 +18,24 @@ public class VehicleController : MonoBehaviour
     public bool boost { get; set; }
     public bool Ultimate { get; set; }
 
+    private bool isInitialize = false;
+    [SerializeField]private bool autoInitialize = false;
+
     private void Awake()
     {
+        if(autoInitialize)Initialize();
+    }
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    public void Initialize()
+    {
+        if(isInitialize) return;
+        isInitialize = true;
+
+        _rb = this.GetComponent<Rigidbody>();
+
         var usedTypes = new HashSet<System.Type>();
 
         foreach (var moduleFactory in _moduleFactories)
@@ -96,6 +112,49 @@ public class VehicleController : MonoBehaviour
         Debug.LogWarning($"[VehicleController] Module of type {typeof(T).Name} not found.");
         return null;
     }
+
+
+    /// <summary>
+    /// モジュールファクトリデータの追加
+    /// </summary>
+    /// <param name="moduleFactory">追加データ</param>
+    /// <param name="createModule">モジュールの作成まで行うか</param>
+    public void AddSetting(VehicleModuleFactoryBase moduleFactory,bool createModule = false)
+    {
+        if (moduleFactory == null) return;
+        
+
+        //モジュールの作成を行わないならパス(基本は行わないようにする)
+        if (!createModule)
+        {
+            // 登録
+            _moduleFactories.Add(moduleFactory);
+            return;
+        }
+
+        // モジュールを作成
+        var module = moduleFactory.Create(this);
+        if (module == null) return;
+
+        Type moduleType = module.GetType();
+
+        // 既存モジュールに同じ型がないかチェック
+        foreach (var existingModule in _modules)
+        {
+            if (existingModule.GetType() == moduleType)
+            {
+                Debug.LogWarning($"Duplicate module type detected: {moduleType.Name}. Skipping.");
+                return;
+            }
+        }
+
+        // 登録
+        _moduleFactories.Add(moduleFactory);
+        _modules.Add(module);
+        module.Start();
+    }
+
+
 
     /// <summary> 指定した型のファクトリーに対応するモジュールの設定をリセットします </summary>
     /// <typeparam name="T"> リセット対象のファクトリー型 </typeparam>

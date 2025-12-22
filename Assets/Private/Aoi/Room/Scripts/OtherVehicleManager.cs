@@ -20,7 +20,7 @@ public class OtherVehicleManager : NetworkBehaviour
     //êŠ‚Ìg—pó‹µ
     private bool[] m_indexUsage = new bool[3];
 
-    [SerializeField] SimpleVehicleDataManager m_vehicleSetting;
+    [SerializeField] VehicleDataManager m_vehicleSetting;
 
     
     void Start()

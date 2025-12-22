@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Data1
   m_EditorClassIdentifier: 
   m_vehicleID: 0
-  m_vehicleModel: {fileID: 919132149155446097, guid: 96bd1c04bb2ff624d91c72f46fe8f7f3,
+  m_vehicleModel: {fileID: 7199511722862615136, guid: 2da4469aca3d85948abddab43c912c60,
     type: 3}
+  m_moduleFactories:
+  - {fileID: 11400000, guid: 92ad10fa15fd72545942ab3a8a158140, type: 2}

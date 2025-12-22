@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49818a3ef18b848449628f02bd164569, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e74486f88b45384ca06feb8e263fffe, type: 3}
   m_Name: DataManager
   m_EditorClassIdentifier: 
   m_vehicles:
   - {fileID: 11400000, guid: be978cbf6bd2e9641acc1b9c0f15968d, type: 2}
   - {fileID: 11400000, guid: 0ad015f2eb8ae9d419824c7926edf251, type: 2}
   - {fileID: 11400000, guid: f91ac1d5d5b4ada429659f81be6eabf5, type: 2}
-  - {fileID: 11400000, guid: 13a0fb1b0e80275478867ffc7e600a99, type: 2}
-  - {fileID: 11400000, guid: c7a5f60af22f89640a98abd3920fbe50, type: 2}
-  - {fileID: 11400000, guid: 5dc531b756893ce4ca4a6ab8a1ba8148, type: 2}

@@ -11,19 +11,32 @@ public class SpawneManager : NetworkBehaviour
     //ランチャー
     GameLauncher m_gameLauncher;
 
+
+
     //車生成場所(配列0から優先,AIも使用)
     [SerializeField]
     List<GameObject> m_spowenPosition;
     //ユーザーの生成場所管理
     [Networked, Capacity(4)]
     private NetworkArray<NetworkBool> m_spownDataUsage => default;
-    //自身のインデックス番号
-    int m_index = -1;
+    //自身の配置インデックス番号
+    int m_positionIndex = -1;
 
+
+
+    //自身の車インデックス番号
+    int m_vehicleIndex = 0;
+    //車のデータ
+    [SerializeField]
+    VehicleDataManager m_vehicleDataManager;
     //生成する車
     [SerializeField]
     private NetworkPrefabRef m_vehiclePrefab;
 
+
+
+
+    //車のデータを各所に送る
     [SerializeField]VehicleSender m_vehicleSender;
     
 
@@ -35,8 +48,24 @@ public class SpawneManager : NetworkBehaviour
     public override void Spawned()
     {
         Debug.Log($"ユーザー名:{Runner.LocalPlayer}が入りました");
+
+        //ユーザーデータから車IDを取得
+        var selectID = m_gameLauncher.UserData.m_vehicleID;
+        //IDから対応した配列番号取得
+        int vechileIndex = m_vehicleDataManager.GetIndexToID(selectID);
+
+        SpawnVehicle(vechileIndex);
+    }
+
+
+    public void SpawnVehicle(int vechileIndex)
+    {
+        //使う車のデータインデックス取得
+        m_vehicleIndex = vechileIndex;
+        //車を生成
         RPC_RequestIndex(Runner.LocalPlayer);
     }
+
 
     /// <summary>
     /// 自身が使う場所のインデックス番号をリクエストする
@@ -64,7 +93,7 @@ public class SpawneManager : NetworkBehaviour
     {
         if (Runner.LocalPlayer == target)
         {
-            m_index = index;
+            m_positionIndex = index;
             CreateVehicle();
         }
     }
@@ -74,16 +103,41 @@ public class SpawneManager : NetworkBehaviour
     /// </summary>
     private void CreateVehicle()
     {
-        if(m_spowenPosition.Count <= m_index)
+        if(m_spowenPosition.Count <= m_positionIndex)
         {
             Debug.LogWarning($"[SpawneManager]スポーン位置が足りていません");
             return;
         }
-
-        Vector3 position = m_spowenPosition[m_index].transform.position;
-
+        //生成位置決定
+        Vector3 position = m_spowenPosition[m_positionIndex].transform.position;
+        //車を生成
         var vehicle = Runner.Spawn(m_vehiclePrefab, position);
 
+        
+        VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
+        if(vehicleController == null)
+        {
+            Debug.LogWarning($"[SpawneManager]{vehicle.gameObject}にVehicleControllerがついていません");
+        }
+
+
+        //個別のデータ取得、設定
+        var data = m_vehicleDataManager.GetDataToIndex(m_vehicleIndex);
+        foreach(var factory in data.ModuleFactoryBases)
+        {
+            vehicleController.AddSetting(factory);
+        }
+
+        //車の初期化
+        vehicleController.Initialize();
+
+        //車のデータを送信
         m_vehicleSender.Send(vehicle.gameObject);
+
+        //ネットワーク関連
+        var networkVehicle = vehicle.GetComponent<VehicleNetwork>();
+        if (networkVehicle == null) return;
+        networkVehicle.RPC_SettingData(m_vehicleIndex);
+        networkVehicle.RPC_Initialize();
     }
 }
