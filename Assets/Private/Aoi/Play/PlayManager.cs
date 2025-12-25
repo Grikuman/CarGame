@@ -5,33 +5,72 @@ using UnityEngine;
 
 namespace Aoi
 {
-    public class PlayManager : MonoBehaviour
+    public class PlayManager : NetworkBehaviour
     {
         GameLauncher m_gameLauncher;
-        [SerializeField] NetworkPrefabRef m_car;
-        //車のデータ
-        [SerializeField] VehicleDataManager m_vehicleDataManager;
-        
+        bool m_isStarted = false;
+
+        // 開始時間（全クライアントで同期）
+        [Networked] private double m_startTime { get; set; } = 0;
+
+        [SerializeField] RaceManager m_raceManager;
 
         private void Start()
         {
             m_gameLauncher = GameLauncher.Instance;
-            m_gameLauncher.OnPlayerJoined += SpownPlayer;
+
+            // nullチェックで安全性を確保
+            if (m_gameLauncher != null)
+            {
+                m_gameLauncher.AddOnAllUserReady(OnAllUserReady);
+            }
+            else
+            {
+                Debug.LogError("GameLauncher instance is null");
+            }
+
         }
 
-        private void SpownPlayer(NetworkRunner runner,PlayerRef user)
+        private void OnDestroy()
         {
-            //ユーザーデータから車IDを取得
-            var selectID = m_gameLauncher.UserData.m_vehicleID;
-            //IDから対応した配列番号取得
-            int vechileIndex = m_vehicleDataManager.GetIndexToID(selectID);
-
-            //IDを使って車の初期データを設定する
-
-            if (runner.LocalPlayer == user)
+            if (m_gameLauncher != null)
             {
-                runner.Spawn(m_car, new Vector3(runner.ActivePlayers.Count() * 10, 10, 0));
+                m_gameLauncher.RemoveOnAllUserReady(OnAllUserReady);
             }
         }
-    } 
+
+        private void FixedUpdate()
+        {
+            if (Runner == null) return;
+
+            // 開始時刻に達したかチェック
+            if (!m_isStarted && m_startTime > 0 && Runner.SimulationTime >= m_startTime)
+            {
+                m_isStarted = true;
+                OnGameStart();
+            }
+        }
+
+
+        /// <summary>
+        /// ゲーム開始時に全クライアントで呼ばれる処理
+        /// </summary>
+        private void OnGameStart()
+        {
+            if(m_raceManager != null)
+            {
+                m_raceManager.StartRaceSequence();
+            }
+        }
+
+        /// <summary>
+        /// 全ユーザーが揃った時の処理
+        /// </summary>
+        private void OnAllUserReady()
+        {
+            if (!HasStateAuthority) return;
+
+            m_startTime = Runner.SimulationTime + 2.0;
+        }
+    }
 }

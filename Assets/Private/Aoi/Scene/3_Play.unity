@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 232757652}
   - component: {fileID: 232757651}
   - component: {fileID: 232757650}
+  - component: {fileID: 232757653}
   m_Layer: 0
   m_Name: PlayManager
   m_TagString: Untagged
@@ -475,6 +476,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 232757651}
+  - {fileID: 232757653}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &232757651
 MonoBehaviour:
@@ -512,6 +514,19 @@ Transform:
   - {fileID: 664719781}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &232757653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232757649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd79397ae22f0640b2b0803cba9aa19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_raceManager: {fileID: 1507688726}
 --- !u!1 &294057862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1203,7 @@ MonoBehaviour:
     type: 3}
   m_autoConnect: 1
   m_isLog: 0
+  m_autoJoinRoomName: Default
   m_spawnService: {fileID: 1687618134}
   m_readyService: {fileID: 1687618133}
   m_userDataService: {fileID: 1687618131}
