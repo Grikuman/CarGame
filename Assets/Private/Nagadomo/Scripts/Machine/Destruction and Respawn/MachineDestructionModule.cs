@@ -50,6 +50,14 @@ public class MachineDestructionModule : IVehicleModule, IResettableVehicleModule
             return;
         }
 
+        // シールド中は破壊不可
+        var shield = _vehicleController.GetComponent<Ultimate_Shield>();
+        if (shield != null && shield.IsShieldActive())
+        {
+            return; 
+        }
+
+
         // ===========================================================
         // 後方衝突判定
         // ===========================================================

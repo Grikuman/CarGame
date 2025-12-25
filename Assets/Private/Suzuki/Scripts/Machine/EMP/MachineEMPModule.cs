@@ -35,14 +35,32 @@ public class MachineEMPModule :
     // 敵用：ブースト減少
     public void ApplyEnemyEMP(float amount)
     {
+        Debug.Log($"[MachineEMPModule] ApplyEnemyEMP amount={amount} isActive={_isActive}");
+
         if (!_isActive) return;
-        _boost?.DecreaseGauge(amount);
+
+        if (_boost == null)
+        {
+            Debug.LogWarning("[MachineEMPModule] Boost module is null");
+            return;
+        }
+
+        _boost.DecreaseGauge(amount);
     }
 
-    // 自分用：ブースト回復
     public void ApplySelfHeal(float amount)
     {
+        Debug.Log($"[MachineEMPModule] ApplySelfHeal amount={amount} isActive={_isActive}");
+
         if (!_isActive) return;
-        _boost?.IncreaseGauge(amount);
+
+        if (_boost == null)
+        {
+            Debug.LogWarning("[MachineEMPModule] Boost module is null");
+            return;
+        }
+
+        _boost.IncreaseGauge(amount);
     }
+
 }
