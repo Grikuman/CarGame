@@ -31,8 +31,9 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         // ‰Šú‚ÌƒQ[ƒW‚ðÝ’è‚·‚é
         CurrentGauge = MaxUltimateGauge;
         // ‚Æ‚è‚ ‚¦‚¸Boost Ultimate‚ðÝ’è‚µ‚Ä‚¨‚­
-        SetUltimate(new Ultimate_Boost(2.5f, 3.0f));
+        //SetUltimate(new Ultimate_Boost(2.5f, 3.0f));
         //SetUltimate(new Ultimate_EMP());
+        SetUltimate(new Ultimate_Shield(3.0f, 3.0f, _vehicleController));
 
 
     }
