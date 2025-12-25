@@ -21,6 +21,8 @@ namespace NetWork
         [SerializeField] private bool m_autoConnect = false;
         [SerializeField] private bool m_isLog = false;
 
+        [SerializeField]string m_autoJoinRoomName = "Default";
+
         //
         private NetworkRunner m_networkRunner;
         private string m_roomName;
@@ -96,7 +98,7 @@ namespace NetWork
             if (m_autoConnect)
             {
                 //ConnectFusion();
-                await JoinRoom("Room1", 4);
+                await JoinRoom(m_autoJoinRoomName, 4);
             }
         }
 

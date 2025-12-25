@@ -259,6 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_car:
     RawGuidValue: 2e75b1c852c99f6469b125526c55ce1a
+  m_vehicleDataManager: {fileID: 0}
 --- !u!4 &335419008
 Transform:
   m_ObjectHideFlags: 0
@@ -308,11 +309,7 @@ MonoBehaviour:
   m_userdataManagerPrefab:
     RawGuidValue: d941b279a6d1a6c4a938b343c8e36b0b
   m_isLog: 1
-  m_debugId: 0
-  m_debugName: 
-  m_debugTreasureCount: 0
-  m_debugTreasurePoint: 0
-  m_debugDigPoint: 0
+  m_vechileID: 0
   m_userDataManager: {fileID: 0}
 --- !u!4 &356037529
 Transform:
