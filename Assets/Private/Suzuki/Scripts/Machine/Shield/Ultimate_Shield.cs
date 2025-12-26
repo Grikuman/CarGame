@@ -1,11 +1,11 @@
 using UnityEngine;
+
 public class Ultimate_Shield : UltimateBase
 {
     private VehicleController _selfVehicle;
+    private MachineShieldState _shieldState;
 
-    private bool _shieldActive = false;
-
-    public Ultimate_Shield(float duration, float ultimateTime, VehicleController vc)
+    public Ultimate_Shield(float ultimateTime, VehicleController vc)
     {
         _ultimateTime = ultimateTime;
         _selfVehicle = vc;
@@ -15,20 +15,28 @@ public class Ultimate_Shield : UltimateBase
     {
         base.Activate(engine);
 
-        _shieldActive = true;
-        Debug.Log($"[ShieldState] ON : {_selfVehicle.name}");
+        if (_shieldState == null)
+        {
+            _shieldState = _selfVehicle.GetComponent<MachineShieldState>();
+        }
+
+        if (_shieldState != null)
+        {
+            _shieldState.Enable();
+        }
+
+        Debug.Log($"[Ultimate_Shield] Activate : {_selfVehicle.name}");
     }
 
     public override void End()
     {
         base.End();
 
-        _shieldActive = false;
-        Debug.Log($"[ShieldState] OFF : {_selfVehicle.name}");
-    }
+        if (_shieldState != null)
+        {
+            _shieldState.Disable();
+        }
 
-    public bool IsShieldActive()
-    {
-        return _shieldActive;
+        Debug.Log($"[Ultimate_Shield] End : {_selfVehicle.name}");
     }
 }

@@ -51,11 +51,13 @@ public class MachineDestructionModule : IVehicleModule, IResettableVehicleModule
         }
 
         // シールド中は破壊不可
-        var shield = _vehicleController.GetComponent<Ultimate_Shield>();
-        if (shield != null && shield.IsShieldActive())
+        var shield = _vehicleController.GetComponent<MachineShieldState>();
+        if (shield != null && shield.IsShieldActive)
         {
-            return; 
+            Debug.Log("[Destruction] Shield Active → Damage Blocked");
+            return;
         }
+
 
 
         // ===========================================================
