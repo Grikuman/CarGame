@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentGauge: 100
   _maxUltimateGauge: 100
-  _gaugeIncrease: 2
+  _gaugeIncrease: 0.1
