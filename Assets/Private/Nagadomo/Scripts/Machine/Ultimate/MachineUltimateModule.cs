@@ -12,6 +12,15 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
     // 現在のアルティメット
     private IUltimate _currentUltimate = null;
 
+    // 現在のアルティメットの種類
+    public enum UltimateName
+    {
+        None,
+        ULT_Boost,
+        ULT_EMP,
+        ULT_Shield
+    }
+
     // エンジンモジュール
     private MachineEngineModule _machineEngineModule;
 
@@ -34,8 +43,6 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         //SetUltimate(new Ultimate_Boost(2.5f, 3.0f));
         //SetUltimate(new Ultimate_EMP());
         SetUltimate(new Ultimate_Shield(5.0f, _vehicleController));
-
-
     }
 
     /// <summary> 開始処理 </summary>
@@ -155,5 +162,29 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
     public float GetUltimateGaugeNormalized()
     {
         return CurrentGauge / MaxUltimateGauge;
+    }
+
+    /// <summary>
+    /// アルティメットの種類を取得する(名前)
+    /// </summary>
+    /// <returns></returns>
+    public UltimateName GetUltimateName()
+    {
+        if(_currentUltimate is Ultimate_Boost)
+        {
+            return UltimateName.ULT_Boost;
+        }
+        else if (_currentUltimate is Ultimate_Boost)
+        {
+            return UltimateName.ULT_Boost;
+        }
+        else if (_currentUltimate is Ultimate_Boost)
+        {
+            return UltimateName.ULT_Boost;
+        }
+        else
+        {
+            return UltimateName.None;
+        }
     }
 }
