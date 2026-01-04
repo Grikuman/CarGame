@@ -7,6 +7,8 @@ public class RaceProgressManager : MonoBehaviour
 
     // 現在のラップ数
     [SerializeField] private int _currentLap;
+    // 最大ラップ数
+    [SerializeField] private int _maxLap;
     // 現在のコース上のポイント
     [SerializeField] private int _currentCoursePoint;
 
@@ -25,6 +27,8 @@ public class RaceProgressManager : MonoBehaviour
 
         // 現在のラップを取得
         _currentLap = _checkpointManager.CurrentLap;
+        // 最大ラップ数を取得
+        _maxLap = _checkpointManager.TotalLaps;
         // 現在のコース上のポイントを取得
         _currentCoursePoint = _courseProgressManager.NearestWaypointIndex;
 
@@ -38,6 +42,15 @@ public class RaceProgressManager : MonoBehaviour
     public int GetCurrentLap()
     {
         return _currentLap;
+    }
+
+    /// <summary>
+    /// 最大ラップ数を取得する
+    /// </summary>
+    /// <returns></returns>
+    public int GetMaxLap()
+    {
+        return _maxLap;
     }
 
     /// <summary>
