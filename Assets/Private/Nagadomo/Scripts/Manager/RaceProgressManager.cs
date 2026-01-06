@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RaceProgressManager : MonoBehaviour
@@ -11,6 +12,10 @@ public class RaceProgressManager : MonoBehaviour
     [SerializeField] private int _maxLap;
     // 現在のコース上のポイント
     [SerializeField] private int _currentCoursePoint;
+    // 現在のチェックポイント
+    [SerializeField] private int _currentCheckpoint;
+    // 次のチェックポイント
+    [SerializeField] private int _nextCheckpoint;
 
     void Start()
     {
@@ -31,6 +36,10 @@ public class RaceProgressManager : MonoBehaviour
         _maxLap = _checkpointManager.TotalLaps;
         // 現在のコース上のポイントを取得
         _currentCoursePoint = _courseProgressManager.NearestWaypointIndex;
+        // 現在のチェックポイントを取得
+        _currentCheckpoint = _checkpointManager.CurrentCheckpoint;
+        // 次のチェックポイント
+        _nextCheckpoint = _checkpointManager.NextCheckpoint;
 
         Debug.Log($"現在のラップ数：{_currentLap}です。コース上のポイントは{_currentCoursePoint}です。");
     }
@@ -60,5 +69,23 @@ public class RaceProgressManager : MonoBehaviour
     public int GetCurrentCoursePoint()
     {
         return _currentCoursePoint;
+    }
+
+    /// <summary>
+    /// 現在のチェックポイントを取得する
+    /// </summary>
+    /// <returns></returns>
+    public int GetCurrentCheckpoint()
+    {
+        return _currentCheckpoint;
+    }
+
+    /// <summary>
+    /// 次のチェックポイントを取得する
+    /// </summary>
+    /// <returns></returns>
+    public int GetNextCheckpoint()
+    {
+        return _nextCheckpoint;
     }
 }
