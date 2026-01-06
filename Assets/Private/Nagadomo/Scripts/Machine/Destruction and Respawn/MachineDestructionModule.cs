@@ -47,6 +47,7 @@ public class MachineDestructionModule : IVehicleModule, IResettableVehicleModule
         // 攻撃可能かチェック（どちらも false なら破壊できない）
         if (!isBoosting && !isUltimate)
         {
+            Debug.Log("モジュールないよ...悲しいっぴ");
             return;
         }
 
