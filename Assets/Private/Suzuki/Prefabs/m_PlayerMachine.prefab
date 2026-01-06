@@ -4909,7 +4909,7 @@ GameObject:
   - component: {fileID: 7425852910350492211}
   - component: {fileID: 9195841880751236128}
   m_Layer: 15
-  m_Name: PlayerMachine
+  m_Name: m_PlayerMachine
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
