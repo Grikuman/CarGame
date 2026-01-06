@@ -111,7 +111,7 @@ public class SpawneManager : NetworkBehaviour
         //ê∂ê¨à íuåàíË
         Vector3 position = m_spowenPosition[m_positionIndex].transform.position;
         //é‘Çê∂ê¨
-        var vehicle = Runner.Spawn(m_vehiclePrefab, position);
+        var vehicle = Runner.Spawn(m_vehiclePrefab, position,Quaternion.identity,Runner.LocalPlayer);
 
         
         VehicleController vehicleController = vehicle.GetComponent<VehicleController>();

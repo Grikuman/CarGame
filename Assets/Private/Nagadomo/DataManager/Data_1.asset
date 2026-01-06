@@ -15,12 +15,4 @@ MonoBehaviour:
   m_vehicleID: 0
   m_vehicleModel: {fileID: 7199511722862615136, guid: 2da4469aca3d85948abddab43c912c60,
     type: 3}
-  m_moduleFactories:
-  - {fileID: 11400000, guid: 78f5bb8868014a441b59904bd4c273fb, type: 2}
-  - {fileID: 11400000, guid: 0e618001ffeb0a64abf153e6e6b01ff3, type: 2}
-  - {fileID: 11400000, guid: 04a8dfc4c177b52498c89e43f6f27726, type: 2}
-  - {fileID: 11400000, guid: c94994b0804380e45b47c8740e5f0870, type: 2}
-  - {fileID: 11400000, guid: 237852ce0b767bc4ebb515a1ce149d07, type: 2}
-  - {fileID: 11400000, guid: dc04b8c9c4085764ca1fb54021b9634e, type: 2}
-  - {fileID: 11400000, guid: ad665f45ca705dc42b936362e9d30a3d, type: 2}
-  - {fileID: 11400000, guid: c3250976734030f4793d2c7732bab6d1, type: 2}
+  m_moduleFactories: []

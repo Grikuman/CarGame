@@ -18,6 +18,8 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     private MachineEngineModule _machineEngineModule;
     // アルティメットモジュール
     private MachineUltimateModule _machineUltimateModule;
+    // ネットワークステート管理
+    private NetworkMachineState _networkMachineState;
 
     private bool _isActive = true;
     private VehicleController _vehicleController = null;
@@ -46,6 +48,8 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
         _machineEngineModule = _vehicleController.Find<MachineEngineModule>();
         // アルティメットモジュールを取得する
         _machineUltimateModule = _vehicleController.Find<MachineUltimateModule>();
+        // ネットワークステート管理を取得する
+        _networkMachineState = _vehicleController.GetComponent<NetworkMachineState>();
     }
 
     /// <summary> 更新処理 </summary>
@@ -146,6 +150,12 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
         _machineEngineModule.BoostMultiplier = BoostMultiplier;
         // ブースト発動状態
         IsBoosting = true;
+        // ネットワークステートの状態を設定する
+        if (_networkMachineState != null)
+        {
+            _networkMachineState.RPC_SetBoosting(true);
+        }
+
         Debug.Log("ブースト発動");
     }
 
@@ -158,6 +168,11 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
         _machineEngineModule.BoostMultiplier = 1.0f;
         // ブースト発動状態を解除
         IsBoosting = false;
+        // ネットワークステートの状態を設定する
+        if (_networkMachineState != null)
+        {
+            _networkMachineState.RPC_SetBoosting(false);
+        }
         // ブーストのクールタイムを設定する
         CoolDownTimer = BoostCoolDown;
     }

@@ -1,7 +1,7 @@
 using Fusion;
 using UnityEngine;
 
-public class VehicleDestructionNetwork : NetworkBehaviour
+public class NetworkMachineDestruction : NetworkBehaviour
 {
     [Networked] public bool IsDead { get; set; }
 
@@ -16,12 +16,20 @@ public class VehicleDestructionNetwork : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        if (_respawn == null)
+        {
+            var vc = GetComponent<VehicleController>();
+            if (vc != null)
+                _respawn = vc.Find<MachineRespawnModule>();
+
+            if (_respawn == null)
+                return;
+        }
+
         if (IsDead && !_handled)
         {
             _handled = true;
-
-            // ★ ローカル演出として Kill を実行
-            _respawn?.Kill();
+            _respawn.Kill();
         }
 
         if (!IsDead)
@@ -29,6 +37,7 @@ public class VehicleDestructionNetwork : NetworkBehaviour
             _handled = false;
         }
     }
+
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_RequestKill()

@@ -34,48 +34,26 @@ public class MachineDestructionModule : IVehicleModule, IResettableVehicleModule
         if (!other.CompareTag("Player")) return;
         if (!other.TryGetComponent(out VehicleController otherVC)) return;
 
-        // ===========================================================
-        // 攻撃側（otherVC）が Boost or Ultimate 中でなければ破壊不可
-        // ===========================================================
+        var combatNet = otherVC.GetComponent<NetworkMachineState>();
+        if (combatNet == null) return;
 
-        var boost = otherVC.Find<MachineBoostModule>();
-        var ultimate = otherVC.Find<MachineUltimateModule>();
+        // ★ ネットワーク越しに見える状態
+        bool canDestroy =
+            combatNet.IsBoosting || combatNet.IsUltimateActive;
 
-        bool isBoosting = boost != null && boost.IsActiveBoost();
-        bool isUltimate = ultimate != null && ultimate.IsActiveUltimate();
+        if (!canDestroy) return;
 
-        // 攻撃可能かチェック（どちらも false なら破壊できない）
-        if (!isBoosting && !isUltimate)
-        {
-            Debug.Log("モジュールないよ...悲しいっぴ");
-            return;
-        }
+        // 後方判定
+        Vector3 dirToMe =
+            (_vehicleController.transform.position - other.transform.position).normalized;
 
-        // シールド中は破壊不可
-        var shield = _vehicleController.GetComponent<MachineShieldState>();
-        if (shield != null && shield.IsShieldActive)
-        {
-            Debug.Log("[Destruction] Shield Active → Damage Blocked");
-            return;
-        }
-
-
-
-        // ===========================================================
-        // 後方衝突判定
-        // ===========================================================
-
-        Vector3 dirToMe = (_vehicleController.transform.position - other.transform.position).normalized;
         float angle = Vector3.Angle(other.transform.forward, dirToMe);
 
         if (angle < RearHitAngle)
         {
-            var net = _vehicleController.GetComponent<VehicleDestructionNetwork>();
-            if (net != null)
-            {
-                net.RPC_RequestKill();
-            }
-
+            var net = _vehicleController.GetComponent<NetworkMachineDestruction>();
+            net?.RPC_RequestKill();
         }
     }
+
 }
