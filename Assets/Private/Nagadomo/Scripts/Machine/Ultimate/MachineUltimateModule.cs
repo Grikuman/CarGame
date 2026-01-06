@@ -23,6 +23,8 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
 
     // エンジンモジュール
     private MachineEngineModule _machineEngineModule;
+    // ネットワークステート管理
+    private NetworkMachineState _networkMachineState;
 
     private bool _isActive = true;
     private VehicleController _vehicleController = null;
@@ -49,10 +51,12 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
     public void Start()
     {
         // モジュールデータリセット処理
-        _vehicleController.ResetSettings<MachineBoostModuleData>();
+        _vehicleController.ResetSettings<MachineUltimateModuleData>();
 
         // エンジンモジュールを取得する
         _machineEngineModule = _vehicleController.Find<MachineEngineModule>();
+        // ネットワークステート管理を取得する
+        _networkMachineState = _vehicleController.GetComponent<NetworkMachineState>();
     }
 
     /// <summary> 更新処理 </summary>
@@ -74,6 +78,11 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
             // アルティメットが終了したら
             if (_currentUltimate.IsEnd())
             {
+                // ネットワークステートの状態を設定する
+                if (_networkMachineState != null)
+                {
+                    _networkMachineState.RPC_SetUltimate(false);
+                }
                 Debug.Log("アルティメットを終了");
                 // アルティメット終了処理を行う
                 _currentUltimate.End();
@@ -118,6 +127,12 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         if (CurrentGauge >= MaxUltimateGauge && !_currentUltimate.IsActive())
         {
             _currentUltimate.Activate(_machineEngineModule);
+            // ネットワークステートの状態を設定する
+            if (_networkMachineState != null)
+            {
+                _networkMachineState.RPC_SetUltimate(true);
+            }
+
             Debug.Log("アルティメットを発動");
         }
     }

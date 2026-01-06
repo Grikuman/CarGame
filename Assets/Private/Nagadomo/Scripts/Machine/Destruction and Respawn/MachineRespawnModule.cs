@@ -122,7 +122,7 @@ public class MachineRespawnModule : IVehicleModule, IResettableVehicleModule<Mac
 
         _isDead = false;
 
-        var net = _vehicleController.GetComponent<VehicleDestructionNetwork>();
+        var net = _vehicleController.GetComponent<NetworkMachineDestruction>();
         if (net != null && net.HasStateAuthority)
         {
             net.IsDead = false;
