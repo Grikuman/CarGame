@@ -16,6 +16,12 @@ public class Checkpoint : MonoBehaviour
     {
         if (!other.CompareTag("PlayerCheck")) return;
         if (checkpointManager == null) return;
+        
+        var networkChecker = other.GetComponent<NetworkChecker>();
+        if(networkChecker)
+        {
+            if (!networkChecker.IsStateAuthority()) return;
+        }
 
         checkpointManager.PassCheckpoint(this);
         passed = true;
