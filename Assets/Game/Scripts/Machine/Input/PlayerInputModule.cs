@@ -51,6 +51,7 @@ public class PlayerInputModule : IVehicleModule, IResettableVehicleModule<Player
     /// <summary> 更新処理 </summary>
     public void UpdateModule()
     {
+        Debug.Log("PlayerInputModuleは存在します");
         // 入力値を更新する
         _inputManager.UpdateDrivingInputAxis();
 
