@@ -29,6 +29,7 @@ public class RaceManager : MonoBehaviour
 
     // インプットマネージャー
     private InputManager _inputManager;
+    string sceneName;
 
     private void Start()
     {
@@ -38,15 +39,20 @@ public class RaceManager : MonoBehaviour
         // インプットマネージャーのインスタンスを取得・初期化
         _inputManager = InputManager.Instance;
         _inputManager.Initialize();
+
+        sceneName = SceneManager.GetActiveScene().name;
     }
     private void Update()
     {
         // 入力値を取得する
         var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
 
+        Debug.Log($"[Scene] Current Scene Name: {sceneName}");
+
         // スペースキーでレース開始
         if (CurrentState == RaceState.Waiting &&
-            input.Ultimate)
+            input.Ultimate&&
+            sceneName=="MultiTest")
         {
             StartRaceSequence();
         }
