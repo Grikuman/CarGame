@@ -4,12 +4,20 @@ public class MachineEMPModule :
     IVehicleModule,
     IResettableVehicleModule<MachineEMPModuleData>
 {
-    public float EMPDuration { get; set; }
-
     private bool _isActive = true;
-
     private VehicleController _vehicleController;
-    private MachineBoostModule _boost;
+
+    // EMP設定
+    private float _range;
+    private float _selfGaugeRecoverAmount;
+    private float _enemyGaugeDecrease;
+
+    // 参照
+    private MachineBoostModule _boostModule;
+
+    /* =========================
+     * IVehicleModule
+     * ========================= */
 
     public void Initialize(VehicleController vehicleController)
     {
@@ -18,49 +26,74 @@ public class MachineEMPModule :
 
     public void Start()
     {
-        _boost = _vehicleController.Find<MachineBoostModule>();
+        _vehicleController.ResetSettings<MachineEMPModuleData>();
+        _boostModule = _vehicleController.Find<MachineBoostModule>();
     }
-
-    public void SetActive(bool value) => _isActive = value;
-    public bool GetIsActive() => _isActive;
 
     public void UpdateModule() { }
     public void FixedUpdateModule() { }
 
+    public void SetActive(bool value) => _isActive = value;
+    public bool GetIsActive() => _isActive;
+
+    /* =========================
+     * Reset
+     * ========================= */
+
     public void ResetModule(MachineEMPModuleData data)
     {
-        EMPDuration = data.EMPDuration;
+        _range = data.Range;
+        _selfGaugeRecoverAmount = data.SelfGaugeRecover;
+        _enemyGaugeDecrease = data.EnemyGaugeDecrease;
     }
 
-    // 敵用：ブースト減少
-    public void ApplyEnemyEMP(float amount)
-    {
-        Debug.Log($"[MachineEMPModule] ApplyEnemyEMP amount={amount} isActive={_isActive}");
+    /* =========================
+     * EMP 発動
+     * ========================= */
 
+    public void ActivateEMP()
+    {
         if (!_isActive) return;
 
-        if (_boost == null)
+        bool hitEnemy = false;
+
+        Collider[] hits = Physics.OverlapSphere(
+            _vehicleController.transform.position,
+            _range
+        );
+
+        foreach (var hit in hits)
         {
-            Debug.LogWarning("[MachineEMPModule] Boost module is null");
-            return;
+            if (!hit.CompareTag("Player")) continue;
+
+            if (!hit.TryGetComponent(out VehicleController targetVC)) continue;
+            if (targetVC == _vehicleController) continue;
+
+            var netEMP = targetVC.GetComponent<NetworkMachineEMP>();
+            if (netEMP == null) continue;
+
+            // ★ EMP通知（StateAuthorityへ）
+            netEMP.RPC_RequestEMP(_enemyGaugeDecrease);
+
+            hitEnemy = true;
         }
 
-        _boost.DecreaseGauge(amount);
+        // 敵がいた場合のみ自己回復
+        if (hitEnemy && _boostModule != null)
+        {
+            _boostModule.IncreaseGauge(_selfGaugeRecoverAmount);
+        }
     }
 
-    public void ApplySelfHeal(float amount)
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
     {
-        Debug.Log($"[MachineEMPModule] ApplySelfHeal amount={amount} isActive={_isActive}");
-
-        if (!_isActive) return;
-
-        if (_boost == null)
-        {
-            Debug.LogWarning("[MachineEMPModule] Boost module is null");
-            return;
-        }
-
-        _boost.IncreaseGauge(amount);
+        if (_vehicleController == null) return;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(
+            _vehicleController.transform.position,
+            _range
+        );
     }
-
+#endif
 }

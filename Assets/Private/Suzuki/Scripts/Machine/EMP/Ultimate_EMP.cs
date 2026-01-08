@@ -2,87 +2,19 @@ using UnityEngine;
 
 public class Ultimate_EMP : UltimateBase
 {
-    private float _range = 50f;
-
-    // 仮の数値
-    private float _enemyBoostDamage = 100f;
-    private float _selfBoostHeal = 100f;
+    public Ultimate_EMP(float ultimateTime)
+    {
+        _ultimateTime = ultimateTime;
+    }
 
     public override void Activate(MachineEngineModule engine)
     {
-        Debug.Log("[Ultimate_EMP] Activate called");
-
+        // 共通のアクティブ化処理
         base.Activate(engine);
-
-        var ownerVC = engine.Owner;
-        if (ownerVC == null)
-        {
-            Debug.LogWarning("[Ultimate_EMP] ownerVC is null");
-            return;
-        }
-
-        bool hitEnemy = false;
-
-        Collider[] hits = Physics.OverlapSphere(
-            ownerVC.transform.position,
-            _range
-        );
-
-        Debug.Log($"[Ultimate_EMP] OverlapSphere hits: {hits.Length}");
-
-        foreach (var hit in hits)
-        {
-            Debug.Log($"[Ultimate_EMP] Hit: {hit.name}");
-
-            if (!hit.CompareTag("Player"))
-            {
-                Debug.Log("[Ultimate_EMP] Not Player tag");
-                continue;
-            }
-
-            if (!hit.TryGetComponent(out VehicleController targetVC))
-            {
-                Debug.Log("[Ultimate_EMP] No VehicleController");
-                continue;
-            }
-
-            if (targetVC == ownerVC)
-            {
-                Debug.Log("[Ultimate_EMP] Skip self");
-                continue;
-            }
-
-            var net = targetVC.GetComponent<VehicleEMPNetwork>();
-            if (net != null)
-            {
-                Debug.Log("[Ultimate_EMP] Enemy found → Request EMP");
-                hitEnemy = true;
-                net.RPC_RequestEMP(_enemyBoostDamage);
-            }
-            else
-            {
-                Debug.LogWarning("[Ultimate_EMP] VehicleEMPNetwork not found");
-            }
-        }
-
-        if (hitEnemy)
-        {
-            Debug.Log("[Ultimate_EMP] Hit enemy → Heal self");
-
-            var selfNet = ownerVC.GetComponent<VehicleEMPNetwork>();
-            if (selfNet != null)
-            {
-                selfNet.RPC_RequestSelfHeal(_selfBoostHeal);
-            }
-            else
-            {
-                Debug.LogWarning("[Ultimate_EMP] Self VehicleEMPNetwork not found");
-            }
-        }
-        else
-        {
-            Debug.Log("[Ultimate_EMP] No enemy hit → No self heal");
-        }
     }
 
+    public override void End()
+    {
+        base.End();
+    }
 }

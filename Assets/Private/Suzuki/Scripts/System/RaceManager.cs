@@ -17,15 +17,11 @@ public class RaceManager : MonoBehaviour
 
     private float raceStartTime;
     private float raceEndTime;
-
     public float CurrentRaceTime =>
         CurrentState == RaceState.Racing
             ? Time.time - raceStartTime
             : raceEndTime - raceStartTime;
-
-    public RaceCountdownUI countdownUI;
-    public LapUI lapUI;
-    private CheckpointManager checkpointManager;
+    public float CountdownStartTime { get; private set; }
 
     // インプットマネージャー
     private InputManager _inputManager;
@@ -33,9 +29,6 @@ public class RaceManager : MonoBehaviour
 
     private void Start()
     {
-        checkpointManager = FindFirstObjectByType<CheckpointManager>();
-        lapUI?.Show(false);
-
         // インプットマネージャーのインスタンスを取得・初期化
         _inputManager = InputManager.Instance;
         _inputManager.Initialize();
@@ -51,8 +44,9 @@ public class RaceManager : MonoBehaviour
 
         // スペースキーでレース開始
         if (CurrentState == RaceState.Waiting &&
-            input.Ultimate&&
-            sceneName=="MultiTest")
+            input.Ultimate
+            //&&sceneName=="MultiTest"
+            )
         {
             StartRaceSequence();
         }
@@ -67,24 +61,17 @@ public class RaceManager : MonoBehaviour
     private IEnumerator CountdownCoroutine()
     {
         CurrentState = RaceState.Countdown;
+        CountdownStartTime = Time.time;
 
         float timer = countdownTime;
 
         while (timer > 0f)
         {
-            int count = Mathf.CeilToInt(timer);
-
-            countdownUI?.ShowNumber(count);
-
             yield return new WaitForSeconds(1f);
             timer -= 1f;
         }
 
-        countdownUI?.ShowGo();
         StartRace();
-
-        yield return new WaitForSeconds(0.5f);
-        countdownUI?.Hide();
     }
 
 
@@ -92,12 +79,6 @@ public class RaceManager : MonoBehaviour
     {
         CurrentState = RaceState.Racing;
         raceStartTime = Time.time;
-
-        lapUI?.Show(true);
-        lapUI?.UpdateLap(
-            checkpointManager.CurrentLap + 1,
-            checkpointManager.TotalLaps
-        );
 
         Debug.Log("GO!");
     }
@@ -110,7 +91,6 @@ public class RaceManager : MonoBehaviour
         CurrentState = RaceState.Finished;
         raceEndTime = Time.time;
         SoloPlayResultData.Instance.SetCurrentTime(raceEndTime);
-        lapUI?.Show(false);
         SceneManager.LoadScene("SoloResultScene");
         Debug.Log($"🏁 ゴール！ {CurrentRaceTime:F2} 秒");
     }
