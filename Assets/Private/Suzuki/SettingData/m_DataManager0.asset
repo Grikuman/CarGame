@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: m_DataManager0
   m_EditorClassIdentifier: 
   m_vehicles:
-  - {fileID: 11400000, guid: be978cbf6bd2e9641acc1b9c0f15968d, type: 2}
+  - {fileID: 11400000, guid: bd12b9b5ddaa57041a09b5e34da78782, type: 2}
   - {fileID: 11400000, guid: 0ad015f2eb8ae9d419824c7926edf251, type: 2}
   - {fileID: 11400000, guid: f91ac1d5d5b4ada429659f81be6eabf5, type: 2}
