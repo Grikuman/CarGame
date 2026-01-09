@@ -40,15 +40,13 @@ public class RaceManager : MonoBehaviour
         // 入力値を取得する
         var input = _inputManager.GetCurrentDeviceGamePlayInputSnapshot();
 
-        Debug.Log($"[Scene] Current Scene Name: {sceneName}");
-
-        // スペースキーでレース開始
-        if (CurrentState == RaceState.Waiting &&
-            input.Ultimate
-            //&&sceneName=="MultiTest"
-            )
+        // ソロ限定レース開始処理
+        if(sceneName == "SoloPlayScene")
         {
-            StartRaceSequence();
+            if (CurrentState == RaceState.Waiting && input.Ultimate)
+            {
+                StartRaceSequence();
+            }
         }
     }
 
@@ -91,7 +89,18 @@ public class RaceManager : MonoBehaviour
         CurrentState = RaceState.Finished;
         raceEndTime = Time.time;
         SoloPlayResultData.Instance.SetCurrentTime(raceEndTime);
-        SceneManager.LoadScene("SoloResultScene");
         Debug.Log($"🏁 ゴール！ {CurrentRaceTime:F2} 秒");
+
+        // ソロプレイの移行処理
+        if (sceneName == "SoloPlayScene")
+        {
+            SceneManager.LoadScene("SoloResultScene");
+        }
+
+        // マルチプレイの移行処理
+        if (sceneName == "MultiPlayScene")
+        {
+            SceneManager.LoadScene("MultiResultScene");
+        }
     }
 }
