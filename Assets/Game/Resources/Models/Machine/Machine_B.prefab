@@ -1083,17 +1083,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1a94fd8c4c855a5459b1ee14520b4519,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.396934
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a94fd8c4c855a5459b1ee14520b4519,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9025481
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a94fd8c4c855a5459b1ee14520b4519,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.7508821
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a94fd8c4c855a5459b1ee14520b4519,
         type: 3}
@@ -1173,7 +1173,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1a94fd8c4c855a5459b1ee14520b4519,
         type: 3}
       propertyPath: m_Name
-      value: Machine_B_02
+      value: Machine_B
       objectReference: {fileID: 0}
     - target: {fileID: 2349290951126772816, guid: 1a94fd8c4c855a5459b1ee14520b4519,
         type: 3}
