@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MultiButton : ButtonBase
 {
@@ -67,7 +68,7 @@ public class MultiButton : ButtonBase
         Debug.Log("MultiPlay Selected");
 
         // ここでシーン遷移など
-        // SceneManager.LoadScene("SoloScene");
+        SceneManager.LoadScene("MultiPlayScene");
     }
 
     /// <summary> ステート追加、初期化 </summary>
