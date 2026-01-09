@@ -3,56 +3,33 @@ using UnityEngine;
 
 public class NetworkMachineEMP : NetworkBehaviour
 {
-    [Networked] public bool IsEMPAffected { get; set; }
-    [Networked] private float _pendingDecrease { get; set; }
-
-    private MachineBoostModule _boostModule;
-    private bool _handled = false;
+    private MachineBoostModule _boost;
 
     public override void Spawned()
     {
-        var vc = GetComponent<VehicleController>();
-        if (vc != null)
-        {
-            _boostModule = vc.Find<MachineBoostModule>();
-        }
+        _boost = GetComponent<VehicleController>()
+            ?.Find<MachineBoostModule>();
     }
 
     public override void FixedUpdateNetwork()
     {
-        if (_boostModule == null)
+        if (_boost == null)
         {
             var vc = GetComponent<VehicleController>();
             if (vc != null)
-                _boostModule = vc.Find<MachineBoostModule>();
+                _boost = vc.Find<MachineBoostModule>();
 
-            if (_boostModule == null)
+            if (_boost == null)
                 return;
         }
-
-        // EMP効果を一度だけ適用
-        if (IsEMPAffected && !_handled)
-        {
-            _handled = true;
-            _boostModule.DecreaseGauge(_pendingDecrease);
-        }
-
-
-        if (!IsEMPAffected)
-        {
-            _handled = false;
-        }
     }
 
-    /* =========================
-     * RPC
-     * ========================= */
-
+    // 敵へのEMP
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_RequestEMP(float decreaseAmount)
+    public void RPC_RequestEMP(float damage)
     {
-        IsEMPAffected = true;
-        _pendingDecrease = decreaseAmount;
+        if (!HasStateAuthority) return;
+        _boost?.DecreaseGauge(damage);
+        Debug.Log("リクエスト完了");
     }
-
 }

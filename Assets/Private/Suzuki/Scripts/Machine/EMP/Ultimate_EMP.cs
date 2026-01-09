@@ -2,19 +2,46 @@ using UnityEngine;
 
 public class Ultimate_EMP : UltimateBase
 {
-    public Ultimate_EMP(float ultimateTime)
-    {
-        _ultimateTime = ultimateTime;
-    }
+    private float _range = 15f;
+
+    // 仮の数値
+    private float _enemyBoostDamage = 30f;
+    private float _selfBoostHeal = 20f;
 
     public override void Activate(MachineEngineModule engine)
     {
-        // 共通のアクティブ化処理
         base.Activate(engine);
-    }
 
-    public override void End()
-    {
-        base.End();
+        var ownerVC = engine.Owner;
+        if (ownerVC == null) return;
+
+        bool hitEnemy = false;
+
+        Collider[] hits = Physics.OverlapSphere(
+            ownerVC.transform.position,
+            _range
+        );
+
+        foreach (var hit in hits)
+        {
+            if (!hit.CompareTag("Player")) continue;
+            if (!hit.TryGetComponent(out VehicleController targetVC)) continue;
+            if (targetVC == ownerVC) continue;
+
+            var net = targetVC.GetComponent<NetworkMachineEMP>();
+            if (net != null)
+            {
+                Debug.Log("敵発見");
+                hitEnemy = true;
+                net.RPC_RequestEMP(_enemyBoostDamage);
+            }
+        }
+
+        // 敵がいた場合のみ自分回復
+        if (hitEnemy)
+        {
+            var boost = ownerVC.Find<MachineBoostModule>();
+            boost.IncreaseGauge(_selfBoostHeal);
+        }
     }
 }

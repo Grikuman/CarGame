@@ -202,7 +202,7 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     {
         CurrentGauge -= amount;
         CurrentGauge = Mathf.Clamp(CurrentGauge, 0f, MaxBoostGauge);
-
+        Debug.Log("減らしちゃえ");
         // ブースト中に0になったら強制終了
         if (IsBoosting && CurrentGauge <= 0f)
         {
@@ -218,6 +218,7 @@ public class MachineBoostModule : IVehicleModule, IResettableVehicleModule<Machi
     {
         CurrentGauge += amount;
         CurrentGauge = Mathf.Clamp(CurrentGauge, 0f, MaxBoostGauge);
+        Debug.Log("グイっと");
     }
 
 }
