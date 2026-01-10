@@ -110,8 +110,12 @@ public class SpawneManager : NetworkBehaviour
         }
         //生成位置決定
         Vector3 position = m_spowenPosition[m_positionIndex].transform.position;
+
+        var data = m_vehicleDataManager.GetDataToIndex(m_vehicleIndex);
+
+
         //車を生成
-        var vehicle = Runner.Spawn(m_vehiclePrefab, position,Quaternion.identity,Runner.LocalPlayer);
+        var vehicle = Runner.Spawn(data.Vehicl, position,Quaternion.identity,Runner.LocalPlayer);
 
         
         VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
@@ -121,12 +125,11 @@ public class SpawneManager : NetworkBehaviour
         }
 
 
-        //個別のデータ取得、設定
-        var data = m_vehicleDataManager.GetDataToIndex(m_vehicleIndex);
-        foreach(var factory in data.ModuleFactoryBases)
-        {
-            vehicleController.AddSetting(factory);
-        }
+        ////個別のデータ取得、設定
+        //foreach(var factory in data.ModuleFactoryBases)
+        //{
+        //    vehicleController.AddSetting(factory);
+        //}
 
         //車の初期化
         vehicleController.Initialize();

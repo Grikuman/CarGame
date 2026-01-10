@@ -5222,6 +5222,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7673224918882398995}
     m_Modifications:
+    - target: {fileID: 4158270646750104965, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
+      propertyPath: machineRigidbody
+      value: 
+      objectReference: {fileID: 5002392419228234357}
+    - target: {fileID: 4316822504592995513, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
+      propertyPath: machineRigidbody
+      value: 
+      objectReference: {fileID: 5002392419228234357}
+    - target: {fileID: 5718049711758563916, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
+      propertyPath: machineRigidbody
+      value: 
+      objectReference: {fileID: 5002392419228234357}
+    - target: {fileID: 6369534092900718877, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
+      propertyPath: machineRigidbody
+      value: 
+      objectReference: {fileID: 5002392419228234357}
     - target: {fileID: 7290692573346091900, guid: 49975aabcf33a8344854df533002676e,
         type: 3}
       propertyPath: m_Name

@@ -2,7 +2,7 @@
 
 public class AfterBurnerSpeedControl : MonoBehaviour, IVehicleReceiver
 {
-    private Rigidbody machineRigidbody;
+    [SerializeField]Rigidbody machineRigidbody;
     [SerializeField] private Renderer burnerRenderer;
     [SerializeField] private float maxSpeed = 150f;
 
@@ -13,7 +13,7 @@ public class AfterBurnerSpeedControl : MonoBehaviour, IVehicleReceiver
 
     public void Receipt(GameObject vehicle, Rigidbody rigidbody)
     {
-        machineRigidbody = rigidbody;
+        //machineRigidbody = rigidbody;
     }
 
     private void Start()
@@ -23,6 +23,8 @@ public class AfterBurnerSpeedControl : MonoBehaviour, IVehicleReceiver
 
     private void Update()
     {
+        if (machineRigidbody == null) return;
+
         float speed = machineRigidbody.linearVelocity.magnitude;
 
         // 速度が minimumSpeed に満たない場合は0
