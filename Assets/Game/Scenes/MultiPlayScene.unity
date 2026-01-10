@@ -3604,7 +3604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkRunnerPrefab: {fileID: 1176158805480410973, guid: 48beefe397bcfc849a887bad4c3f72b7,
     type: 3}
-  m_autoConnect: 0
+  m_autoConnect: 1
   m_isLog: 0
   m_autoJoinRoomName: Default
   m_spawnService: {fileID: 1313814768}
@@ -10905,7 +10905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1544733991
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 524289
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 1809630335}
@@ -10976,6 +10976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_raceProgressManager: {fileID: 1854434768}
+  m_raceManager: {fileID: 1854434763}
 --- !u!1 &1811463222
 GameObject:
   m_ObjectHideFlags: 0

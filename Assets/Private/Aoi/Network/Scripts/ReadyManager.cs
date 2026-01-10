@@ -41,6 +41,11 @@ namespace NetWork
             }
         }
 
+        public int GetStandingNumber()
+        {
+            return m_statingNumber;
+        }
+
         /// <summary>
         /// ŠJŽn‚µ‚Ä‚¢‚¢‚©‚ð”»’f
         /// </summary>

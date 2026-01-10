@@ -35,6 +35,8 @@ public class NetRankingManager : NetworkBehaviour
 
     [SerializeField]
     RaceProgressManager m_raceProgressManager;
+    [SerializeField]
+    RaceManager m_raceManager;
 
     // 現在のランキング情報を受け取る (順位, 周回数, コースポイント)
     private event Action<int, int, int> m_onCurrentRanking;
@@ -43,6 +45,10 @@ public class NetRankingManager : NetworkBehaviour
         add { m_onCurrentRanking += value; }
         remove { m_onCurrentRanking -= value; }
     }
+
+    int m_rank = 0;
+    int m_lap = 0;
+    int m_coursePoint = 0;
 
     private void Awake()
     {
@@ -54,6 +60,13 @@ public class NetRankingManager : NetworkBehaviour
             enabled = false;
             return;
         }
+        if(m_raceManager == null)
+        {
+            Debug.LogError("[NetRankingManager] RaceManagerがありません");
+            enabled = false;
+            return;
+        }
+        m_raceManager.EndAction += SaveResultData;
     }
 
     public override void Spawned()
@@ -65,6 +78,14 @@ public class NetRankingManager : NetworkBehaviour
         if (Runner != null)
         {
             RPC_Entry(m_id);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if(m_raceManager)
+        {
+            m_raceManager.EndAction -= SaveResultData;
         }
     }
 
@@ -217,11 +238,22 @@ public class NetRankingManager : NetworkBehaviour
         // 自分のIDでない場合は処理しない
         if (id != m_id) return;
 
+
+        m_rank = ranking;
+        m_lap = lap;
+        m_coursePoint = coursePoint;
+
         // イベント通知
         m_onCurrentRanking?.Invoke(ranking, lap, coursePoint);
 
         Debug.Log($"順位{ranking}位");
     }
 
-
+    private void SaveResultData(float raceTime)
+    {
+        var userdata = m_networkLauncher.UserData;
+        userdata.m_ranking = m_rank;
+        userdata.m_raceTime = raceTime;
+        m_networkLauncher.UserData = userdata;
+    }
 }

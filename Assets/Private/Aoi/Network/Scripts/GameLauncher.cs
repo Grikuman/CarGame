@@ -102,6 +102,14 @@ namespace NetWork
             }
         }
 
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                JoinRoom(m_autoJoinRoomName, 4);
+            }
+        }
+
         /// <summary>
         /// サービスを初期化
         /// </summary>
@@ -412,5 +420,11 @@ namespace NetWork
         {
             m_readyService?.SetStartingNumber(number);
         }
+
+        public int GetStartingNumber()
+        {
+            return m_readyService.GetStaringNumber();
+        }
+
     }
 }
