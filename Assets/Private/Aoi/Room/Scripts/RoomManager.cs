@@ -140,6 +140,8 @@ namespace Aoi
         {
             if (Object.HasStateAuthority)
             {
+                m_gameLauncher.SetStartingNumber(Runner.ActivePlayers.Count());
+
                 Runner.LoadScene(SceneRef.FromIndex(Config.PLAY_SCENE), LoadSceneMode.Single);
             }
         }

@@ -13,6 +13,9 @@ public class LoaclVehicleData : ScriptableObject
     private List<VehicleModuleFactoryBase> m_moduleFactories = new List<VehicleModuleFactoryBase>();
 
     public int ID { get { return m_vehicleID; } }
+
+    public GameObject Vehicl => m_vehicleModel;
+
     /// <summary>
     /// Œ©‚½–Ú‚Ìƒ‚ƒfƒ‹‚Ìæ“¾@ViewModule‚ª‚ ‚ê‚Î‚»‚¿‚ç‚ğ—Dæ
     /// </summary>
@@ -20,7 +23,7 @@ public class LoaclVehicleData : ScriptableObject
         get 
         {
             var view = GetModuleFactory<MachineViewModuleData>();
-            if(view == null)return m_vehicleModel;
+            //if(view == null)return m_vehicleModel;
             return view.VehcleModel;
 
         } 

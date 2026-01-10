@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class RaceManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class RaceManager : MonoBehaviour
     // インプットマネージャー
     private InputManager _inputManager;
     string sceneName;
+
+    public event Action<float> EndAction;
 
     private void Start()
     {
@@ -88,8 +91,14 @@ public class RaceManager : MonoBehaviour
 
         CurrentState = RaceState.Finished;
         raceEndTime = Time.time;
-        SoloPlayResultData.Instance.SetCurrentTime(raceEndTime);
+        if(SoloPlayResultData.Instance)
+        {
+            SoloPlayResultData.Instance.SetCurrentTime(raceEndTime);
+        }
+        
         Debug.Log($"🏁 ゴール！ {CurrentRaceTime:F2} 秒");
+
+        EndAction?.Invoke(CurrentRaceTime);
 
         // ソロプレイの移行処理
         if (sceneName == "SoloPlayScene")

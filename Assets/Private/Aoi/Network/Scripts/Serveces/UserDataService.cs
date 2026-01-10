@@ -133,7 +133,7 @@ public class UserDataService : MonoBehaviour
         m_userDataManager.SetDataChangeAction(data => OnDataChangeAction?.Invoke(data));
         m_userDataManager.SetIDGet(id =>
         {
-            m_userData.m_vehicleID = id;
+            m_userData.m_userID = id;
         });
         m_userDataManager.RPC_ChangeUserData(m_runner.LocalPlayer, m_userData);
         m_userDataManager.m_isLog = m_isLog;

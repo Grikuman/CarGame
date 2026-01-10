@@ -1,3 +1,4 @@
+using NetWork;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ public class UI_RankController : MonoBehaviour
 {
     [Header("Managers")]
     [SerializeField] private NetRankingManager rankingManager;
-    [SerializeField] private NetWork.ReadyService readyService;
+
 
     [Header("Current Rank Images (Index = Rank-1)")]
     [SerializeField] private Image[] currentRankImages; // 1`4ˆÊ
@@ -68,11 +69,12 @@ public class UI_RankController : MonoBehaviour
     // ================================
     private void UpdateMaxPlayerUI()
     {
-        if (readyService == null) return;
+        var launcher = GameLauncher.Instance;
+        if (launcher == null) return;
 
         DisableAll(maxPlayerImages);
 
-        int maxPlayer = readyService.StartingNumber;
+        int maxPlayer = launcher.GetStartingNumber();
         int index = maxPlayer - 1;
 
         if (index >= 0 && index < maxPlayerImages.Length)

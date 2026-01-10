@@ -17,7 +17,6 @@ namespace NetWork
         private NetworkRunner m_runner;
         private ReadyManager m_readyManager;
 
-        public int StartingNumber { get { return m_startingNumber; } set { m_startingNumber = value; } }
 
         /// <summary>
         /// 全てのユーザーの準備が完了した際のイベント
@@ -55,7 +54,12 @@ namespace NetWork
         /// </summary>
         public void SetStartingNumber(int number)
         {
-            m_startingNumber = number;
+            m_readyManager.SetStandingNumber(number);
+        }
+
+        public int GetStaringNumber()
+        {
+            return m_readyManager.GetStandingNumber();
         }
 
         /// <summary>

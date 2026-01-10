@@ -23,9 +23,13 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Private/Aoi/Scene/0_Setting.unity
   - m_enabled: 1
-    m_path: Assets/Private/Aoi/Scene/1_RoomScene.unity
+    m_path: Assets/Game/Scenes/MultiSelect.unity
+  - m_enabled: 1
+    m_path: Assets/Game/Scenes/MultiPlayScene.unity
   - m_enabled: 1
     m_path: Assets/Private/Aoi/Scene/2_Play.unity
+  - m_enabled: 1
+    m_path: Assets/Game/Scenes/MultiResultScene.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
