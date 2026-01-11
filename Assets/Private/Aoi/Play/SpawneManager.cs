@@ -110,14 +110,18 @@ public class SpawneManager : NetworkBehaviour
         }
         //生成位置決定
         Vector3 position = m_spowenPosition[m_positionIndex].transform.position;
+        Quaternion rotate = m_spowenPosition[m_positionIndex].transform.rotation;
 
         var data = m_vehicleDataManager.GetDataToIndex(m_vehicleIndex);
 
 
         //車を生成
-        var vehicle = Runner.Spawn(data.Vehicl, position,Quaternion.identity,Runner.LocalPlayer);
+        var vehicle = Runner.Spawn(data.Vehicl, position, rotate, Runner.LocalPlayer);
 
-        
+        // プレイヤー登録
+        Runner.SetPlayerObject(Runner.LocalPlayer, vehicle);
+
+
         VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
         if(vehicleController == null)
         {

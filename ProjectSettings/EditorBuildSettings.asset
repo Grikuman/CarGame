@@ -9,10 +9,19 @@ EditorBuildSettings:
     path: Assets/Private/Nagadomo/Scenes/TitleScene.unity
     guid: 0036c01031e428644b75f52c74cf217c
   - enabled: 1
-    path: Assets/Private/Nagadomo/Scenes/SoloPlayScene.unity
-    guid: f5752f21e741c3647982722563949c9b
+    path: Assets/Game/Scenes/MultiResultScene.unity
+    guid: ff043054d1fb0b7449d44146335a0845
   - enabled: 1
-    path: Assets/Private/Nagadomo/Scenes/SoloResultScene.unity
-    guid: c1a769a9e0937e4489901c07eeab45f9
+    path: Assets/Game/Scenes/MultiPlayScene.unity
+    guid: 0fb7218e8e7c4b94095e38e552dd0374
+  - enabled: 1
+    path: Assets/Game/Scenes/MultiSelect.unity
+    guid: 6ffd0fa489e075445ab41607c0b2a6f5
+  - enabled: 1
+    path: Assets/Game/Scenes/SoloPlayScene.unity
+    guid: e195ad708c889cb4d8c2c6b186769f06
+  - enabled: 1
+    path: Assets/Game/Scenes/SoloResultScene.unity
+    guid: 7b6ec2dd9dea50140980bca1a930e42b
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
