@@ -7,6 +7,7 @@ public class MachineUltimateModuleData : VehicleModuleFactoryBase
     [SerializeField] private float _currentGauge = 0.0f;   // 現在のアルティメットゲージ
     [SerializeField] private float _maxUltimateGauge = 100.0f;     // 最大アルティメットゲージ
     [SerializeField] private float _gaugeIncrease = 0.01f; // ゲージ増加量
+    [SerializeField] private MachineUltimateModule.UltimateName m_ultimate = MachineUltimateModule.UltimateName.ULT_Boost;
 
     // 読み取り専用
     public float CurrentGauge => _currentGauge;
@@ -22,6 +23,7 @@ public class MachineUltimateModuleData : VehicleModuleFactoryBase
         machineUltimateModule.CurrentGauge = _currentGauge;
         machineUltimateModule.MaxUltimateGauge = _maxUltimateGauge;
         machineUltimateModule.GaugeIncrease = _gaugeIncrease;
+        machineUltimateModule.SetUltimate(m_ultimate);
 
         // 初期化処理
         machineUltimateModule.Initialize(vehicleController);

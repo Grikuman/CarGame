@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d509a320f0cc474ba69e095c466cddc, type: 3}
-  m_Name: MachineUltimateModuleData
+  m_Name: MachineUltimateEMPModuleData
   m_EditorClassIdentifier: 
   _currentGauge: 100
   _maxUltimateGauge: 100
   _gaugeIncrease: 0.1
+  m_ultimate: 2
