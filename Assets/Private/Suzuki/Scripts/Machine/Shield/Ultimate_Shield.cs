@@ -5,15 +5,16 @@ public class Ultimate_Shield : UltimateBase
     private VehicleController _selfVehicle;
     private MachineShieldState _shieldState;
 
-    public Ultimate_Shield(float ultimateTime, VehicleController vc)
+    public Ultimate_Shield(float ultimateTime)
     {
         _ultimateTime = ultimateTime;
-        _selfVehicle = vc;
     }
 
     public override void Activate(MachineEngineModule engine)
     {
         base.Activate(engine);
+
+        _selfVehicle = engine.Owner.GetComponent<VehicleController>();
 
         if (_shieldState == null)
         {
