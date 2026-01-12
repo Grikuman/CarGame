@@ -78,12 +78,12 @@ Material:
     - _AlphaDstBlend: 1
     - _AlphaSrcBlend: 1
     - _BlendMode: 1
-    - _Color_Saturation_Amount: 0.5
+    - _Color_Saturation_Amount: 10
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
     - _CullModeForward: 2
     - _DepthOffsetEnable: 0
-    - _Distortion_Speed: 0.42
+    - _Distortion_Speed: 5
     - _Distortion_Tiling: 0.025
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
@@ -95,14 +95,15 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
-    - _Fresnel_Strength_Color: 0.3
+    - _Fresnel_Strength_Color: -1
     - _Fresnel_Strength_Emissive: 0.1
-    - _Main_Color_Strength: 0.9
+    - _Main_Color_Strength: 0.8
     - _OpaqueCullMode: 2
     - _PerPixelSorting: 0
     - _QueueControl: 1
     - _QueueOffset: 0
     - _RenderQueueType: 4
+    - _SpeedFactor: 1
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 1

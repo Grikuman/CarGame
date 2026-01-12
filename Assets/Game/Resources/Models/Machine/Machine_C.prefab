@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3252747988216881259
 Transform:
   m_ObjectHideFlags: 0
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752c9d4616821c64284e0fd2c6eccdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineRigidbody: {fileID: 0}
   burnerRenderer: {fileID: 2665061165639225203}
   maxSpeed: 150
   minimumSpeed: 20
@@ -337,6 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752c9d4616821c64284e0fd2c6eccdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineRigidbody: {fileID: 0}
   burnerRenderer: {fileID: 5096643919455134258}
   maxSpeed: 150
   minimumSpeed: 20
@@ -453,6 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752c9d4616821c64284e0fd2c6eccdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineRigidbody: {fileID: 0}
   burnerRenderer: {fileID: 4670524900966482108}
   maxSpeed: 150
   minimumSpeed: 20
@@ -528,7 +531,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e325a4599b51a7446b645090a9d6fafa,
         type: 3}
       propertyPath: m_Name
-      value: m_Machine_C_02
+      value: Machine_C
       objectReference: {fileID: 0}
     - target: {fileID: 7653793227501657334, guid: e325a4599b51a7446b645090a9d6fafa,
         type: 3}
@@ -660,6 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752c9d4616821c64284e0fd2c6eccdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineRigidbody: {fileID: 0}
   burnerRenderer: {fileID: 7735247983692698745}
   maxSpeed: 150
   minimumSpeed: 20
