@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 1503772659546270985}
   rb: {fileID: 5002392419228234357}
-  maxSpeed: 150
+  maxSpeed: 250
 --- !u!1 &514083772326294835
 GameObject:
   m_ObjectHideFlags: 0
@@ -5290,7 +5290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 7767635326981155418}
   rb: {fileID: 5002392419228234357}
-  maxSpeed: 150
+  maxSpeed: 250
 --- !u!1 &5934913423539462336
 GameObject:
   m_ObjectHideFlags: 0
