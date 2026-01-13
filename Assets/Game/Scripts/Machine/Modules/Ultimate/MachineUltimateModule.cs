@@ -203,13 +203,13 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         {
             return UltimateName.ULT_Boost;
         }
-        else if (_currentUltimate is Ultimate_Boost)
+        else if (_currentUltimate is Ultimate_EMP)
         {
-            return UltimateName.ULT_Boost;
+            return UltimateName.ULT_EMP;
         }
-        else if (_currentUltimate is Ultimate_Boost)
+        else if (_currentUltimate is Ultimate_Shield)
         {
-            return UltimateName.ULT_Boost;
+            return UltimateName.ULT_Shield;
         }
         else
         {

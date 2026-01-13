@@ -4917,6 +4917,7 @@ GameObject:
   - component: {fileID: 5002392419228234357}
   - component: {fileID: 6010504446659246903}
   - component: {fileID: 2685690676133287095}
+  - component: {fileID: -8358751818134943525}
   - component: {fileID: 6357230777999732102}
   - component: {fileID: -7608327682832148793}
   - component: {fileID: -2820436406656085528}
@@ -5106,6 +5107,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80148424910ada429a8ff363e86327c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8358751818134943525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5934913423539462336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47f4dcbd33bb304fbfbdb872735c5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 0.5
 --- !u!136 &6357230777999732102
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5224,14 +5238,34 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4158270646750104965, guid: 49975aabcf33a8344854df533002676e,
         type: 3}
+      propertyPath: maxSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158270646750104965, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
       propertyPath: machineRigidbody
       value: 
       objectReference: {fileID: 5002392419228234357}
     - target: {fileID: 4316822504592995513, guid: 49975aabcf33a8344854df533002676e,
         type: 3}
+      propertyPath: maxSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316822504592995513, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
       propertyPath: machineRigidbody
       value: 
       objectReference: {fileID: 5002392419228234357}
+    - target: {fileID: 5426286989610706459, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718049711758563916, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 5718049711758563916, guid: 49975aabcf33a8344854df533002676e,
         type: 3}
       propertyPath: machineRigidbody
@@ -5239,9 +5273,19 @@ PrefabInstance:
       objectReference: {fileID: 5002392419228234357}
     - target: {fileID: 6369534092900718877, guid: 49975aabcf33a8344854df533002676e,
         type: 3}
+      propertyPath: maxSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6369534092900718877, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
       propertyPath: machineRigidbody
       value: 
       objectReference: {fileID: 5002392419228234357}
+    - target: {fileID: 6531627591406032957, guid: 49975aabcf33a8344854df533002676e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7290692573346091900, guid: 49975aabcf33a8344854df533002676e,
         type: 3}
       propertyPath: m_Name

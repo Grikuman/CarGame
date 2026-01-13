@@ -118,7 +118,7 @@ Material:
     - _EmissiveSaturationAmount: 2.5
     - _EnvironmentReflections: 1
     - _FresnelStrengthColor: 6
-    - _FresnelStrengthEmissive: 5
+    - _FresnelStrengthEmissive: 10
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
