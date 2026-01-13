@@ -48,6 +48,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Length: 1.5
+    - _MachineSpeed: 0
     - _MaskContrast: 0.5
     - _MaskSize: 0.5
     - _NoiseLerp: 0.1
