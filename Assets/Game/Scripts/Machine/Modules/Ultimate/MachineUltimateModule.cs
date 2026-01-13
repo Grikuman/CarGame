@@ -44,7 +44,6 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
         // とりあえずBoost Ultimateを設定しておく(ソロプレイは敵がいないのでブーストでいいかも)
         //SetUltimate(new Ultimate_Boost(2.5f, 3.0f));
 
-        SetUltimate(new Ultimate_EMP());
         //SetUltimate(new Ultimate_Shield(5.0f));
     }
 
@@ -150,9 +149,23 @@ public class MachineUltimateModule : IVehicleModule, IResettableVehicleModule<Ma
     /// アルティメットの種類を設定する
     /// </summary>
     /// <param name="ultimate">マシンに設定するアルティメットの種類</param>
-    public void SetUltimate(IUltimate ultimate)
+    public void SetUltimate(UltimateName ultimate)
     {
-        _currentUltimate = ultimate;
+        switch(ultimate)
+        {
+            case UltimateName.None:
+                break;
+            case UltimateName.ULT_Boost:
+                _currentUltimate = new Ultimate_Boost(2.5f,3.0f);
+                break;
+            case UltimateName.ULT_EMP:
+                _currentUltimate = new Ultimate_EMP();
+                break;
+            case UltimateName.ULT_Shield:
+                _currentUltimate = new Ultimate_Shield(5.0f);
+                break;
+        }
+
     }
 
     /// <summary>

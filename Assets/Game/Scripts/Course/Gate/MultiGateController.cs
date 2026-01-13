@@ -68,6 +68,7 @@ public class MultiGateController : NetworkBehaviour
 
     void Update()
     {
+        if (Runner == null || !Runner.IsRunning) return;
         AnimateGate();
     }
 
