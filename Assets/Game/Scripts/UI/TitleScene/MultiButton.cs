@@ -68,7 +68,7 @@ public class MultiButton : ButtonBase
         Debug.Log("MultiPlay Selected");
 
         // ここでシーン遷移など
-        SceneManager.LoadScene("MultiPlayScene");
+        //SceneManager.LoadScene("MultiPlayScene");
     }
 
     /// <summary> ステート追加、初期化 </summary>

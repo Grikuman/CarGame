@@ -31,17 +31,17 @@ public class MainVehicleSetting : MonoBehaviour
     /// <summary>
     /// 配列を次へ
     /// </summary>
-    public void MoveUp()
+    public int MoveUp()
     {
-        VehicleChange(m_currentVehicleIndex + 1);
+        return VehicleChange(m_currentVehicleIndex + 1);
     }
 
     /// <summary>
     /// 配列を前に
     /// </summary>
-    public void MoveDown()
+    public int MoveDown()
     {
-        VehicleChange(m_currentVehicleIndex - 1);
+         return VehicleChange(m_currentVehicleIndex - 1);
     }
 
 
@@ -54,14 +54,14 @@ public class MainVehicleSetting : MonoBehaviour
     /// 車を変更
     /// </summary>
     /// <param name="index"></param>
-     public void VehicleChange(int index)
+     public int VehicleChange(int index)
     {
-        if (m_vehicleSetting == null) return;
+        if (m_vehicleSetting == null) return -1;
 
         if (index >= m_vehicleSetting.MaxVehiicleNumber||index < 0)
         {
             Debug.LogWarning($"[MainVehicleSetting]{index}は範囲外です", gameObject);
-            return;
+            return  -1;
         }
         
         m_currentVehicleIndex = index;
@@ -70,9 +70,13 @@ public class MainVehicleSetting : MonoBehaviour
 
         //データ取得
         m_vehicleData = m_vehicleSetting.GetDataToIndex(index);
-        if (m_vehicleData == null) return;
+        if (m_vehicleData == null) return -1;
 
         //車生成
         m_vehicle = Instantiate(m_vehicleData.Model,m_carPosition.transform.position,m_carPosition.transform.rotation);
+
+        m_vehicleSetting.SelectID = m_vehicleData.ID;
+
+        return m_vehicleData.ID;
     }
 }

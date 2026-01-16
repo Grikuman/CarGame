@@ -80,6 +80,8 @@ public class KeyboardInput : IInputDevice
                 return Input.GetKeyDown(KeyCode.DownArrow);
             case UiInputActionID.ESC:
                 return Input.GetKeyDown(KeyCode.Escape);
+            case UiInputActionID.SELECT:
+                return Input.GetKeyDown(KeyCode.Z);
             default:
                 break;
         }
