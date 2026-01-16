@@ -3,11 +3,12 @@ using UnityEngine;
 public class TitleSceneButtonController : MonoBehaviour
 {
     public static readonly Vector3[] SelectorPositions = new Vector3[]
-    {
-        new Vector3(457.0f, -250.0f, 0),
-        new Vector3(457.0f, -350.0f, 0),
-        new Vector3(457.0f, -445.0f, 0)
-    };
+     {
+        new Vector3(339f, -300.0f, 0),
+        new Vector3(339f, -386.0f, 0),
+        new Vector3(339f, -472.0f, 0)
+     };
+
 
     [SerializeField] private ButtonBase[] _buttonBases;
     [SerializeField] private RectTransform _rectTransform;
@@ -17,6 +18,11 @@ public class TitleSceneButtonController : MonoBehaviour
     private int _currentIndex = 0;
     // グリッドセレクター
     private UIGridSelector _uiGridSelector = null;
+    // インプットマネージャー
+    private InputManager _inputManager = null;
+
+    // タイトルシーンの設定画面アニメーション処理
+    private TitleSettingWindowAnimation _titleSettingWindowAnimation = null;
 
     private void Awake()
     {
@@ -26,6 +32,9 @@ public class TitleSceneButtonController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _inputManager = InputManager.Instance;
+
+
         // 現在の番号を取得
         _currentIndex = _uiGridSelector._currentIndex;
 
@@ -33,9 +42,9 @@ public class TitleSceneButtonController : MonoBehaviour
         {
             // 選択中のボタンをオンにする
             if (i == _currentIndex)
-                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OnTitleSceneButtonAnimationState>());
+                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OnTitleButtonAnimationState>());
             else
-                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OffTitleSceneButtonAnimationState>());
+                _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OffTitleButtonAnimationState>());
         }
 
     }
@@ -58,18 +67,19 @@ public class TitleSceneButtonController : MonoBehaviour
                 // 選択中のボタンをオンにする
                 if (i == _currentIndex)
                 {
-                    _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OnTitleSceneButtonAnimationState>());
+                    _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OnTitleButtonAnimationState>());
                     // セレクターの位置変更
                     _rectTransform.localPosition = SelectorPositions[i];
                 }
                 else
                 {
-                    _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OffTitleSceneButtonAnimationState>());
+                    _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OffTitleButtonAnimationState>());
                 }
             }
         }
-        // 決定入力
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        // 指定のボタンが選択された場合
+        if (_inputManager.UI_WasPressedThisFrame(UiInputActionID.SELECT))
         {
             _buttonBases[_currentIndex].OnEvent();
         }

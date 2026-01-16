@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Vehicle/Data/DataManager")]
 public class VehicleDataManager : ScriptableObject
 {
+    [SerializeField]int m_selectID = 0;
+    public int SelectID { get { return m_selectID; } set {  m_selectID = value; } }
+
     //保存されている車のデータ
     [SerializeField]List<LoaclVehicleData> m_vehicles = new List<LoaclVehicleData>();
     //配列の保存番号と車のIDの結びつき(基本同じ値)

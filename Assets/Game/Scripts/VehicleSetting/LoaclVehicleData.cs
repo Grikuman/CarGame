@@ -23,7 +23,7 @@ public class LoaclVehicleData : ScriptableObject
         get 
         {
             var view = GetModuleFactory<MachineViewModuleData>();
-            //if(view == null)return m_vehicleModel;
+            if(view == null)return m_vehicleModel;
             return view.VehcleModel;
 
         } 

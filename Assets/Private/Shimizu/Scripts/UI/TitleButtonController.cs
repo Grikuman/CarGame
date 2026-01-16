@@ -6,9 +6,9 @@ public class TitleButtonController : MonoBehaviour
 
     public static readonly Vector3[] SelectorPositions = new Vector3[]
     {
-        new Vector3(659.6f, -150.0f, 0),
-        new Vector3(659.6f, -250.0f, 0),
-        new Vector3(659.6f, -345.0f, 0)
+        new Vector3(339f, -300.0f, 0),
+        new Vector3(339f, -386.0f, 0),
+        new Vector3(339f, -472.0f, 0)
     };
 
     
@@ -20,6 +20,11 @@ public class TitleButtonController : MonoBehaviour
     private int _currentIndex = 0;
     // グリッドセレクター
     private UIGridSelector _uiGridSelector = null;
+    // インプットマネージャー
+    private InputManager _inputManager = null;
+
+    // タイトルシーンの設定画面アニメーション処理
+    private TitleSettingWindowAnimation _titleSettingWindowAnimation = null;
 
     private void Awake()
     {
@@ -29,6 +34,9 @@ public class TitleButtonController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _inputManager = InputManager.Instance;
+
+
         // 現在の番号を取得
         _currentIndex = _uiGridSelector._currentIndex;
 
@@ -70,6 +78,12 @@ public class TitleButtonController : MonoBehaviour
                     _buttonBases[i].ChangeAnimationState(_buttonBases[i].GetAnimationState<OffTitleButtonAnimationState>());
                 }  
             }
+        }
+
+        // 指定のボタンが選択された場合
+        if (_inputManager.UI_WasPressedThisFrame(UiInputActionID.SELECT))
+        {
+            _buttonBases[_currentIndex].OnEvent();
         }
     }
 }

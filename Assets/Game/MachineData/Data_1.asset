@@ -15,4 +15,5 @@ MonoBehaviour:
   m_vehicleID: 0
   m_vehicleModel: {fileID: 5934913423539462336, guid: fcc6531164a2a49438539e875ed30710,
     type: 3}
-  m_moduleFactories: []
+  m_moduleFactories:
+  - {fileID: 11400000, guid: 92ad10fa15fd72545942ab3a8a158140, type: 2}

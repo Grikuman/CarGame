@@ -1,13 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class SoloButton : ButtonBase
 {
+    [SerializeField] private RectTransform _titleObject;
+
+
     private bool _isActive;
 
     private readonly List<IButtonAnimationState> _states = new();
     private IButtonAnimationState _currentState = null;
+
+    private TitleLogoFade _titleLogoFade = null;
 
     /// <summary> ステートを取得する </summary>
     public override T GetAnimationState<T>()
@@ -31,6 +37,9 @@ public class SoloButton : ButtonBase
         // 初期ステート（非選択）
         _currentState = GetAnimationState<OffTitleSceneButtonAnimationState>();
         _currentState.OnShow();
+
+        // フェード処理作成
+        _titleLogoFade = new TitleLogoFade( _titleObject);
     }
 
     private void Update()
@@ -67,8 +76,9 @@ public class SoloButton : ButtonBase
     {
         Debug.Log("SoloPlay Selected");
 
+        _titleLogoFade.FadeIN("MachineSelectSceneSolo");
         // シーン遷移
-        SceneManager.LoadScene("SoloPlayScene");
+        //SceneManager.LoadScene("SoloPlayScene");
     }
 
     /// <summary> ステート追加、初期化 </summary>
